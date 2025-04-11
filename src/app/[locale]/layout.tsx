@@ -49,7 +49,7 @@ const routes = [
   },
   {
     href: "/fr/modules", 
-    label: "Modules avancés", 
+    label: "Modules Premium", 
     path: "/modules",
     description: "Des solutions adaptées à vos besoins spécifiques",
     children: [
@@ -68,22 +68,22 @@ const routes = [
     ]
   },
   {
-    href: "/fr/a-propos", 
-    label: "À propos", 
-    path: "/a-propos",
-    description: "Une plateforme de gestion complète pour les restaurateurs",
+    href: "/fr/services", 
+    label: "Services", 
+    path: "/services",
+    description: "Des services d'accompagnement sur mesure pour optimiser votre expérience Octogone",
     children: [
       { 
-        href: "/fr/a-propos/support", 
-        label: "Notre accompagnement", 
-        path: "/a-propos/support",
-        description: "Une équipe qui vous répond, vous suit, vous connaît" 
+        href: "/fr/services/banque-de-temps", 
+        label: "Banque de temps", 
+        path: "/services/banque-de-temps",
+        description: "Forfaits d'heures flexibles pour répondre à vos besoins spécifiques et projets ponctuels" 
       },
       { 
-        href: "/fr/a-propos/cible", 
-        label: "Pour qui ?", 
-        path: "/a-propos/cible",
-        description: "Groupes de restauration, franchises, chaînes. Restaurants indépendants avec une vision claire." 
+        href: "/fr/services/conciergerie", 
+        label: "Conciergerie", 
+        path: "/services/conciergerie",
+        description: "Accompagnement Premium personnalisé garantissant une performance optimale en continu" 
       },
     ]
   },
