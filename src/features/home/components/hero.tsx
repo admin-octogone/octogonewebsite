@@ -55,28 +55,27 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col gap-6"
+            className="flex flex-col gap-6 text-left"
           >
-            {/* Badge secteur */}
-            <div className="inline-flex items-center rounded-full bg-gold-100 px-3 py-1 text-sm text-marine-800 mb-2 w-fit">
-              <span className="inline-block w-2 h-2 rounded-full bg-gold-400 animate-pulse mr-2" />
-              Solution spécialisée restauration
-            </div>
+            {/* Texte secteur */}
+            <p className="text-xl mb-2 text-left">
+              Plateforme de gestion pour les restaurants
+            </p>
             
             {/* Titre principal */}
-            <h1 className="text-4xl font-bold tracking-tight text-marine-900 sm:text-5xl lg:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
               L'ultime solution pour les professionnels de la <span className="text-gold-500">restauration</span>
             </h1>
             
             {/* Description */}
-            <p className="mt-2 text-xl text-marine-600 max-w-2xl">
+            <p className="mt-2 text-xl max-w-2xl">
               Des outils innovants et personnalisés pour optimiser la gestion de votre établissement et maximiser votre rentabilité.
             </p>
             
             {/* Boutons d'action */}
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
               <Button variant="primary" size="lg" className="btn-gold text-base font-medium">
-                Démo pour restaurateurs
+                En savoir plus
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               
@@ -84,115 +83,162 @@ export const Hero: React.FC = () => {
                 href="/services" 
                 className="inline-flex items-center justify-center rounded-md px-4 py-2 text-base font-medium text-marine-700 hover:text-marine-900 transition-colors"
               >
-                Solutions restauration
+                Parler à un expert
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
             
-            {/* Indicateurs de confiance */}
-            <div className="mt-8 flex items-center gap-6">
-              {/* Avatars */}
-              <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
-                  <div key={i} className="inline-block h-10 w-10 rounded-full ring-2 ring-white overflow-hidden bg-marine-100">
-                    <Image 
-                      src={`/images/avatar-${i}.svg`} 
-                      alt={`Avatar ${i}`} 
-                      width={40} 
-                      height={40}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                ))}
-              </div>
-              
-              {/* Étoiles et texte */}
-              <div>
-                <div className="flex items-center">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <svg key={i} className="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-sm text-marine-600">Plus de <span className="font-semibold">200+</span> restaurants équipés</p>
-              </div>
-            </div>
+            {/* Indicateurs de confiance retirés */}
           </motion.div>
           
-          {/* Image ou illustration */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="relative"
-          >
-            <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+          {/* Image avec fond bleu clair et éléments flottants */}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <div style={{
+              position: 'relative',
+              width: '650px',
+              height: '650px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              {/* Cercle bleu de fond */}
+              <div style={{
+                position: 'absolute',
+                width: '600px',
+                height: '600px',
+                backgroundColor: '#dbeafe',
+                borderRadius: '50%',
+                zIndex: 2
+              }}></div>
+              {/* Dashboard en arrière-plan */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{
+                  opacity: 1,
+                  y: [0, -8, 0]
+                }}
+                transition={{
+                  opacity: { duration: 0.5 },
+                  y: {
+                    duration: 4,
+                    ease: "easeInOut",
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }
+                }}
+                style={{
+                  position: 'absolute',
+                  width: '320px',
+                  height: '320px',
+                  background: 'linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%)',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
+                  zIndex: 3,
+                  overflow: 'hidden'
+                }}>
+                {/* Éléments du dashboard */}
+                <div style={{
+                  position: 'absolute',
+                  top: '10px',
+                  left: '10px',
+                  right: '10px',
+                  height: '40px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '0 15px'
+                }}>
+                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#e6f7ff', marginRight: '10px' }}></div>
+                  <div style={{ width: '120px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff' }}></div>
+                  <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px' }}>
+                    <div style={{ width: '80px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff' }}></div>
+                    <div style={{ width: '60px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff' }}></div>
+                  </div>
+                </div>
+                
+                {/* Graphiques */}
+                <div style={{
+                  position: 'absolute',
+                  top: '60px',
+                  left: '10px',
+                  width: '180px',
+                  height: '140px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                  padding: '10px'
+                }}>
+                  <div style={{ width: '80px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '15px' }}></div>
+                  <div style={{ display: 'flex', height: '60px', alignItems: 'flex-end', gap: '6px', marginTop: '10px' }}>
+                    {[40, 65, 45, 80, 60, 75, 50].map((height, i) => (
+                      <div key={i} style={{ flex: 1, height: `${height}%`, backgroundColor: '#e6f7ff', borderRadius: '4px 4px 0 0' }}></div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Tableau */}
+                <div style={{
+                  position: 'absolute',
+                  top: '60px',
+                  right: '10px',
+                  width: '180px',
+                  height: '140px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                  padding: '10px'
+                }}>
+                  <div style={{ width: '80px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '15px' }}></div>
+                  {[1, 2, 3, 4].map((row) => (
+                    <div key={row} style={{ display: 'flex', marginBottom: '10px' }}>
+                      <div style={{ width: '30%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff', marginRight: '10px' }}></div>
+                      <div style={{ width: '20%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff', marginRight: '10px' }}></div>
+                      <div style={{ width: '40%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff' }}></div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Cartes en bas */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: '10px',
+                  left: '10px',
+                  right: '10px',
+                  display: 'flex',
+                  gap: '8px'
+                }}>
+                  {[1, 2].map((card) => (
+                    <div key={card} style={{
+                      flex: 1,
+                      height: '120px',
+                      background: 'white',
+                      borderRadius: '6px',
+                      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                      padding: '10px'
+                    }}>
+                      <div style={{ width: '60px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '15px' }}></div>
+                      <div style={{ width: '100%', height: '80px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '10px' }}></div>
+                      <div style={{ width: '80%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff' }}></div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+              
               {/* Image principale */}
-              <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-marine-50 shadow-xl">
-                <Image
-                  src="/images/hero-dashboard.svg"
-                  alt="Dashboard Octogone"
-                  width={600}
-                  height={450}
-                  className="h-full w-full object-cover"
-                  priority
-                />
-              </div>
+              <Image
+                src="/images/hero_image.png?v=1"
+                alt="Solution Octogone pour la restauration"
+                width={500}
+                height={500}
+                priority
+                style={{ objectFit: 'contain', position: 'relative', zIndex: 5 }}
+              />
               
-              {/* Élément flottant - Performance */}
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="absolute -bottom-6 -left-6 rounded-xl bg-white p-4 shadow-lg"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="rounded-full bg-gold-100 p-2">
-                    <svg 
-                      className="h-6 w-6 text-gold-500" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-marine-900">Performance optimale</p>
-                    <p className="text-xs text-marine-500">Temps de réponse amélioré</p>
-                  </div>
-                </div>
-              </motion.div>
-              
-              {/* Élément flottant - Sécurité */}
-              <motion.div 
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="absolute -top-6 -right-6 rounded-xl bg-white p-4 shadow-lg"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="rounded-full bg-marine-100 p-2">
-                    <svg 
-                      className="h-6 w-6 text-marine-500" 
-                      fill="none" 
-                      viewBox="0 0 24 24" 
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-marine-900">Sécurité renforcée</p>
-                    <p className="text-xs text-marine-500">Protection des données</p>
-                  </div>
-                </div>
-              </motion.div>
+              {/* Les tuiles flottantes ont été retirées */}
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
