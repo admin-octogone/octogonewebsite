@@ -39,8 +39,16 @@ export const Hero: React.FC = () => {
   
   return (
     <section 
-      className="relative overflow-hidden bg-white flex items-center transition-all duration-300 ease-in-out" 
-      style={{ height: `calc(100vh - ${totalOffset}px)` }}
+      className="relative overflow-hidden bg-white flex items-center justify-center transition-all duration-300 ease-in-out" 
+      style={{ 
+        height: '100vh',
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        right: '0',
+        zIndex: '10',
+        paddingTop: `${totalOffset}px`
+      }}
     >
       {/* Fond décoratif */}
       <div className="absolute inset-0 z-0">

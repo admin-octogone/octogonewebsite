@@ -114,12 +114,12 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
       
       <header
         className={cn(
-          'fixed left-0 right-0 z-[60] transition-all duration-200',
+          'fixed left-0 right-0 z-[60] transition-all duration-200 border-b',
           {
-            'bg-white/80 backdrop-blur-lg shadow-sm': isScrolled,
-            'bg-transparent': !isScrolled && theme === 'transparent',
-            'bg-white': !isScrolled && theme === 'light',
-            'bg-marine-900': !isScrolled && theme === 'dark',
+            'bg-white/80 backdrop-blur-lg shadow-sm border-gray-300': isScrolled,
+            'bg-transparent border-gray-300': !isScrolled && theme === 'transparent',
+            'bg-white border-gray-300': !isScrolled && theme === 'light',
+            'bg-marine-900 border-gray-700': !isScrolled && theme === 'dark',
             'with-announcement': SHOW_ANNOUNCEMENT_BANNER && isAnnouncementVisible,
             'without-announcement': !SHOW_ANNOUNCEMENT_BANNER || !isAnnouncementVisible
           }
