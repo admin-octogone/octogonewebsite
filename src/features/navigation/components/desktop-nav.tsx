@@ -72,7 +72,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ routes, activeRoute, loc
                     {route.label}
                     <ChevronDown className="h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180" />
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-lg flex justify-center items-center absolute left-1/2 transform -translate-x-1/2">
+                  <NavigationMenuContent className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-lg flex justify-center items-center absolute left-1/2 transform -translate-x-1/2 mt-8">
                     {(() => {
                       const itemCount = route.children?.length || 0;
                       const itemWidth = 220; // Largeur d'un item en pixels
