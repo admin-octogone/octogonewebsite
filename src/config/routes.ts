@@ -127,4 +127,9 @@ export const routes: Route[] = [
     label: 'Contact',
     description: 'Nous sommes à votre écoute',
   },
+  {
+    path: '/login',
+    label: 'Connexion',
+    description: 'Accédez à votre espace client',
+  },
 ]

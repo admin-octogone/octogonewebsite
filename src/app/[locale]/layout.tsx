@@ -93,6 +93,12 @@ const routes = [
     path: "/contact",
     description: "Réservez une démo personnalisée" 
   },
+  { 
+    href: "/fr/login", 
+    label: "Connexion", 
+    path: "/login",
+    description: "Accédez à votre espace client" 
+  },
 ]
 
 export default function LocaleLayout({

@@ -112,7 +112,12 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ routes, activeRoute, loc
                 <NavigationMenuLink asChild>
                   <Link
                     href={route.path}
-                    className={`${navigationLinkVariants({ active: isActive })} nav-item ${isActive ? 'active-nav-item' : ''} rounded-md px-3 py-2`}
+                    className={`
+                      ${navigationLinkVariants({ active: isActive })} 
+                      nav-item ${isActive ? 'active-nav-item' : ''} 
+                      rounded-md px-3 py-2
+                      ${route.label === 'Connexion' ? 'ml-2' : ''}
+                    `}
                   >
                     {route.label}
                   </Link>
