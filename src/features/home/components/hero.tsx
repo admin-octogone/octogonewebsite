@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -26,6 +26,22 @@ export const Hero: React.FC = () => {
     bar7: 55
   });
   
+  // État pour le type de graphique et son titre
+  const [graphIndex, setGraphIndex] = useState(0);
+  
+  // Définition des différents graphiques et leurs titres avec les types les plus adaptés
+  const graphs = [
+    { title: "Ventes", type: "bar" },            // Diagramme à barres pour comparer les ventes par jour
+    { title: "Achats", type: "horizontal" },     // Barres horizontales pour comparer les catégories d'achats
+    { title: "Food Cost", type: "pie" },         // Camembert pour visualiser la répartition des coûts alimentaires
+    { title: "Labor Cost", type: "horizontal" },  // Barres horizontales pour comparer les coûts par département
+    { title: "Frais Fixes", type: "pie" },        // Camembert pour montrer la composition des frais fixes
+    { title: "Menu Engineering", type: "matrix" }, // Matrice spéciale pour le menu engineering (Étoiles, Vaches à Lait, etc.)
+    { title: "Achalandage", type: "line" },      // Graphique en ligne pour montrer l'évolution dans le temps
+    { title: "Facture Moyenne", type: "bar" },    // Diagramme à barres pour comparer par jour
+    { title: "Transferts", type: "line" },        // Graphique en ligne pour montrer les tendances sur plusieurs mois
+  ];
+  
   useEffect(() => {
     // Fonction pour vérifier la visibilité de la bannière
     const checkBannerVisibility = () => {
@@ -45,9 +61,10 @@ export const Hero: React.FC = () => {
     return () => observer.disconnect();
   }, []);
   
-  // Effet pour mettre à jour les hauteurs des barres toutes les 5 secondes
+  // Effet pour mettre à jour les hauteurs des barres et changer le type de graphique toutes les 5 secondes
   useEffect(() => {
-    const updateBarHeights = () => {
+    const updateDashboard = () => {
+      // Mettre à jour les hauteurs des barres
       setBarHeights({
         bar1: 55 + Math.floor(Math.random() * 15),
         bar2: 70 + Math.floor(Math.random() * 10),
@@ -57,13 +74,16 @@ export const Hero: React.FC = () => {
         bar6: 67 + Math.floor(Math.random() * 8),
         bar7: 52 + Math.floor(Math.random() * 8)
       });
+      
+      // Changer le type de graphique
+      setGraphIndex((prevIndex) => (prevIndex + 1) % graphs.length);
     };
     
     // Mettre à jour immédiatement pour éviter le délai initial
-    updateBarHeights();
+    updateDashboard();
     
     // Configurer l'intervalle pour les mises à jour périodiques
-    const interval = setInterval(updateBarHeights, 5000);
+    const interval = setInterval(updateDashboard, 5000);
     
     // Nettoyage à la démontage du composant
     return () => clearInterval(interval);
@@ -180,7 +200,7 @@ export const Hero: React.FC = () => {
                   alignItems: 'center',
                   height: '20px' /* Hauteur fixe pour stabiliser */
                 }}>
-                  <span style={{ color: 'white', fontWeight: '400' }}>Performances</span>
+                  <span style={{ color: 'white', fontWeight: '400' }}>{graphs[graphIndex].title}</span>
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></div>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
@@ -188,16 +208,34 @@ export const Hero: React.FC = () => {
                   </div>
                 </div>
                 
-                {/* Barres verticales animées */}
+                {/* Conteneur du graphique avec AnimatePresence pour les transitions */}
                 <div style={{ 
-                  display: 'flex', 
-                  alignItems: 'flex-end', 
-                  justifyContent: 'space-between',
                   height: '200px',
                   padding: '0 10px',
                   position: 'relative',
-                  minHeight: '200px' /* Hauteur minimale fixe */
+                  minHeight: '200px', /* Hauteur minimale fixe */
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden' /* Pour masquer les éléments pendant la transition */
                 }}>
+                  
+                <AnimatePresence mode="wait">
+                {/* Graphique de type barres verticales - Adapté pour Ventes, Facture Moyenne */}
+                {graphs[graphIndex].type === "bar" && (
+                  <motion.div 
+                    key="bar-chart"
+                    initial={{ opacity: 0, x: 100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -100 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ 
+                      display: 'flex', 
+                      alignItems: 'flex-end', 
+                      justifyContent: 'space-between',
+                      height: '200px',
+                      width: '100%'
+                    }}>
                   {/* Barre 1 */}
                   <motion.div
                     initial={{ height: 0 }}
@@ -379,6 +417,269 @@ export const Hero: React.FC = () => {
                       }}
                     />
                   </motion.div>
+                  </motion.div>
+                )}
+                
+                {/* Graphique de type camembert - Adapté pour Food Cost, Frais Fixes */}
+                {graphs[graphIndex].type === "pie" && (
+                  <motion.div 
+                    key="pie-chart"
+                    initial={{ opacity: 0, y: 50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ 
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: '200px',
+                      width: '100%'
+                    }}>
+                    <motion.div 
+                      initial={{ scale: 0, rotate: -90 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      style={{ 
+                        position: 'relative',
+                        width: '180px',
+                        height: '180px',
+                        borderRadius: '50%',
+                        background: 'conic-gradient(#3b82f6 0% 15%, #10b981 15% 40%, #f59e0b 40% 55%, #8b5cf6 55% 80%, #ef4444 80% 100%)',
+                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
+                      }}
+                    >
+                      <motion.div 
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.5 }}
+                        style={{ 
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '50%',
+                          background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)',
+                        }}
+                      ></motion.div>
+                    </motion.div>
+                  </motion.div>
+                )}
+                
+                {/* Graphique de type barres horizontales - Adapté pour Achats, Labor Cost */}
+                {graphs[graphIndex].type === "horizontal" && (
+                  <motion.div 
+                    key="horizontal-chart"
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 100 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ 
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      height: '200px',
+                      width: '100%'
+                    }}>
+                    {[1, 2, 3, 4, 5].map((_, i) => (
+                      <div key={i} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                        <motion.div 
+                          initial={{ width: 0, opacity: 0 }}
+                          animate={{ 
+                            width: `${30 + Math.floor(Math.random() * 50)}%`, 
+                            opacity: 1 
+                          }}
+                          transition={{ 
+                            duration: 1.2, 
+                            delay: i * 0.15,
+                            ease: "easeOut" 
+                          }}
+                          style={{ 
+                            height: '20px',
+                            background: i === 0 ? 'linear-gradient(to right, #3b82f6, #60a5fa)' :
+                                       i === 1 ? 'linear-gradient(to right, #10b981, #34d399)' :
+                                       i === 2 ? 'linear-gradient(to right, #f59e0b, #fbbf24)' :
+                                       i === 3 ? 'linear-gradient(to right, #8b5cf6, #a78bfa)' :
+                                                'linear-gradient(to right, #ef4444, #f87171)',
+                            borderRadius: '4px',
+                          }}
+                        ></motion.div>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+                
+                {/* Graphique de type ligne - Adapté pour Achalandage, Transferts */}
+                {graphs[graphIndex].type === "line" && (
+                  <motion.div 
+                    key="line-chart"
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 50 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ 
+                      position: 'relative',
+                      height: '200px',
+                      width: '100%'
+                    }}>
+                    <svg width="100%" height="180" viewBox="0 0 280 180" style={{ overflow: 'visible' }}>
+                      <motion.path 
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 1 }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                        d="M0,150 C20,100 40,120 70,80 C100,40 130,90 160,60 C190,30 220,70 250,50 C280,30 300,60 320,40" 
+                        fill="none" 
+                        stroke="#3b82f6" 
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                      />
+                      <motion.path 
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 1 }}
+                        transition={{ duration: 1.5, delay: 0.3, ease: "easeInOut" }}
+                        d="M0,170 C30,150 60,160 90,140 C120,120 150,130 180,110 C210,90 240,100 270,80 C300,60 330,70 360,50" 
+                        fill="none" 
+                        stroke="#10b981" 
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                      />
+                      {[0, 40, 80, 120, 160, 200, 240].map((x, i) => (
+                        <motion.circle 
+                          key={i}
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          transition={{ 
+                            duration: 0.5, 
+                            delay: 1.5 + (i * 0.1),
+                            ease: "backOut" 
+                          }}
+                          cx={x}
+                          cy={80 + Math.floor(Math.random() * 40)}
+                          r="4"
+                          fill="#f59e0b"
+                        />
+                      ))}
+                    </svg>
+                  </motion.div>
+                )}
+                
+                {/* Graphique de type matrice - Spécifique pour Menu Engineering */}
+                {graphs[graphIndex].type === "matrix" && (
+                  <motion.div 
+                    key="matrix-chart"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.5 }}
+                    style={{ 
+                      position: 'relative',
+                      height: '200px',
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr',
+                      gridTemplateRows: '1fr 1fr',
+                      gap: '8px',
+                      width: '90%',
+                      height: '90%'
+                    }}>
+                      {/* Stars - Haut à droite */}
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.3, duration: 0.5 }}
+                        style={{
+                          gridColumn: '2 / 3',
+                          gridRow: '1 / 2',
+                          background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
+                          borderRadius: '6px',
+                          padding: '8px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          color: 'white'
+                        }}
+                      >
+                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Étoiles</div>
+                        <div style={{ fontSize: '11px', opacity: 0.8 }}>Popularité ↑ Marge ↑</div>
+                      </motion.div>
+                      
+                      {/* Plow Horses - Haut à gauche */}
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                        style={{
+                          gridColumn: '1 / 2',
+                          gridRow: '1 / 2',
+                          background: 'linear-gradient(135deg, #10b981, #34d399)',
+                          borderRadius: '6px',
+                          padding: '8px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          color: 'white'
+                        }}
+                      >
+                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Vaches à Lait</div>
+                        <div style={{ fontSize: '11px', opacity: 0.8 }}>Popularité ↑ Marge ↓</div>
+                      </motion.div>
+                      
+                      {/* Puzzles - Bas à droite */}
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.7, duration: 0.5 }}
+                        style={{
+                          gridColumn: '2 / 3',
+                          gridRow: '2 / 3',
+                          background: 'linear-gradient(135deg, #f59e0b, #fbbf24)',
+                          borderRadius: '6px',
+                          padding: '8px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          color: 'white'
+                        }}
+                      >
+                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Énigmes</div>
+                        <div style={{ fontSize: '11px', opacity: 0.8 }}>Popularité ↓ Marge ↑</div>
+                      </motion.div>
+                      
+                      {/* Dogs - Bas à gauche */}
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.9, duration: 0.5 }}
+                        style={{
+                          gridColumn: '1 / 2',
+                          gridRow: '2 / 3',
+                          background: 'linear-gradient(135deg, #ef4444, #f87171)',
+                          borderRadius: '6px',
+                          padding: '8px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                          color: 'white'
+                        }}
+                      >
+                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Poids Morts</div>
+                        <div style={{ fontSize: '11px', opacity: 0.8 }}>Popularité ↓ Marge ↓</div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )}
+                </AnimatePresence>
                 </div>
                 
                 {/* Légende en bas */}
@@ -388,7 +689,8 @@ export const Hero: React.FC = () => {
                   marginTop: '15px',
                   padding: '0 10px'
                 }}>
-                  {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, i) => (
+                  {/* Ventes */}
+                  {graphIndex === 0 && ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, i) => (
                     <div key={i} style={{ 
                       color: 'rgba(255, 255, 255, 0.7)', 
                       fontSize: '12px', 
@@ -396,6 +698,102 @@ export const Hero: React.FC = () => {
                       textAlign: 'center'
                     }}>
                       {day}
+                    </div>
+                  ))}
+                  
+                  {/* Achats */}
+                  {graphIndex === 1 && ['Viande', 'Poisson', 'Légumes', 'Fruits', 'Boissons', 'Autres', ''].map((item, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '11px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {item}
+                    </div>
+                  ))}
+                  
+                  {/* Food Cost */}
+                  {graphIndex === 2 && ['Entrées', 'Plats', 'Desserts', 'Boissons', 'Spéciaux', '', ''].map((category, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '11px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {category}
+                    </div>
+                  ))}
+                  
+                  {/* Labor Cost */}
+                  {graphIndex === 3 && ['Cuisine', 'Service', 'Bar', 'Gestion', 'Entretien', 'Autres', ''].map((staff, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '11px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {staff}
+                    </div>
+                  ))}
+                  
+                  {/* Frais Fixes */}
+                  {graphIndex === 4 && ['Loyer', 'Assur.', 'Élec.', 'Eau', 'Taxes', 'Autres', ''].map((expense, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '11px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {expense}
+                    </div>
+                  ))}
+                  
+                  {/* Menu Engineering */}
+                  {graphIndex === 5 && ['Étoiles', 'Vaches à Lait', 'Énigmes', 'Poids Morts', '', '', ''].map((category, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '11px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {category}
+                    </div>
+                  ))}
+                  
+                  {/* Achalandage */}
+                  {graphIndex === 6 && ['11h', '13h', '15h', '17h', '19h', '21h', '23h'].map((hour, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '12px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {hour}
+                    </div>
+                  ))}
+                  
+                  {/* Facture Moyenne */}
+                  {graphIndex === 7 && ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '12px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {day}
+                    </div>
+                  ))}
+                  
+                  {/* Transferts */}
+                  {graphIndex === 8 && ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil'].map((month, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '12px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {month}
                     </div>
                   ))}
                 </div>
