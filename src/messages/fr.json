@@ -1,0 +1,116 @@
+{
+  "home": {
+    "meta": {
+      "title": "Octogone – L'ultime solution pour les professionnels de la restauration",
+      "description": "Plateforme de gestion complète pour les restaurateurs : food cost, inventaire, facturation, et plus encore."
+    },
+    "hero": {
+      "title": "Conçu pour simplifier. Pensé pour performer.",
+      "description": "Octogone est une plateforme de gestion complète pour les restaurateurs qui veulent :",
+      "benefits": [
+        "gagner du temps",
+        "mieux contrôler leurs coûts",
+        "améliorer leur rentabilité"
+      ],
+      "subtitle": "Des recettes aux inventaires, des factures aux pourboires — vous avez tout sous la main, à jour, au bon endroit."
+    },
+    "features": {
+      "title": "Ce que vous maîtrisez avec Octogone",
+      "items": [
+        {
+          "title": "Food cost en temps réel",
+          "description": "Coûts de recette calculés automatiquement selon vos prix d'achat réels."
+        },
+        {
+          "title": "Inventaire clair et connecté",
+          "description": "Plus de feuilles volantes. Des données fiables, accessibles à tout moment."
+        },
+        {
+          "title": "Analyse de rentabilité",
+          "description": "Marges par plat, par site, par période. Tout est mesurable."
+        },
+        {
+          "title": "Facturation fournisseurs automatisée",
+          "description": "Zéro saisie manuelle. Moins d'erreurs, plus d'efficacité."
+        },
+        {
+          "title": "Transferts entre établissements",
+          "description": "Produits et recettes transférés avec suivi complet et facturation interne."
+        },
+        {
+          "title": "Pourboires",
+          "description": "Répartition automatisée, transparente, conforme."
+        },
+        {
+          "title": "Dossiers RH centralisés",
+          "description": "Accès, rôles, documents : tout est structuré."
+        },
+        {
+          "title": "Connexion POS",
+          "description": "Octogone ne remplace pas votre caisse — il la complète intelligemment."
+        },
+        {
+          "title": "Surveillance des températures",
+          "description": "Thermomètres connectés, alertes automatiques, produits protégés."
+        }
+      ]
+    },
+    "benefits": {
+      "title": "Axé sur l'essentiel : performance et simplicité",
+      "items": [
+        "Vous voyez clair sur vos coûts et vos marges",
+        "Vous réduisez vos pertes",
+        "Vous normalisez vos opérations, même en multi-sites",
+        "Vous libérez du temps à vos équipes"
+      ]
+    },
+    "modules": {
+      "title": "Modules avancés",
+      "items": [
+        {
+          "title": "Octogone 360",
+          "description": "Analyse de performance avancée (KPIs). Tableaux de bord, suivi en temps réel, données consolidées."
+        },
+        {
+          "title": "Octogone HQ",
+          "description": "Gestion des transferts inter-succursales. Contrôle, structure, facturation automatisée."
+        }
+      ]
+    },
+    "support": {
+      "title": "Un accompagnement qui fait la différence",
+      "description": "Octogone, c'est aussi un vrai service :",
+      "items": [
+        "Une équipe qui vous répond, vous suit, vous connaît",
+        "Des banques d'heures pour aller plus loin",
+        "Un service de conciergerie pour garder vos données propres et votre système performant"
+      ]
+    },
+    "target": {
+      "title": "Pour qui ?",
+      "description": "Groupes de restauration, franchises, chaînes. Restaurants indépendants avec une vision claire."
+    },
+    "cta": {
+      "title": "Réservez une démo personnalisée",
+      "description": "15 minutes pour voir comment Octogone peut transformer votre quotidien.",
+      "subtitle": "Clarté, simplicité, performance — sans changer vos outils actuels."
+    }
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Opération réussie",
+    "language": "Langue",
+    "buttons": {
+      "demo": "Réserver une démo",
+      "contact": "Nous contacter",
+      "learn_more": "En savoir plus"
+    },
+    "navigation": {
+      "home": "Accueil",
+      "features": "Fonctionnalités",
+      "about": "À propos",
+      "contact": "Contact"
+    }
+  }
+}

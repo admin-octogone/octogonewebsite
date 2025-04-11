@@ -1,0 +1,120 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-04-10",
+    "contentTypes": ["hero", "section", "feature", "testimonial", "cta"]
+  },
+  "structure": {
+    "home": {
+      "hero": {
+        "title": "[HERO_TITLE]",
+        "subtitle": "[HERO_SUBTITLE]",
+        "cta": {
+          "primary": "[CTA_PRIMARY]",
+          "secondary": "[CTA_SECONDARY]"
+        }
+      },
+      "features": {
+        "title": "[FEATURES_SECTION_TITLE]",
+        "items": [
+          {
+            "title": "[FEATURE_1_TITLE]",
+            "description": "[FEATURE_1_DESCRIPTION]",
+            "icon": "[FEATURE_1_ICON]"
+          },
+          {
+            "title": "[FEATURE_2_TITLE]",
+            "description": "[FEATURE_2_DESCRIPTION]",
+            "icon": "[FEATURE_2_ICON]"
+          },
+          {
+            "title": "[FEATURE_3_TITLE]",
+            "description": "[FEATURE_3_DESCRIPTION]",
+            "icon": "[FEATURE_3_ICON]"
+          }
+        ]
+      }
+    },
+    "about": {
+      "hero": {
+        "title": "[ABOUT_HERO_TITLE]",
+        "description": "[ABOUT_HERO_DESCRIPTION]"
+      },
+      "team": {
+        "title": "[TEAM_SECTION_TITLE]",
+        "description": "[TEAM_SECTION_DESCRIPTION]",
+        "members": [
+          {
+            "name": "[MEMBER_1_NAME]",
+            "role": "[MEMBER_1_ROLE]",
+            "bio": "[MEMBER_1_BIO]"
+          }
+        ]
+      }
+    },
+    "services": {
+      "title": "[SERVICES_TITLE]",
+      "description": "[SERVICES_DESCRIPTION]",
+      "items": [
+        {
+          "title": "[SERVICE_1_TITLE]",
+          "description": "[SERVICE_1_DESCRIPTION]",
+          "features": [
+            "[SERVICE_1_FEATURE_1]",
+            "[SERVICE_1_FEATURE_2]",
+            "[SERVICE_1_FEATURE_3]"
+          ]
+        }
+      ]
+    },
+    "contact": {
+      "title": "[CONTACT_TITLE]",
+      "description": "[CONTACT_DESCRIPTION]",
+      "form": {
+        "fields": {
+          "name": "[FORM_NAME_LABEL]",
+          "email": "[FORM_EMAIL_LABEL]",
+          "message": "[FORM_MESSAGE_LABEL]"
+        },
+        "submit": "[FORM_SUBMIT_BUTTON]"
+      }
+    },
+    "common": {
+      "navigation": {
+        "home": "[NAV_HOME]",
+        "about": "[NAV_ABOUT]",
+        "services": "[NAV_SERVICES]",
+        "contact": "[NAV_CONTACT]"
+      },
+      "footer": {
+        "copyright": "[FOOTER_COPYRIGHT]",
+        "links": {
+          "privacy": "[FOOTER_PRIVACY]",
+          "terms": "[FOOTER_TERMS]"
+        }
+      },
+      "errors": {
+        "404": {
+          "title": "[ERROR_404_TITLE]",
+          "message": "[ERROR_404_MESSAGE]"
+        }
+      }
+    }
+  },
+  "seo": {
+    "defaultTitle": "[SEO_DEFAULT_TITLE]",
+    "defaultDescription": "[SEO_DEFAULT_DESCRIPTION]",
+    "pages": {
+      "home": {
+        "title": "[SEO_HOME_TITLE]",
+        "description": "[SEO_HOME_DESCRIPTION]",
+        "keywords": ["[KEYWORD_1]", "[KEYWORD_2]", "[KEYWORD_3]"]
+      },
+      "about": {
+        "title": "[SEO_ABOUT_TITLE]",
+        "description": "[SEO_ABOUT_DESCRIPTION]",
+        "keywords": ["[KEYWORD_1]", "[KEYWORD_2]", "[KEYWORD_3]"]
+      }
+    }
+  }
+}

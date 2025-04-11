@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+}
+
+body {
+  min-height: 100vh;
+  background-color: white;
+  color: black;
+}
+
+/* Styles personnalisés pour le menu de navigation */
+.active-nav-item {
+  background-color: rgba(229, 241, 255, 0.8) !important;
+}
+
+.nav-item:hover {
+  background-color: rgba(229, 241, 255, 0.8) !important;
+}

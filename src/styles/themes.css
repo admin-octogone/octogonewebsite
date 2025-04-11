@@ -1,0 +1,86 @@
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+  }
+}
+
+/* Styles spécifiques pour le thème clair */
+:root {
+  /* Couleurs de marque */
+  --color-gold: #dcb26b;
+  --color-lightblue: #c7e6fa;
+  --color-marine: #002236;
+
+  /* Couleurs sémantiques */
+  --color-text-primary: var(--color-marine);
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+
+  /* Arrière-plans */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: var(--color-lightblue);
+  --color-bg-accent: var(--color-marine);
+
+  /* Bordures */
+  --color-border-light: #e2e8f0;
+  --color-border-medium: #cbd5e0;
+
+  /* États */
+  --color-hover: color-mix(in srgb, var(--color-gold) 85%, black);
+  --color-focus: color-mix(in srgb, var(--color-lightblue) 85%, black);
+  --color-active: color-mix(in srgb, var(--color-marine) 85%, white);
+}
+
+/* Thème sombre */
+.dark {
+  /* Couleurs sémantiques */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e2e8f0;
+  --color-text-muted: #a0aec0;
+
+  /* Arrière-plans */
+  --color-bg-primary: var(--color-marine);
+  --color-bg-secondary: color-mix(in srgb, var(--color-marine) 85%, black);
+  --color-bg-accent: var(--color-gold);
+
+  /* Bordures */
+  --color-border-light: #2d3748;
+  --color-border-medium: #4a5568;
+
+  /* États */
+  --color-hover: color-mix(in srgb, var(--color-gold) 85%, white);
+  --color-focus: color-mix(in srgb, var(--color-lightblue) 85%, white);
+  --color-active: color-mix(in srgb, var(--color-marine) 85%, black);
+}
