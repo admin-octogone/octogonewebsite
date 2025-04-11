@@ -14,8 +14,10 @@ body {
 /* Styles personnalisés pour le menu de navigation */
 .active-nav-item {
   background-color: rgba(229, 241, 255, 0.8) !important;
+  color: rgb(15, 23, 42) !important; /* text-marine-900 */
 }
 
 .nav-item:hover {
   background-color: rgba(229, 241, 255, 0.8) !important;
+  color: rgb(15, 23, 42) !important; /* text-marine-900 */
 }

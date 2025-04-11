@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import { Inter } from "next/font/google"
+import { usePathname } from "next/navigation"
 import Navigation from "@/features/navigation"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -102,10 +103,15 @@ export default function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = React.use(params)
+  const pathname = usePathname()
+  
+  // Extraire le chemin sans le préfixe de locale
+  const path = pathname.replace(/^\/[^\/]+/, '')
+  const activeRoute = path || '/'
   
   return (
     <div lang={locale} className={inter.className}>
-      <Navigation routes={routes} activeRoute="/fr" theme="light" />
+      <Navigation routes={routes} activeRoute={activeRoute} theme="light" />
       <div className="pt-20">
         {children}
       </div>
