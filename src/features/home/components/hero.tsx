@@ -33,13 +33,14 @@ export const Hero: React.FC = () => {
   const graphs = [
     { title: "Ventes", type: "bar" },            // Diagramme à barres pour comparer les ventes par jour
     { title: "Achats", type: "horizontal" },     // Barres horizontales pour comparer les catégories d'achats
-    { title: "Food Cost", type: "pie" },         // Camembert pour visualiser la répartition des coûts alimentaires
-    { title: "Labor Cost", type: "horizontal" },  // Barres horizontales pour comparer les coûts par département
+    { title: "Coûts Alimentaires", type: "pie" },  // Camembert pour visualiser la répartition des coûts alimentaires
+    { title: "Coûts de Main-d'Œuvre", type: "horizontal" },  // Barres horizontales pour comparer les coûts par département
     { title: "Frais Fixes", type: "pie" },        // Camembert pour montrer la composition des frais fixes
-    { title: "Menu Engineering", type: "matrix" }, // Matrice spéciale pour le menu engineering (Étoiles, Vaches à Lait, etc.)
+    { title: "Ingénierie des Menus", type: "matrix" }, // Matrice spéciale pour l'ingénierie des menus (Étoiles, Produits Populaires, etc.)
     { title: "Achalandage", type: "line" },      // Graphique en ligne pour montrer l'évolution dans le temps
     { title: "Facture Moyenne", type: "bar" },    // Diagramme à barres pour comparer par jour
     { title: "Transferts", type: "line" },        // Graphique en ligne pour montrer les tendances sur plusieurs mois
+    { title: "Surveillance des Prix", type: "line" }, // Graphique en ligne pour suivre les hausses et baisses de prix des produits
   ];
   
   useEffect(() => {
@@ -224,7 +225,7 @@ export const Hero: React.FC = () => {
                 {/* Graphique de type barres verticales - Adapté pour Ventes, Facture Moyenne */}
                 {graphs[graphIndex].type === "bar" && (
                   <motion.div 
-                    key="bar-chart"
+                    key={`bar-chart-${graphIndex}`}
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -100 }}
@@ -420,10 +421,10 @@ export const Hero: React.FC = () => {
                   </motion.div>
                 )}
                 
-                {/* Graphique de type camembert - Adapté pour Food Cost, Frais Fixes */}
+                {/* Graphique de type camembert - Adapté pour Coûts Alimentaires, Frais Fixes */}
                 {graphs[graphIndex].type === "pie" && (
                   <motion.div 
-                    key="pie-chart"
+                    key={`pie-chart-${graphIndex}`}
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -50 }}
@@ -435,42 +436,51 @@ export const Hero: React.FC = () => {
                       height: '200px',
                       width: '100%'
                     }}>
-                    <motion.div 
-                      initial={{ scale: 0, rotate: -90 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                      style={{ 
-                        position: 'relative',
-                        width: '180px',
-                        height: '180px',
-                        borderRadius: '50%',
-                        background: 'conic-gradient(#3b82f6 0% 15%, #10b981 15% 40%, #f59e0b 40% 55%, #8b5cf6 55% 80%, #ef4444 80% 100%)',
-                        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)'
-                      }}
-                    >
+                    <div style={{ 
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      position: 'relative',
+                      width: '100%',
+                      height: '100%'
+                    }}>
                       <motion.div 
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.5 }}
+                        initial={{ scale: 0, rotate: -90 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ duration: 1, ease: "easeOut" }}
                         style={{ 
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          width: '60px',
-                          height: '60px',
+                          position: 'relative',
+                          width: '180px',
+                          height: '180px',
                           borderRadius: '50%',
-                          background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)',
+                          background: 'conic-gradient(#3b82f6 0% 15%, #10b981 15% 40%, #f59e0b 40% 55%, #8b5cf6 55% 80%, #ef4444 80% 100%)',
+                          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center'
                         }}
-                      ></motion.div>
-                    </motion.div>
+                      >
+                        <motion.div 
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ duration: 0.5, delay: 0.5 }}
+                          style={{ 
+                            width: '60px',
+                            height: '60px',
+                            borderRadius: '50%',
+                            background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)',
+                            boxShadow: 'inset 0 2px 4px rgba(0, 0, 0, 0.2)'
+                          }}
+                        ></motion.div>
+                      </motion.div>
+                    </div>
                   </motion.div>
                 )}
                 
-                {/* Graphique de type barres horizontales - Adapté pour Achats, Labor Cost */}
+                {/* Graphique de type barres horizontales - Adapté pour Achats, Coûts de Main-d'Œuvre */}
                 {graphs[graphIndex].type === "horizontal" && (
                   <motion.div 
-                    key="horizontal-chart"
+                    key={`horizontal-chart-${graphIndex}`}
                     initial={{ opacity: 0, x: -100 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 100 }}
@@ -510,10 +520,10 @@ export const Hero: React.FC = () => {
                   </motion.div>
                 )}
                 
-                {/* Graphique de type ligne - Adapté pour Achalandage, Transferts */}
+                {/* Graphique de type ligne - Adapté pour Achalandage, Transferts, Surveillance des Prix */}
                 {graphs[graphIndex].type === "line" && (
                   <motion.div 
-                    key="line-chart"
+                    key={`line-chart-${graphIndex}`}
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 50 }}
@@ -544,7 +554,23 @@ export const Hero: React.FC = () => {
                         strokeWidth="3"
                         strokeLinecap="round"
                       />
-                      {[0, 40, 80, 120, 160, 200, 240].map((x, i) => (
+                      
+                      {/* Ligne spécifique pour Surveillance des Prix */}
+                      {graphIndex === 9 && (
+                        <motion.path 
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{ duration: 1.5, delay: 0.6, ease: "easeInOut" }}
+                          d="M0,120 C30,140 60,110 90,130 C120,150 150,90 180,70 C210,50 240,90 270,110 C300,130 330,100 360,80" 
+                          fill="none" 
+                          stroke="#f59e0b" 
+                          strokeWidth="3"
+                          strokeDasharray="5,5"
+                          strokeLinecap="round"
+                        />
+                      )}
+                      {/* Points pour tous les graphiques en ligne sauf Surveillance des Prix */}
+                      {graphIndex !== 9 && [0, 40, 80, 120, 160, 200, 240].map((x, i) => (
                         <motion.circle 
                           key={i}
                           initial={{ scale: 0, opacity: 0 }}
@@ -560,14 +586,52 @@ export const Hero: React.FC = () => {
                           fill="#f59e0b"
                         />
                       ))}
+                      
+                      {/* Points spécifiques pour Surveillance des Prix avec flèches directionnelles */}
+                      {graphIndex === 9 && [0, 40, 80, 120, 160, 200, 240].map((x, i) => {
+                        const yPos = [120, 140, 110, 130, 70, 90, 110][i];
+                        const isUp = [false, true, false, true, false, true, true][i];
+                        const colors = ["#ef4444", "#10b981", "#ef4444", "#10b981", "#ef4444", "#10b981", "#10b981"];
+                        
+                        return (
+                          <g key={i}>
+                            <motion.circle 
+                              initial={{ scale: 0, opacity: 0 }}
+                              animate={{ scale: 1, opacity: 1 }}
+                              transition={{ 
+                                duration: 0.5, 
+                                delay: 1.5 + (i * 0.1),
+                                ease: "backOut" 
+                              }}
+                              cx={x}
+                              cy={yPos}
+                              r="5"
+                              fill={colors[i]}
+                            />
+                            <motion.text 
+                              initial={{ opacity: 0, y: isUp ? 10 : -10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.5, delay: 1.8 + i * 0.1 }}
+                              x={x} 
+                              y={yPos + (isUp ? -10 : 15)} 
+                              fill={colors[i]}
+                              fontSize="10"
+                              fontWeight="bold"
+                              textAnchor="middle"
+                            >
+                              {isUp ? "+" : "-"}{Math.floor(Math.random() * 8) + 1}%
+                            </motion.text>
+                          </g>
+                        );
+                      })}
                     </svg>
                   </motion.div>
                 )}
                 
-                {/* Graphique de type matrice - Spécifique pour Menu Engineering */}
+                {/* Graphique de type matrice - Spécifique pour Ingénierie des Menus */}
                 {graphs[graphIndex].type === "matrix" && (
                   <motion.div 
-                    key="matrix-chart"
+                    key={`matrix-chart-${graphIndex}`}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
@@ -629,7 +693,7 @@ export const Hero: React.FC = () => {
                           color: 'white'
                         }}
                       >
-                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Vaches à Lait</div>
+                        <div style={{ fontSize: '14px', fontWeight: 'bold' }}>Produits Populaires</div>
                         <div style={{ fontSize: '11px', opacity: 0.8 }}>Popularité ↑ Marge ↓</div>
                       </motion.div>
                       
@@ -713,7 +777,7 @@ export const Hero: React.FC = () => {
                     </div>
                   ))}
                   
-                  {/* Food Cost */}
+                  {/* Coûts Alimentaires */}
                   {graphIndex === 2 && ['Entrées', 'Plats', 'Desserts', 'Boissons', 'Spéciaux', '', ''].map((category, i) => (
                     <div key={i} style={{ 
                       color: 'rgba(255, 255, 255, 0.7)', 
@@ -725,7 +789,7 @@ export const Hero: React.FC = () => {
                     </div>
                   ))}
                   
-                  {/* Labor Cost */}
+                  {/* Coûts de Main-d'Œuvre */}
                   {graphIndex === 3 && ['Cuisine', 'Service', 'Bar', 'Gestion', 'Entretien', 'Autres', ''].map((staff, i) => (
                     <div key={i} style={{ 
                       color: 'rgba(255, 255, 255, 0.7)', 
@@ -749,8 +813,8 @@ export const Hero: React.FC = () => {
                     </div>
                   ))}
                   
-                  {/* Menu Engineering */}
-                  {graphIndex === 5 && ['Étoiles', 'Vaches à Lait', 'Énigmes', 'Poids Morts', '', '', ''].map((category, i) => (
+                  {/* Ingénierie des Menus */}
+                  {graphIndex === 5 && ['Étoiles', 'Produits Populaires', 'Énigmes', 'Poids Morts', '', '', ''].map((category, i) => (
                     <div key={i} style={{ 
                       color: 'rgba(255, 255, 255, 0.7)', 
                       fontSize: '11px', 
@@ -794,6 +858,18 @@ export const Hero: React.FC = () => {
                       textAlign: 'center'
                     }}>
                       {month}
+                    </div>
+                  ))}
+                  
+                  {/* Surveillance des Prix */}
+                  {graphIndex === 9 && ['Viandes', 'Poissons', 'Légumes', 'Fruits', 'Boissons', 'Huiles', 'Autres'].map((product, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '11px', 
+                      width: '30px',
+                      textAlign: 'center'
+                    }}>
+                      {product}
                     </div>
                   ))}
                 </div>
