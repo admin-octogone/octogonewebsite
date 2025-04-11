@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from 'react'
+import Link from 'next/link'
 import { Menu } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
@@ -159,9 +160,12 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
             </div>
             
             {/* CTA Button */}
-            <Button variant="primary" size="sm" className="hidden lg:inline-flex btn-gold">
+            <Link 
+              href="/contact"
+              className="hidden lg:inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-medium bg-gold-500 text-marine-900 hover:bg-gold-400 transition-colors btn-gold"
+            >
               Réserver une démo
-            </Button>
+            </Link>
           </div>
 
           {/* Mobile Navigation */}
