@@ -21,3 +21,17 @@ body {
   background-color: rgba(229, 241, 255, 0.8) !important;
   color: rgb(15, 23, 42) !important; /* text-marine-900 */
 }
+
+/* Style pour le bouton CTA en or */
+.btn-gold {
+  background-color: #dcb26b !important; /* Couleur or principale */
+  color: #002236 !important; /* Couleur marine pour le texte */
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-gold:hover {
+  background-color: #e2b45f !important; /* Couleur or plus claire au survol */
+  box-shadow: 0 2px 10px rgba(220, 178, 107, 0.4);
+  cursor: pointer;
+}

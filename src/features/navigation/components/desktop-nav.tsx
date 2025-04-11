@@ -49,7 +49,7 @@ const ListItem = React.forwardRef<
 })
 ListItem.displayName = "ListItem"
 
-export const DesktopNav: React.FC<DesktopNavProps> = ({ routes, activeRoute }) => {
+export const DesktopNav: React.FC<DesktopNavProps> = ({ routes, activeRoute, locale = 'fr' }) => {
   const pathname = usePathname()
   
   const isItemActive = (path: string) => {

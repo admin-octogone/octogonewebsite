@@ -12,4 +12,5 @@ export interface DesktopNavProps {
   routes: Route[]
   activeRoute: string
   theme?: NavigationTheme
+  locale?: string
 }
