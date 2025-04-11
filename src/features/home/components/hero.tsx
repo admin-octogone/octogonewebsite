@@ -1,18 +1,28 @@
 "use client"
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
+// Constantes pour les hauteurs (en pixels)
+const BANNER_HEIGHT = 40; // --banner-height dans globals.css
+const NAVBAR_HEIGHT = 80; // h-20 dans le composant Navigation
+
 export const Hero: React.FC = () => {
   // État pour détecter la présence de la bannière
-  const [hasBanner, setHasBanner] = React.useState(true);
+  const [hasBanner, setHasBanner] = useState(true);
   
-  // Vérifier la présence de la bannière au chargement et lors des changements
-  React.useEffect(() => {
+  useEffect(() => {
+    // Fonction pour vérifier la visibilité de la bannière
+    const checkBannerVisibility = () => {
+      const bannerElement = document.querySelector('.announcement-banner');
+      const isVisible = bannerElement && window.getComputedStyle(bannerElement).display !== 'none';
+      setHasBanner(!!isVisible);
+    };
+    
     // Vérifier initialement
     checkBannerVisibility();
     
@@ -20,20 +30,12 @@ export const Hero: React.FC = () => {
     const observer = new MutationObserver(checkBannerVisibility);
     observer.observe(document.body, { childList: true, subtree: true });
     
-    // Fonction pour vérifier la visibilité de la bannière
-    function checkBannerVisibility() {
-      const bannerElement = document.querySelector('.announcement-banner');
-      const isVisible = bannerElement && window.getComputedStyle(bannerElement).display !== 'none';
-      setHasBanner(!!isVisible);
-    }
-    
+    // Nettoyage
     return () => observer.disconnect();
   }, []);
   
-  // Calcul des hauteurs en fonction de la présence de la bannière
-  const bannerHeight = 40; // px (--banner-height dans globals.css)
-  const navbarHeight = 80; // px (h-20 dans le composant Navigation)
-  const totalOffset = hasBanner ? navbarHeight + bannerHeight : navbarHeight;
+  // Calcul de la hauteur totale à soustraire
+  const totalOffset = hasBanner ? NAVBAR_HEIGHT + BANNER_HEIGHT : NAVBAR_HEIGHT;
   
   return (
     <section 
@@ -55,22 +57,26 @@ export const Hero: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="flex flex-col gap-6"
           >
+            {/* Badge secteur */}
             <div className="inline-flex items-center rounded-full bg-gold-100 px-3 py-1 text-sm text-marine-800 mb-2 w-fit">
-              <span className="inline-block w-2 h-2 rounded-full bg-gold-400 animate-pulse mr-2"></span>
-              Nouvelle version disponible
+              <span className="inline-block w-2 h-2 rounded-full bg-gold-400 animate-pulse mr-2" />
+              Solution spécialisée restauration
             </div>
             
+            {/* Titre principal */}
             <h1 className="text-4xl font-bold tracking-tight text-marine-900 sm:text-5xl lg:text-6xl">
-              Optimisez votre expérience <span className="text-gold-500">Octogone</span>
+              L'ultime solution pour les professionnels de la <span className="text-gold-500">restauration</span>
             </h1>
             
+            {/* Description */}
             <p className="mt-2 text-xl text-marine-600 max-w-2xl">
-              Des solutions sur mesure pour répondre à vos besoins spécifiques et garantir une performance optimale en continu.
+              Des outils innovants et personnalisés pour optimiser la gestion de votre établissement et maximiser votre rentabilité.
             </p>
             
+            {/* Boutons d'action */}
             <div className="mt-6 flex flex-col sm:flex-row gap-4">
               <Button variant="primary" size="lg" className="btn-gold text-base font-medium">
-                Réserver une démo
+                Démo pour restaurateurs
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
               
@@ -78,12 +84,14 @@ export const Hero: React.FC = () => {
                 href="/services" 
                 className="inline-flex items-center justify-center rounded-md px-4 py-2 text-base font-medium text-marine-700 hover:text-marine-900 transition-colors"
               >
-                Découvrir nos services
+                Solutions restauration
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
             
+            {/* Indicateurs de confiance */}
             <div className="mt-8 flex items-center gap-6">
+              {/* Avatars */}
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (
                   <div key={i} className="inline-block h-10 w-10 rounded-full ring-2 ring-white overflow-hidden bg-marine-100">
@@ -97,15 +105,17 @@ export const Hero: React.FC = () => {
                   </div>
                 ))}
               </div>
+              
+              {/* Étoiles et texte */}
               <div>
                 <div className="flex items-center">
-                  {[1, 2, 3, 4, 5].map((star) => (
-                    <svg key={star} className="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg key={i} className="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
                   ))}
                 </div>
-                <p className="text-sm text-marine-600">Plus de <span className="font-semibold">200+</span> clients satisfaits</p>
+                <p className="text-sm text-marine-600">Plus de <span className="font-semibold">200+</span> restaurants équipés</p>
               </div>
             </div>
           </motion.div>
@@ -118,6 +128,7 @@ export const Hero: React.FC = () => {
             className="relative"
           >
             <div className="relative mx-auto w-full max-w-lg lg:max-w-none">
+              {/* Image principale */}
               <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-marine-50 shadow-xl">
                 <Image
                   src="/images/hero-dashboard.svg"
@@ -129,7 +140,7 @@ export const Hero: React.FC = () => {
                 />
               </div>
               
-              {/* Éléments flottants */}
+              {/* Élément flottant - Performance */}
               <motion.div 
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -138,7 +149,13 @@ export const Hero: React.FC = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="rounded-full bg-gold-100 p-2">
-                    <svg className="h-6 w-6 text-gold-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg 
+                      className="h-6 w-6 text-gold-500" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
@@ -149,6 +166,7 @@ export const Hero: React.FC = () => {
                 </div>
               </motion.div>
               
+              {/* Élément flottant - Sécurité */}
               <motion.div 
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -157,7 +175,13 @@ export const Hero: React.FC = () => {
               >
                 <div className="flex items-center gap-4">
                   <div className="rounded-full bg-marine-100 p-2">
-                    <svg className="h-6 w-6 text-marine-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg 
+                      className="h-6 w-6 text-marine-500" 
+                      fill="none" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                   </div>
