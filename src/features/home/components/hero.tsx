@@ -15,6 +15,17 @@ export const Hero: React.FC = () => {
   // État pour détecter la présence de la bannière
   const [hasBanner, setHasBanner] = useState(true);
   
+  // État pour les hauteurs des barres du graphique
+  const [barHeights, setBarHeights] = useState({
+    bar1: 60,
+    bar2: 75,
+    bar3: 45,
+    bar4: 85,
+    bar5: 65,
+    bar6: 70,
+    bar7: 55
+  });
+  
   useEffect(() => {
     // Fonction pour vérifier la visibilité de la bannière
     const checkBannerVisibility = () => {
@@ -32,6 +43,30 @@ export const Hero: React.FC = () => {
     
     // Nettoyage
     return () => observer.disconnect();
+  }, []);
+  
+  // Effet pour mettre à jour les hauteurs des barres toutes les 5 secondes
+  useEffect(() => {
+    const updateBarHeights = () => {
+      setBarHeights({
+        bar1: 55 + Math.floor(Math.random() * 15),
+        bar2: 70 + Math.floor(Math.random() * 10),
+        bar3: 42 + Math.floor(Math.random() * 8),
+        bar4: 82 + Math.floor(Math.random() * 8),
+        bar5: 62 + Math.floor(Math.random() * 10),
+        bar6: 67 + Math.floor(Math.random() * 8),
+        bar7: 52 + Math.floor(Math.random() * 8)
+      });
+    };
+    
+    // Mettre à jour immédiatement pour éviter le délai initial
+    updateBarHeights();
+    
+    // Configurer l'intervalle pour les mises à jour périodiques
+    const interval = setInterval(updateBarHeights, 5000);
+    
+    // Nettoyage à la démontage du composant
+    return () => clearInterval(interval);
   }, []);
   
   // Calcul de la hauteur totale à soustraire
@@ -118,117 +153,249 @@ export const Hero: React.FC = () => {
                 borderRadius: '50%',
                 zIndex: 2
               }}></div>
-              {/* Dashboard en arrière-plan */}
+              {/* Dashboard avec barres verticales animées en arrière-plan */}
               <motion.div
                 initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  y: [0, -8, 0]
-                }}
-                transition={{
-                  opacity: { duration: 0.5 },
-                  y: {
-                    duration: 4,
-                    ease: "easeInOut",
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }
-                }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
                 style={{
                   position: 'absolute',
                   width: '320px',
                   height: '320px',
-                  background: 'linear-gradient(135deg, #f0f9ff 0%, #e6f7ff 100%)',
+                  background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)', /* Couleur Marine du thème */
                   borderRadius: '12px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
                   zIndex: 3,
-                  overflow: 'hidden'
+                  overflow: 'hidden',
+                  padding: '20px'
                 }}>
-                {/* Éléments du dashboard */}
-                <div style={{
-                  position: 'absolute',
-                  top: '10px',
-                  left: '10px',
-                  right: '10px',
-                  height: '40px',
-                  background: 'white',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
+                {/* Titre du dashboard */}
+                <div style={{ 
+                  color: 'white', /* Titre en blanc */
+                  fontSize: '16px', 
+                  fontWeight: 'normal', 
+                  marginBottom: '25px',
                   display: 'flex',
+                  justifyContent: 'space-between',
                   alignItems: 'center',
-                  padding: '0 15px'
+                  height: '20px' /* Hauteur fixe pour stabiliser */
                 }}>
-                  <div style={{ width: '20px', height: '20px', borderRadius: '50%', backgroundColor: '#e6f7ff', marginRight: '10px' }}></div>
-                  <div style={{ width: '120px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff' }}></div>
-                  <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px' }}>
-                    <div style={{ width: '80px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff' }}></div>
-                    <div style={{ width: '60px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff' }}></div>
+                  <span style={{ color: 'white', fontWeight: '400' }}>Performances</span>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></div>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
+                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#f59e0b' }}></div>
                   </div>
                 </div>
                 
-                {/* Graphiques */}
-                <div style={{
-                  position: 'absolute',
-                  top: '60px',
-                  left: '10px',
-                  width: '180px',
-                  height: '140px',
-                  background: 'white',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
-                  padding: '10px'
+                {/* Barres verticales animées */}
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'flex-end', 
+                  justifyContent: 'space-between',
+                  height: '200px',
+                  padding: '0 10px',
+                  position: 'relative',
+                  minHeight: '200px' /* Hauteur minimale fixe */
                 }}>
-                  <div style={{ width: '80px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '15px' }}></div>
-                  <div style={{ display: 'flex', height: '60px', alignItems: 'flex-end', gap: '6px', marginTop: '10px' }}>
-                    {[40, 65, 45, 80, 60, 75, 50].map((height, i) => (
-                      <div key={i} style={{ flex: 1, height: `${height}%`, backgroundColor: '#e6f7ff', borderRadius: '4px 4px 0 0' }}></div>
-                    ))}
-                  </div>
+                  {/* Barre 1 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar1}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #3b82f6, #60a5fa)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Barre 2 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar2}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #10b981, #34d399)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Barre 3 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar3}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #f59e0b, #fbbf24)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Barre 4 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar4}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #8b5cf6, #a78bfa)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Barre 5 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar5}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #ef4444, #f87171)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Barre 6 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar6}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #0ea5e9, #38bdf8)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 2.7, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
+                  
+                  {/* Barre 7 */}
+                  <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: `${barHeights.bar7}%` }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                    style={{ 
+                      width: '30px', 
+                      background: 'linear-gradient(to top, #14b8a6, #2dd4bf)',
+                      borderRadius: '4px 4px 0 0',
+                      position: 'relative'
+                    }}
+                  >
+                    <motion.div
+                      animate={{ height: ['0%', '100%', '0%'] }}
+                      transition={{ duration: 3.3, repeat: Infinity, ease: "easeInOut" }}
+                      style={{ 
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        width: '100%',
+                        background: 'linear-gradient(to top, rgba(255, 255, 255, 0.3), transparent)',
+                        borderRadius: '4px 4px 0 0'
+                      }}
+                    />
+                  </motion.div>
                 </div>
                 
-                {/* Tableau */}
-                <div style={{
-                  position: 'absolute',
-                  top: '60px',
-                  right: '10px',
-                  width: '180px',
-                  height: '140px',
-                  background: 'white',
-                  borderRadius: '6px',
-                  boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
-                  padding: '10px'
+                {/* Légende en bas */}
+                <div style={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between',
+                  marginTop: '15px',
+                  padding: '0 10px'
                 }}>
-                  <div style={{ width: '80px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '15px' }}></div>
-                  {[1, 2, 3, 4].map((row) => (
-                    <div key={row} style={{ display: 'flex', marginBottom: '10px' }}>
-                      <div style={{ width: '30%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff', marginRight: '10px' }}></div>
-                      <div style={{ width: '20%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff', marginRight: '10px' }}></div>
-                      <div style={{ width: '40%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff' }}></div>
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Cartes en bas */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  left: '10px',
-                  right: '10px',
-                  display: 'flex',
-                  gap: '8px'
-                }}>
-                  {[1, 2].map((card) => (
-                    <div key={card} style={{
-                      flex: 1,
-                      height: '120px',
-                      background: 'white',
-                      borderRadius: '6px',
-                      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)',
-                      padding: '10px'
+                  {['L', 'M', 'M', 'J', 'V', 'S', 'D'].map((day, i) => (
+                    <div key={i} style={{ 
+                      color: 'rgba(255, 255, 255, 0.7)', 
+                      fontSize: '12px', 
+                      width: '30px',
+                      textAlign: 'center'
                     }}>
-                      <div style={{ width: '60px', height: '12px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '15px' }}></div>
-                      <div style={{ width: '100%', height: '80px', borderRadius: '6px', backgroundColor: '#e6f7ff', marginBottom: '10px' }}></div>
-                      <div style={{ width: '80%', height: '10px', borderRadius: '5px', backgroundColor: '#e6f7ff' }}></div>
+                      {day}
                     </div>
                   ))}
                 </div>
@@ -244,7 +411,7 @@ export const Hero: React.FC = () => {
                 style={{ objectFit: 'contain', position: 'relative', zIndex: 5 }}
               />
               
-              {/* Les tuiles flottantes ont été retirées */}
+              {/* Les barres verticales animées ont été supprimées */}
             </div>
           </div>
         </div>
