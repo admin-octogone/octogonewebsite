@@ -3,10 +3,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { LogoMarquee } from '@/components/ui/logo-marquee'
+import { ResponsiveSection } from '@/components/ui/responsive-section'
+import { ScrollAnimation } from '@/components/ui/scroll-animation'
 
 // Définition du type pour les logos des clients
 interface ClientLogo {
@@ -32,18 +34,19 @@ const clientLogos: ClientLogo[] = [
 const BANNER_HEIGHT = 40; // --banner-height dans globals.css
 const NAVBAR_HEIGHT = 80; // h-20 dans le composant Navigation
 
+/**
+ * Composant Hero - Section principale de la page d'accueil
+ * 
+ * Ce composant implémente des optimisations responsives pour tous les écrans :
+ * - xs (376px) : Version très compacte pour les petits téléphones
+ * - sm (640px) : Version compacte pour les grands téléphones
+ * - md (768px) : Version tablette avec dashboard simplifié
+ * - lg (1024px) : Version desktop avec animations complètes
+ * - xl (1280px) : Version grand écran avec espacements généreux
+ */
 const Hero = () => {
   // Référence pour l'effet de défilement
   const heroRef = useRef<HTMLDivElement>(null);
-  
-  // Animation basée sur le défilement
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'start end']
-  });
-  
-  // Transformation de la taille de l'octogone en fonction du défilement - plus rapide
-  const octogoneScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.2]);
   
   // État pour détecter la présence de la bannière
   const [hasBanner, setHasBanner] = useState(true);
@@ -128,14 +131,32 @@ const Hero = () => {
   
   // Utilisation du composant LogoMarquee réutilisable pour le carrousel de logos
   
-  // Effet client-side uniquement
+  // Effet client-side uniquement pour éviter les erreurs SSR avec les animations
   const [isClient, setIsClient] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  
   useEffect(() => {
+    // Détection du client et de la taille de l'écran
     setIsClient(true);
+    setWindowWidth(window.innerWidth);
+    
+    // Gestion du redimensionnement pour les animations responsives
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
-    <section ref={heroRef} className="w-full h-full flex flex-col justify-between bg-white overflow-hidden py-3 xs:py-5 lg:py-8">
+    <ResponsiveSection
+      as="section"
+      bgColor="bg-white"
+      spacing="lg"
+      className="flex flex-col justify-between overflow-hidden"
+    >
+      <div ref={heroRef} className="w-full h-full relative">
       {/* Fond décoratif */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-marine-50 rounded-bl-[100px] opacity-70" />
@@ -146,18 +167,23 @@ const Hero = () => {
         <div className="grid grid-cols-1 gap-3 xs:gap-6 lg:gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Image avec fond bleu clair et éléments flottants - En haut sur mobile */}
           <div className="flex justify-center items-center h-full mt-0 mb-2 xs:mb-4 lg:mb-8 order-first lg:order-last">
-            <div className="relative w-full max-w-[240px] xs:max-w-[320px] md:max-w-[380px] lg:max-w-[480px] xl:max-w-[580px] h-[240px] xs:h-[320px] md:h-[380px] lg:h-[480px] xl:h-[580px] flex justify-center items-center">
+            <div className="relative w-full max-w-[260px] xs:max-w-[320px] md:max-w-[380px] lg:max-w-[480px] xl:max-w-[580px] h-[260px] xs:h-[320px] md:h-[380px] lg:h-[480px] xl:h-[580px] flex justify-center items-center">
               {/* Octogone bleu de fond */}
-              <motion.div 
-                className="absolute w-[220px] xs:w-[320px] md:w-[360px] lg:w-[450px] xl:w-[550px] h-[220px] xs:h-[320px] md:h-[360px] lg:h-[450px] xl:h-[550px] bg-[#dbeafe]" 
+              <ScrollAnimation
+                type="scale-up"
+                threshold={0.15}
+                amount={0.2}
+                duration={0.1}
+                minWidth={768}
+                className="absolute w-[240px] xs:w-[320px] md:w-[360px] lg:w-[450px] xl:w-[550px] h-[240px] xs:h-[320px] md:h-[360px] lg:h-[450px] xl:h-[550px] bg-[#dbeafe]"
                 style={{
                   clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                   zIndex: 2,
-                  transformOrigin: 'center center',
-                  scale: isClient && window.innerWidth >= 768 ? octogoneScale : 1,
-                  transition: { duration: 0.1 }
+                  transformOrigin: 'center center'
                 }}
-              ></motion.div>
+              >
+                <div></div>
+              </ScrollAnimation>
               {/* Version simplifiée du dashboard pour mobile uniquement */}
               <div
                 className="absolute z-[3] overflow-hidden rounded-lg shadow-md block md:hidden w-[140px] xs:w-[190px] h-[140px] xs:h-[190px]"
@@ -904,7 +930,7 @@ const Hero = () => {
                 width={500}
                 height={500}
                 priority
-                className="relative z-[5] w-[180px] xs:w-[260px] h-[180px] xs:h-[260px] md:w-[300px] md:h-[300px] lg:w-[380px] lg:h-[380px] xl:w-[460px] xl:h-[460px]"
+                className="relative z-[5] w-[190px] xs:w-[260px] h-[190px] xs:h-[260px] md:w-[300px] md:h-[300px] lg:w-[380px] lg:h-[380px] xl:w-[460px] xl:h-[460px]"
                 style={{ objectFit: 'contain' }}
               />
             </div>
@@ -955,7 +981,8 @@ const Hero = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-2 xs:pt-3 lg:pt-8 pb-2 xs:pb-3 lg:pb-4">
         <LogoMarquee logos={clientLogos} title="Partenaire de leur succès" titleClassName="text-sm lg:text-lg" />
       </div>
-    </section>
+      </div>
+    </ResponsiveSection>
   )
 }
 
