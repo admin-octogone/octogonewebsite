@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { ScrollAnimation } from "@/components/ui/scroll-animation";
+import { useScrollScale } from "@/hooks/use-scroll-scale";
 
 // Définition du type pour les logos des clients
 interface ClientLogo {
@@ -102,8 +103,12 @@ const Hero = () => {
     bar7: 55,
   });
   
-  // État pour l'animation de l'octogone
-  const [octogoneScale, setOctogoneScale] = useState(1.15);
+  // Utiliser le hook personnalisé pour l'animation de l'octogone
+  const octogoneScale = useScrollScale({
+    initialScale: 1.15,
+    finalScale: 0.95,
+    scrollRange: 300
+  });
 
   // État pour le type de graphique et son titre
   const [graphIndex, setGraphIndex] = useState(0);
@@ -171,32 +176,7 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [graphs.length]); // Dépendance ajoutée pour respecter la règle exhaustive-deps
   
-  // Effet pour l'animation de l'octogone au défilement
-  useEffect(() => {
-    const handleScroll = () => {
-      // Calculer la position de défilement relative
-      const scrollPosition = window.scrollY;
-      
-      // Définir la plage de défilement pour l'animation (0-300px)
-      const scrollRange = 300;
-      
-      // Calculer l'échelle en fonction de la position de défilement
-      // Commence à 1.15 et diminue jusqu'à 0.95
-      const newScale = Math.max(0.95, 1.15 - (scrollPosition / scrollRange) * 0.2);
-      
-      // Mettre à jour l'état
-      setOctogoneScale(newScale);
-    };
-    
-    // Ajouter l'écouteur d'événement
-    window.addEventListener('scroll', handleScroll);
-    
-    // Appeler une fois pour initialiser
-    handleScroll();
-    
-    // Nettoyer l'écouteur d'événement
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Le hook useScrollScale gère maintenant l'animation au défilement
 
   // Calcul de la hauteur totale à soustraire (commenté car non utilisé actuellement)
   // const totalOffset = hasBanner ? NAVBAR_HEIGHT + BANNER_HEIGHT : NAVBAR_HEIGHT;
@@ -247,7 +227,7 @@ const Hero = () => {
                 {/* Octogone bleu de fond avec animation directe */}
                 <div 
                   ref={heroRef}
-                  className="absolute w-[240px] xs:w-[320px] md:w-[360px] lg:w-[450px] xl:w-[550px] h-[240px] xs:h-[320px] md:h-[360px] lg:h-[450px] xl:h-[550px] bg-[#dbeafe] transition-transform duration-300 ease-out"
+                  className="absolute w-[260px] xs:w-[340px] md:w-[380px] lg:w-[490px] xl:w-[590px] h-[260px] xs:h-[340px] md:h-[380px] lg:h-[490px] xl:h-[590px] bg-[#dbeafe] transition-transform duration-300 ease-out"
                   style={{
                     clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
                     zIndex: 2,
@@ -367,6 +347,7 @@ const Hero = () => {
                     background:
                       "linear-gradient(135deg, #003049 0%, #00456A 100%)" /* Couleur Marine du thème */,
                     padding: "15px",
+                    top: "80px",
                   }}
                 >
                   {/* Titre du dashboard */}
@@ -870,69 +851,7 @@ const Hero = () => {
                                 />
                               ))}
 
-                            {/* Points spécifiques pour Surveillance des Prix avec flèches directionnelles */}
-                            {graphIndex === 9 &&
-                              [0, 40, 80, 120, 160, 200, 240].map((x, i) => {
-                                const yPos = [120, 140, 110, 130, 70, 90, 110][
-                                  i
-                                ];
-                                const isUp = [
-                                  false,
-                                  true,
-                                  false,
-                                  true,
-                                  false,
-                                  true,
-                                  true,
-                                ][i];
-                                const colors = [
-                                  "#ef4444",
-                                  "#10b981",
-                                  "#ef4444",
-                                  "#10b981",
-                                  "#ef4444",
-                                  "#10b981",
-                                  "#10b981",
-                                ];
-
-                                return (
-                                  <g key={i}>
-                                    <motion.circle
-                                      initial={{ scale: 0, opacity: 0 }}
-                                      animate={{ scale: 1, opacity: 1 }}
-                                      transition={{
-                                        duration: 0.5,
-                                        delay: 1.5 + i * 0.1,
-                                        ease: "backOut",
-                                      }}
-                                      cx={x}
-                                      cy={yPos}
-                                      r="5"
-                                      fill={colors[i]}
-                                    />
-                                    <motion.text
-                                      initial={{
-                                        opacity: 0,
-                                        y: isUp ? 10 : -10,
-                                      }}
-                                      animate={{ opacity: 1, y: 0 }}
-                                      transition={{
-                                        duration: 0.5,
-                                        delay: 1.8 + i * 0.1,
-                                      }}
-                                      x={x}
-                                      y={yPos + (isUp ? -10 : 15)}
-                                      fill={colors[i]}
-                                      fontSize="10"
-                                      fontWeight="bold"
-                                      textAnchor="middle"
-                                    >
-                                      {isUp ? "+" : "-"}
-                                      {Math.floor(Math.random() * 8) + 1}%
-                                    </motion.text>
-                                  </g>
-                                );
-                              })}
+                            {/* Points et chiffres supprimés */}
                           </svg>
                         </motion.div>
                       )}
@@ -984,12 +903,9 @@ const Hero = () => {
                               }}
                             >
                               <div
-                                style={{ fontSize: "14px", fontWeight: "bold" }}
+                                style={{ fontSize: "24px", fontWeight: "bold" }}
                               >
-                                Étoiles
-                              </div>
-                              <div style={{ fontSize: "11px", opacity: 0.8 }}>
-                                Popularité ↑ Marge ↑
+                                92
                               </div>
                             </motion.div>
 
@@ -1013,12 +929,9 @@ const Hero = () => {
                               }}
                             >
                               <div
-                                style={{ fontSize: "14px", fontWeight: "bold" }}
+                                style={{ fontSize: "24px", fontWeight: "bold" }}
                               >
-                                Produits Populaires
-                              </div>
-                              <div style={{ fontSize: "11px", opacity: 0.8 }}>
-                                Popularité ↑ Marge ↓
+                                78
                               </div>
                             </motion.div>
 
@@ -1042,12 +955,9 @@ const Hero = () => {
                               }}
                             >
                               <div
-                                style={{ fontSize: "14px", fontWeight: "bold" }}
+                                style={{ fontSize: "24px", fontWeight: "bold" }}
                               >
-                                Énigmes
-                              </div>
-                              <div style={{ fontSize: "11px", opacity: 0.8 }}>
-                                Popularité ↓ Marge ↑
+                                65
                               </div>
                             </motion.div>
 
@@ -1071,12 +981,9 @@ const Hero = () => {
                               }}
                             >
                               <div
-                                style={{ fontSize: "14px", fontWeight: "bold" }}
+                                style={{ fontSize: "24px", fontWeight: "bold" }}
                               >
-                                Poids Morts
-                              </div>
-                              <div style={{ fontSize: "11px", opacity: 0.8 }}>
-                                Popularité ↓ Marge ↓
+                                41
                               </div>
                             </motion.div>
                           </div>
@@ -1134,29 +1041,7 @@ const Hero = () => {
                         </div>
                       ))}
 
-                    {/* Coûts Alimentaires */}
-                    {graphIndex === 2 &&
-                      [
-                        "Entrées",
-                        "Plats",
-                        "Desserts",
-                        "Boissons",
-                        "Spéciaux",
-                        "",
-                        "",
-                      ].map((category, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: "11px",
-                            width: "30px",
-                            textAlign: "center",
-                          }}
-                        >
-                          {category}
-                        </div>
-                      ))}
+                    {/* Coûts Alimentaires supprimés */}
 
                     {/* Coûts de Main-d'Œuvre */}
                     {graphIndex === 3 &&
@@ -1182,29 +1067,7 @@ const Hero = () => {
                         </div>
                       ))}
 
-                    {/* Frais Fixes */}
-                    {graphIndex === 4 &&
-                      [
-                        "Loyer",
-                        "Assur.",
-                        "Élec.",
-                        "Eau",
-                        "Taxes",
-                        "Autres",
-                        "",
-                      ].map((expense, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: "11px",
-                            width: "30px",
-                            textAlign: "center",
-                          }}
-                        >
-                          {expense}
-                        </div>
-                      ))}
+                    {/* Frais Fixes supprimés */}
 
                     {/* Ingénierie des Menus */}
                     {graphIndex === 5 &&
@@ -1230,88 +1093,20 @@ const Hero = () => {
                         </div>
                       ))}
 
-                    {/* Achalandage */}
-                    {graphIndex === 6 &&
-                      ["11h", "13h", "15h", "17h", "19h", "21h", "23h"].map(
-                        (hour, i) => (
-                          <div
-                            key={i}
-                            style={{
-                              color: "rgba(255, 255, 255, 0.7)",
-                              fontSize: "12px",
-                              width: "30px",
-                              textAlign: "center",
-                            }}
-                          >
-                            {hour}
-                          </div>
-                        ),
-                      )}
+                    {/* Achalandage supprimé */}
 
-                    {/* Facture Moyenne */}
-                    {graphIndex === 7 &&
-                      ["L", "M", "M", "J", "V", "S", "D"].map((day, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: "12px",
-                            width: "30px",
-                            textAlign: "center",
-                          }}
-                        >
-                          {day}
-                        </div>
-                      ))}
+                    {/* Facture Moyenne supprimée */}
 
-                    {/* Transferts */}
-                    {graphIndex === 8 &&
-                      ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil"].map(
-                        (month, i) => (
-                          <div
-                            key={i}
-                            style={{
-                              color: "rgba(255, 255, 255, 0.7)",
-                              fontSize: "12px",
-                              width: "30px",
-                              textAlign: "center",
-                            }}
-                          >
-                            {month}
-                          </div>
-                        ),
-                      )}
+                    {/* Transferts supprimés */}
 
-                    {/* Surveillance des Prix */}
-                    {graphIndex === 9 &&
-                      [
-                        "Viandes",
-                        "Poissons",
-                        "Légumes",
-                        "Fruits",
-                        "Boissons",
-                        "Huiles",
-                        "Autres",
-                      ].map((product, i) => (
-                        <div
-                          key={i}
-                          style={{
-                            color: "rgba(255, 255, 255, 0.7)",
-                            fontSize: "11px",
-                            width: "30px",
-                            textAlign: "center",
-                          }}
-                        >
-                          {product}
-                        </div>
-                      ))}
+                    {/* Surveillance des Prix supprimée */}
                   </div>
                 </motion.div>
 
                 {/* Image principale */}
                 <Image
-                  src="/images/hero_image.png?v=1"
-                  alt="Solution Octogone pour la restauration"
+                  src="/images/serious_octogone_users.png?v=2"
+                  alt="Utilisateurs professionnels d'Octogone"
                   width={500}
                   height={500}
                   priority
