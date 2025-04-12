@@ -117,7 +117,7 @@ const Hero = () => {
   // Utilisation du composant LogoMarquee réutilisable pour le carrousel de logos
   
   return (
-    <section className="w-full h-full flex flex-col justify-between bg-white overflow-hidden py-4 md:py-8">
+    <section className="w-full h-full flex flex-col justify-between bg-white overflow-hidden py-5 lg:py-8">
       {/* Fond décoratif */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-marine-50 rounded-bl-[100px] opacity-70" />
@@ -125,18 +125,18 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 gap-4 md:gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 gap-6 lg:gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Image avec fond bleu clair et éléments flottants - En haut sur mobile */}
-          <div className="flex justify-center items-center h-full mt-0 mb-2 md:mb-8 order-first lg:order-last">
-            <div className="relative w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] xl:max-w-[650px] h-[280px] md:h-[450px] lg:h-[550px] xl:h-[650px] flex justify-center items-center">
+          <div className="flex justify-center items-center h-full mt-0 mb-4 lg:mb-8 order-first lg:order-last">
+            <div className="relative w-full max-w-[320px] md:max-w-[380px] lg:max-w-[480px] xl:max-w-[580px] h-[320px] md:h-[380px] lg:h-[480px] xl:h-[580px] flex justify-center items-center">
               {/* Octogone bleu de fond */}
-              <div className="absolute w-[260px] md:w-[420px] lg:w-[520px] xl:w-[600px] h-[260px] md:h-[420px] lg:h-[520px] xl:h-[600px] bg-[#dbeafe]" style={{
+              <div className="absolute w-[320px] md:w-[360px] lg:w-[450px] xl:w-[550px] h-[320px] md:h-[360px] lg:h-[450px] xl:h-[550px] bg-[#dbeafe]" style={{
                 clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                 zIndex: 2
               }}></div>
               {/* Version simplifiée du dashboard pour mobile uniquement */}
               <div
-                className="absolute z-[3] overflow-hidden rounded-lg shadow-md block md:hidden w-[180px] h-[180px]"
+                className="absolute z-[3] overflow-hidden rounded-lg shadow-md block md:hidden w-[190px] h-[190px]"
                 style={{
                   background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)',
                   padding: '10px',
@@ -153,12 +153,12 @@ const Hero = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  height: '16px'
+                  height: '17px'
                 }}>
                   <span style={{ color: 'white', fontWeight: '400' }}>Dashboard</span>
                   <div style={{ display: 'flex', gap: '6px' }}>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></div>
-                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
+                    <div style={{ width: '6.5px', height: '6.5px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></div>
+                    <div style={{ width: '6.5px', height: '6.5px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
                   </div>
                 </div>
                 
@@ -167,14 +167,14 @@ const Hero = () => {
                   display: 'flex',
                   alignItems: 'flex-end',
                   justifyContent: 'space-between',
-                  height: '130px',
-                  padding: '0 5px'
+                  height: '135px',
+                  padding: '0 7px'
                 }}>
-                  <div style={{ width: '18px', height: '60%', background: 'linear-gradient(to top, #3b82f6, #60a5fa)', borderRadius: '3px 3px 0 0' }}></div>
-                  <div style={{ width: '18px', height: '75%', background: 'linear-gradient(to top, #10b981, #34d399)', borderRadius: '3px 3px 0 0' }}></div>
-                  <div style={{ width: '18px', height: '45%', background: 'linear-gradient(to top, #f59e0b, #fbbf24)', borderRadius: '3px 3px 0 0' }}></div>
-                  <div style={{ width: '18px', height: '85%', background: 'linear-gradient(to top, #3b82f6, #60a5fa)', borderRadius: '3px 3px 0 0' }}></div>
-                  <div style={{ width: '18px', height: '65%', background: 'linear-gradient(to top, #10b981, #34d399)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '19px', height: '60%', background: 'linear-gradient(to top, #3b82f6, #60a5fa)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '19px', height: '75%', background: 'linear-gradient(to top, #10b981, #34d399)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '19px', height: '45%', background: 'linear-gradient(to top, #f59e0b, #fbbf24)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '19px', height: '85%', background: 'linear-gradient(to top, #3b82f6, #60a5fa)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '19px', height: '65%', background: 'linear-gradient(to top, #10b981, #34d399)', borderRadius: '3px 3px 0 0' }}></div>
                 </div>
               </div>
               
@@ -183,7 +183,7 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="absolute z-[3] overflow-hidden rounded-xl shadow-lg hidden md:block md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px]"
+                className="absolute z-[3] overflow-hidden rounded-xl shadow-lg hidden md:block md:w-[220px] md:h-[220px] lg:w-[280px] lg:h-[280px] xl:w-[320px] xl:h-[320px]"
                 style={{
                   background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)', /* Couleur Marine du thème */
                   padding: '15px',
@@ -880,7 +880,7 @@ const Hero = () => {
                 width={500}
                 height={500}
                 priority
-                className="relative z-[5] w-[220px] h-[220px] md:w-[350px] md:h-[350px] lg:w-[420px] lg:h-[420px] xl:w-[500px] xl:h-[500px]"
+                className="relative z-[5] w-[260px] h-[260px] md:w-[300px] md:h-[300px] lg:w-[380px] lg:h-[380px] xl:w-[460px] xl:h-[460px]"
                 style={{ objectFit: 'contain' }}
               />
             </div>
@@ -891,36 +891,36 @@ const Hero = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col gap-2 md:gap-4 lg:gap-6 text-center lg:text-left pt-0 order-last lg:order-first"
+            className="flex flex-col gap-3 lg:gap-4 lg:gap-6 text-center lg:text-left pt-0 order-last lg:order-first"
           >
             {/* Texte secteur */}
-            <p className="text-base md:text-lg lg:text-xl mb-1 md:mb-2 text-center lg:text-left">
+            <p className="text-base lg:text-lg lg:text-xl mb-1 lg:mb-2 text-center lg:text-left">
               Plateforme de gestion pour les restaurants
             </p>
             
             {/* Titre principal */}
-            <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
+            <h1 className="text-2xl lg:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
               L'ultime solution pour les professionnels de la <span className="text-gold-500">restauration</span>
             </h1>
             
             {/* Description */}
-            <p className="mt-1 md:mt-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-2xl mx-auto lg:mx-0">
+            <p className="mt-1 lg:mt-2 text-sm lg:text-base lg:text-lg xl:text-xl max-w-2xl mx-auto lg:mx-0">
               Optimisez la gestion quotidienne de vos restaurants, suivez vos métriques et améliorez vos performances.
             </p>
             
             {/* Boutons d'action */}
-            <div className="mt-4 md:mt-6 flex flex-row gap-3 md:gap-4 justify-center lg:justify-start">
-              <Button variant="primary" size="default" className="btn-gold text-sm md:text-base font-medium w-full sm:w-auto py-1.5 md:py-2">
+            <div className="mt-4 lg:mt-6 flex flex-row gap-3 lg:gap-4 justify-center lg:justify-start">
+              <Button variant="primary" size="default" className="btn-gold text-sm lg:text-base font-medium w-full sm:w-auto py-1.5 lg:py-2 px-3 lg:px-4">
                 En savoir plus
-                <ArrowRight className="ml-2 h-4 w-4 hidden md:inline" />
+                <ArrowRight className="ml-2 h-4 w-4 hidden lg:inline" />
               </Button>
               
               <Link 
                 href="/services" 
-                className="inline-flex items-center justify-center rounded-md px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base font-medium text-marine-700 hover:text-marine-900 transition-colors w-full sm:w-auto"
+                className="inline-flex items-center justify-center rounded-md px-3 py-1.5 lg:px-4 lg:py-2 text-sm lg:text-base font-medium text-marine-700 hover:text-marine-900 transition-colors w-full sm:w-auto"
               >
                 Parler à un expert
-                <ArrowRight className="ml-2 h-4 w-4 hidden md:inline" />
+                <ArrowRight className="ml-2 h-4 w-4 hidden lg:inline" />
               </Link>
             </div>
           </motion.div>
@@ -928,8 +928,8 @@ const Hero = () => {
       </div>
       
       {/* Carrousel de logos clients en bas du Hero */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-2 md:pt-8 pb-2 md:pb-4">
-        <LogoMarquee logos={clientLogos} title="Partenaire de leur succès" titleClassName="text-sm md:text-lg" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-3 lg:pt-8 pb-3 lg:pb-4">
+        <LogoMarquee logos={clientLogos} title="Partenaire de leur succès" titleClassName="text-sm lg:text-lg" />
       </div>
     </section>
   )
