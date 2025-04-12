@@ -1,21 +1,21 @@
-import { ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface ResponsiveGridProps {
-  children: ReactNode
-  className?: string
+  children: ReactNode;
+  className?: string;
   cols?: {
-    xs?: number
-    sm?: number
-    md?: number
-    lg?: number
-    xl?: number
-    '2xl'?: number
-  }
+    xs?: number;
+    sm?: number;
+    md?: number;
+    lg?: number;
+    xl?: number;
+    "2xl"?: number;
+  };
   gap?: {
-    x?: number
-    y?: number
-  }
+    x?: number;
+    y?: number;
+  };
 }
 
 export function ResponsiveGrid({
@@ -27,7 +27,7 @@ export function ResponsiveGrid({
     md: 3,
     lg: 4,
     xl: 4,
-    '2xl': 4,
+    "2xl": 4,
   },
   gap = {
     x: 4,
@@ -37,19 +37,19 @@ export function ResponsiveGrid({
   return (
     <div
       className={cn(
-        'grid',
+        "grid",
         `grid-cols-${cols.xs}`,
         `sm:grid-cols-${cols.sm}`,
         `md:grid-cols-${cols.md}`,
         `lg:grid-cols-${cols.lg}`,
         `xl:grid-cols-${cols.xl}`,
-        `2xl:grid-cols-${cols['2xl']}`,
+        `2xl:grid-cols-${cols["2xl"]}`,
         `gap-x-${gap.x}`,
         `gap-y-${gap.y}`,
-        className
+        className,
       )}
     >
       {children}
     </div>
-  )
+  );
 }

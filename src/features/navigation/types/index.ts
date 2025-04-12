@@ -1,21 +1,21 @@
-import { Route } from '@/types/routes'
+import { Route } from "@/types/routes";
 
-export type NavTheme = 'light' | 'dark' | 'transparent'
+export type NavTheme = "light" | "dark" | "transparent";
 
 export interface NavContextType {
-  isOpen: boolean
-  setIsOpen: (open: boolean) => void
-  theme: NavTheme
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  theme: NavTheme;
 }
 
 export interface DesktopNavProps {
-  routes: Route[]
-  activeRoute?: string
-  theme?: NavTheme
+  routes: Route[];
+  activeRoute?: string;
+  theme?: NavTheme;
 }
 
 export interface MobileDrawerProps {
-  isOpen: boolean
-  onClose: () => void
-  routes: Route[]
+  isOpen: boolean;
+  onClose: () => void;
+  routes: Route[];
 }

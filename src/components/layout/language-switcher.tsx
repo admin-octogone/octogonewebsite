@@ -1,25 +1,21 @@
-import { locales, localeNames } from '@/lib/i18n/settings'
-import { Button } from '@/components/ui/button'
+import { locales, localeNames } from "@/lib/i18n/settings";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { usePathname, useRouter } from 'next/navigation'
+} from "@/components/ui/dropdown-menu";
+import { usePathname, useRouter } from "next/navigation";
 
-export function LanguageSwitcher({
-  currentLocale,
-}: {
-  currentLocale: string
-}) {
-  const router = useRouter()
-  const pathname = usePathname()
+export function LanguageSwitcher({ currentLocale }: { currentLocale: string }) {
+  const router = useRouter();
+  const pathname = usePathname();
 
   const handleLocaleChange = (locale: string) => {
-    const newPathname = pathname.replace(`/${currentLocale}`, `/${locale}`)
-    router.push(newPathname)
-  }
+    const newPathname = pathname.replace(`/${currentLocale}`, `/${locale}`);
+    router.push(newPathname);
+  };
 
   return (
     <DropdownMenu>
@@ -39,5 +35,5 @@ export function LanguageSwitcher({
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

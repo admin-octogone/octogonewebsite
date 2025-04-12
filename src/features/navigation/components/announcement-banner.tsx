@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import * as React from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import * as React from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface AnnouncementBannerProps {
-  message: string
+  message: string;
   link?: {
-    text: string
-    href: string
-  }
-  isVisible: boolean
-  onDismiss: () => void
+    text: string;
+    href: string;
+  };
+  isVisible: boolean;
+  onDismiss: () => void;
 }
 
 export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
@@ -21,23 +21,26 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
   isVisible,
   onDismiss,
 }) => {
-  // Diviser le message en parties plus courtes pour les petits écrans si nécessaire
-  const [isMobile, setIsMobile] = React.useState(false);
+  // Variable commentée car non utilisée actuellement
+  // Prévue pour diviser le message en parties plus courtes pour les petits écrans si nécessaire
+  // const [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
+    // Fonction commentée car non utilisée actuellement
     // Vérifier la taille de l'écran au chargement et lors du redimensionnement
-    const checkScreenSize = () => {
-      setIsMobile(window.innerWidth < 640);
-    };
-    
-    // Vérification initiale
-    checkScreenSize();
-    
-    // Ajouter un écouteur pour le redimensionnement
-    window.addEventListener('resize', checkScreenSize);
-    
-    // Nettoyage
-    return () => window.removeEventListener('resize', checkScreenSize);
+    // const checkScreenSize = () => {
+    //   setIsMobile(window.innerWidth < 640);
+    // };
+
+    // Code commenté car non utilisé actuellement
+    // // Vérification initiale
+    // checkScreenSize();
+    //
+    // // Ajouter un écouteur pour le redimensionnement
+    // window.addEventListener("resize", checkScreenSize);
+    //
+    // // Nettoyage
+    // return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
   return (
@@ -57,8 +60,8 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
               <div className="text-xs sm:text-sm font-medium truncate">
                 {message}
                 {link && (
-                  <a 
-                    href={link.href} 
+                  <a
+                    href={link.href}
                     className="ml-1 sm:ml-2 font-semibold hover:text-marine-800 transition-colors border-b border-gold-300 hover:border-gold-500 inline-block"
                   >
                     {link.text}
@@ -66,7 +69,7 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
                 )}
               </div>
             </div>
-            
+
             {/* Bouton de fermeture */}
             <Button
               variant="ghost"
@@ -81,7 +84,7 @@ export const AnnouncementBanner: React.FC<AnnouncementBannerProps> = ({
         </motion.div>
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default AnnouncementBanner
+export default AnnouncementBanner;

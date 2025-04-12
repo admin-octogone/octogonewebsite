@@ -1,33 +1,35 @@
-"use client"
+"use client";
 
-import * as React from 'react'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import { Route } from '@/types/routes'
-import { MobileDrawerProps } from './types'
-import { Button } from '@/components/ui/button'
+import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Route } from "@/types/routes";
+import { MobileDrawerProps } from "./types";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/sheet'
-import { navigationLinkVariants } from '@/components/ui/navigation-menu/variants'
+} from "@/components/ui/sheet";
+import { navigationLinkVariants } from "@/components/ui/navigation-menu/variants";
 
-export const MobileNav: React.FC<MobileDrawerProps> = ({ isOpen, onClose, routes }) => {
-  const [expandedItems, setExpandedItems] = React.useState<string[]>([])
-  const pathname = usePathname()
+export const MobileNav: React.FC<MobileDrawerProps> = ({
+  isOpen,
+  onClose,
+  routes,
+}) => {
+  const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
+  const pathname = usePathname();
 
   const toggleExpanded = (path: string) => {
     setExpandedItems((prev) =>
-      prev.includes(path)
-        ? prev.filter((p) => p !== path)
-        : [...prev, path]
-    )
-  }
+      prev.includes(path) ? prev.filter((p) => p !== path) : [...prev, path],
+    );
+  };
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -40,9 +42,9 @@ export const MobileNav: React.FC<MobileDrawerProps> = ({ isOpen, onClose, routes
         <div className="flex-1 overflow-y-auto">
           <div className="p-4 space-y-4">
             {routes.map((route) => {
-              const hasChildren = route.children && route.children.length > 0
-              const isExpanded = expandedItems.includes(route.path)
-              const isActive = pathname === route.path
+              const hasChildren = route.children && route.children.length > 0;
+              const isExpanded = expandedItems.includes(route.path);
+              const isActive = pathname === route.path;
 
               return (
                 <div key={route.path} className="space-y-1">
@@ -51,14 +53,14 @@ export const MobileNav: React.FC<MobileDrawerProps> = ({ isOpen, onClose, routes
                       onClick={() => toggleExpanded(route.path)}
                       className={cn(
                         navigationLinkVariants({ active: isActive }),
-                        'w-full flex items-center justify-between'
+                        "w-full flex items-center justify-between",
                       )}
                     >
                       <span>{route.label}</span>
                       <ChevronRight
                         className={cn(
-                          'h-4 w-4 transition-transform duration-200',
-                          isExpanded && 'rotate-90'
+                          "h-4 w-4 transition-transform duration-200",
+                          isExpanded && "rotate-90",
                         )}
                       />
                     </button>
@@ -78,7 +80,7 @@ export const MobileNav: React.FC<MobileDrawerProps> = ({ isOpen, onClose, routes
                       {isExpanded && (
                         <motion.div
                           initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
+                          animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           className="overflow-hidden pl-4"
                         >
@@ -88,7 +90,7 @@ export const MobileNav: React.FC<MobileDrawerProps> = ({ isOpen, onClose, routes
                                 key={child.path}
                                 href={child.path}
                                 className={navigationLinkVariants({
-                                  active: pathname === child.path
+                                  active: pathname === child.path,
                                 })}
                                 onClick={onClose}
                               >
@@ -101,22 +103,18 @@ export const MobileNav: React.FC<MobileDrawerProps> = ({ isOpen, onClose, routes
                     </AnimatePresence>
                   )}
                 </div>
-              )
+              );
             })}
           </div>
         </div>
 
         {/* Footer */}
         <div className="p-4 border-t mt-auto">
-          <Button
-            variant="default"
-            className="w-full"
-            onClick={onClose}
-          >
+          <Button variant="default" className="w-full" onClick={onClose}>
             Réserver une démo
           </Button>
         </div>
       </SheetContent>
     </Sheet>
-  )
-}
+  );
+};

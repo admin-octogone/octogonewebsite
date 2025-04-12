@@ -1,4 +1,4 @@
-import Hero from '@/features/home/components/hero'
+import Hero from "@/features/home/components/hero";
 
 export default function HomePage() {
   return (
@@ -6,5 +6,5 @@ export default function HomePage() {
       <Hero />
       {/* Autres sections à ajouter ici */}
     </main>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const carouselVariants = cva("relative", {
   variants: {
@@ -18,22 +18,19 @@ export const carouselVariants = cva("relative", {
     variant: "default",
     size: "default",
   },
-})
+});
 
-export const carouselContentVariants = cva(
-  "flex h-full w-full gap-4",
-  {
-    variants: {
-      orientation: {
-        horizontal: "-ml-4",
-        vertical: "flex-col -mt-4",
-      },
+export const carouselContentVariants = cva("flex h-full w-full gap-4", {
+  variants: {
+    orientation: {
+      horizontal: "-ml-4",
+      vertical: "flex-col -mt-4",
     },
-    defaultVariants: {
-      orientation: "horizontal",
-    },
-  }
-)
+  },
+  defaultVariants: {
+    orientation: "horizontal",
+  },
+});
 
 export const carouselItemVariants = cva(
   "relative h-full min-w-0 shrink-0 grow-0 basis-full pl-4",
@@ -47,8 +44,8 @@ export const carouselItemVariants = cva(
     defaultVariants: {
       orientation: "horizontal",
     },
-  }
-)
+  },
+);
 
 export const carouselPreviousVariants = cva(
   "absolute rounded-full flex items-center justify-center text-marine-900 hover:bg-marine-100",
@@ -62,8 +59,8 @@ export const carouselPreviousVariants = cva(
     defaultVariants: {
       orientation: "horizontal",
     },
-  }
-)
+  },
+);
 
 export const carouselNextVariants = cva(
   "absolute rounded-full flex items-center justify-center text-marine-900 hover:bg-marine-100",
@@ -77,5 +74,5 @@ export const carouselNextVariants = cva(
     defaultVariants: {
       orientation: "horizontal",
     },
-  }
-)
+  },
+);

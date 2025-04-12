@@ -49,11 +49,16 @@ module.exports = {
         marquee2: {
           '0%': { transform: 'translateX(100%)' },
           '100%': { transform: 'translateX(0%)' }
+        },
+        'scroll-shrink': {
+          '0%': { transform: 'scale(1.3)' },
+          '100%': { transform: 'scale(1)' }
         }
       },
       animation: {
         marquee: 'marquee 25s linear infinite',
-        marquee2: 'marquee2 25s linear infinite'
+        marquee2: 'marquee2 25s linear infinite',
+        'shrink-on-scroll': 'scroll-shrink 1s ease-out forwards'
       },
     },
   },

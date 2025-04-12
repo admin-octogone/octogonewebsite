@@ -1,4 +1,4 @@
-import { MainNavItem } from "@/lib/types"
+import { MainNavItem } from "@/lib/types";
 
 export const mainNav: MainNavItem[] = [
   {
@@ -17,4 +17,4 @@ export const mainNav: MainNavItem[] = [
     title: "Contact",
     href: "/contact",
   },
-]
+];

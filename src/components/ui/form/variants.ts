@@ -1,4 +1,4 @@
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
 export const formItemVariants = cva("space-y-2", {
   variants: {
@@ -10,7 +10,7 @@ export const formItemVariants = cva("space-y-2", {
   defaultVariants: {
     layout: "default",
   },
-})
+});
 
 export const formLabelVariants = cva(
   "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
@@ -24,8 +24,8 @@ export const formLabelVariants = cva(
     defaultVariants: {
       layout: "default",
     },
-  }
-)
+  },
+);
 
 export const formControlVariants = cva("", {
   variants: {
@@ -37,7 +37,7 @@ export const formControlVariants = cva("", {
   defaultVariants: {
     layout: "default",
   },
-})
+});
 
 export const formDescriptionVariants = cva("text-sm text-marine-500", {
   variants: {
@@ -49,7 +49,7 @@ export const formDescriptionVariants = cva("text-sm text-marine-500", {
   defaultVariants: {
     layout: "default",
   },
-})
+});
 
 export const formMessageVariants = cva("text-sm font-medium text-red-500", {
   variants: {
@@ -61,4 +61,4 @@ export const formMessageVariants = cva("text-sm font-medium text-red-500", {
   defaultVariants: {
     layout: "default",
   },
-})
+});

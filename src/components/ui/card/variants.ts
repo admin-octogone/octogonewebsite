@@ -1,18 +1,21 @@
-import { cva } from "class-variance-authority"
+import { cva } from "class-variance-authority";
 
-export const cardVariants = cva("rounded-lg border border-marine-200 bg-white text-marine-900 shadow-sm", {
-  variants: {
-    variant: {
-      default: "",
-      outline: "border-2",
-      ghost: "border-none shadow-none",
-      elevated: "shadow-lg",
+export const cardVariants = cva(
+  "rounded-lg border border-marine-200 bg-white text-marine-900 shadow-sm",
+  {
+    variants: {
+      variant: {
+        default: "",
+        outline: "border-2",
+        ghost: "border-none shadow-none",
+        elevated: "shadow-lg",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
     },
   },
-  defaultVariants: {
-    variant: "default",
-  },
-})
+);
 
 export const cardHeaderVariants = cva("flex flex-col space-y-1.5 p-6", {
   variants: {
@@ -25,7 +28,7 @@ export const cardHeaderVariants = cva("flex flex-col space-y-1.5 p-6", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 export const cardContentVariants = cva("p-6", {
   variants: {
@@ -38,7 +41,7 @@ export const cardContentVariants = cva("p-6", {
   defaultVariants: {
     variant: "default",
   },
-})
+});
 
 export const cardFooterVariants = cva("flex items-center p-6", {
   variants: {
@@ -58,4 +61,4 @@ export const cardFooterVariants = cva("flex items-center p-6", {
     variant: "default",
     align: "start",
   },
-})
+});
