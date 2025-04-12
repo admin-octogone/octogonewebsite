@@ -1,11 +1,32 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { LogoMarquee } from '@/components/ui/logo-marquee'
+
+// Définition du type pour les logos des clients
+interface ClientLogo {
+  id: number
+  name: string
+  logo: string
+  alt: string
+}
+
+// Exemples de logos clients
+const clientLogos: ClientLogo[] = [
+  { id: 1, name: "Restaurant A", logo: "/images/clients/client1.svg", alt: "Logo Restaurant A" },
+  { id: 2, name: "Restaurant B", logo: "/images/clients/client2.svg", alt: "Logo Restaurant B" },
+  { id: 3, name: "Restaurant C", logo: "/images/clients/client3.svg", alt: "Logo Restaurant C" },
+  { id: 4, name: "Restaurant D", logo: "/images/clients/client4.svg", alt: "Logo Restaurant D" },
+  { id: 5, name: "Restaurant E", logo: "/images/clients/client5.svg", alt: "Logo Restaurant E" },
+  { id: 6, name: "Restaurant F", logo: "/images/clients/client6.svg", alt: "Logo Restaurant F" },
+  { id: 7, name: "Restaurant G", logo: "/images/clients/client7.svg", alt: "Logo Restaurant G" },
+  { id: 8, name: "Restaurant H", logo: "/images/clients/client8.svg", alt: "Logo Restaurant H" },
+]
 
 // Constantes pour les hauteurs (en pixels)
 const BANNER_HEIGHT = 40; // --banner-height dans globals.css
@@ -93,9 +114,11 @@ const Hero = () => {
   // Calcul de la hauteur totale à soustraire
   const totalOffset = hasBanner ? NAVBAR_HEIGHT + BANNER_HEIGHT : NAVBAR_HEIGHT;
   
+  // Utilisation du composant LogoMarquee réutilisable pour le carrousel de logos
+  
   return (
     <section 
-      className="w-full h-full flex items-center justify-center bg-white overflow-hidden"
+      className="w-full h-full flex flex-col justify-between bg-white overflow-hidden"
       style={{ 
         paddingTop: 0
       }}
@@ -127,7 +150,7 @@ const Hero = () => {
             
             {/* Description */}
             <p className="mt-2 text-xl max-w-2xl">
-              Des outils innovants et personnalisés pour optimiser la gestion de votre établissement et maximiser votre rentabilité.
+              Optimisez la gestion quotidienne de vos restaurants, suivez vos métriques et améliorez vos performances du fournisseur jusqu'à la table.
             </p>
             
             {/* Boutons d'action */}
@@ -149,6 +172,8 @@ const Hero = () => {
             {/* Indicateurs de confiance retirés */}
           </motion.div>
           
+          {/* Le carrousel est déplacé en bas du Hero */}
+          
           {/* Image avec fond bleu clair et éléments flottants */}
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
             <div style={{
@@ -159,13 +184,13 @@ const Hero = () => {
               justifyContent: 'center',
               alignItems: 'center'
             }}>
-              {/* Cercle bleu de fond */}
+              {/* Octogone bleu de fond */}
               <div style={{
                 position: 'absolute',
                 width: '600px',
                 height: '600px',
                 backgroundColor: '#dbeafe',
-                borderRadius: '50%',
+                clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                 zIndex: 2
               }}></div>
               {/* Dashboard avec barres verticales animées en arrière-plan */}
@@ -883,6 +908,11 @@ const Hero = () => {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* Carrousel de logos clients en bas du Hero */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-8 pb-4">
+        <LogoMarquee logos={clientLogos} title="Partenaire de leur succès" />
       </div>
     </section>
   )

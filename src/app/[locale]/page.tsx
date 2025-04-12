@@ -44,16 +44,7 @@ export default function HomePage() {
           <Hero />
         </div>
         
-        {/* Bouton pour défiler vers la section suivante */}
-        <div className="absolute bottom-8 left-0 right-0 flex justify-center animate-bounce">
-          <button 
-            onClick={scrollToSection}
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-md hover:shadow-lg transition-shadow"
-            aria-label="Défiler vers la section suivante"
-          >
-            <ChevronDown className="w-6 h-6 text-marine-600" />
-          </button>
-        </div>
+        {/* La flèche de défilement a été supprimée */}
       </div>
       
       {/* Conteneur pour les autres sections qui viendront après le hero */}
