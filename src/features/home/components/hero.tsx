@@ -1157,7 +1157,7 @@ const Hero = () => {
               {/* Description */}
               <p className="mt-0.5 xs:mt-1 lg:mt-2 text-xs xs:text-sm lg:text-base lg:text-lg xl:text-xl max-w-2xl mx-auto lg:mx-0">
                 Optimisez la gestion quotidienne de vos restaurants, suivez vos
-                métriques et améliorez vos performances.
+                métriques et améliorez vos performances du fournisseur jusqu'à la table.
               </p>
 
               {/* Boutons d'action */}

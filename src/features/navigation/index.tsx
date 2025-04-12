@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { useScrollPosition } from "@/lib/hooks/use-scroll-position";
 import { Button } from "@/components/ui/button";
 import { DesktopNav } from "./components/desktop-nav";
-import { MobileNav } from "./components/mobile-nav";
+import { ModernMobileNav } from "./components/modern-mobile-nav";
 import LanguageToggle from "./components/language-toggle";
 import AnnouncementBanner from "./components/announcement-banner";
 import { NavigationProvider, useNavigation } from "./hooks/use-navigation";
@@ -188,8 +188,8 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
               </Link>
             </div>
 
-            {/* Mobile Navigation */}
-            <MobileNav
+            {/* Mobile Navigation - Version moderne */}
+            <ModernMobileNav
               isOpen={isOpen}
               onClose={() => setIsOpen(false)}
               routes={routes}

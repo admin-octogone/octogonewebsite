@@ -16,39 +16,67 @@ const routes = [
     description: "Ce que vous maîtrisez avec Octogone",
     children: [
       {
-        href: "/fr/fonctionnalites/food-cost",
-        label: "Food cost en temps réel",
-        path: "/fonctionnalites/food-cost",
+        href: "/fr/fonctionnalites/catalogue",
+        label: "Catalogue produits & recettes",
+        path: "/fonctionnalites/catalogue",
         description:
-          "Coûts de recette calculés automatiquement selon vos prix d'achat réels.",
+          "Gérez facilement vos produits et recettes dans un catalogue structuré, prêt à l'usage.",
       },
       {
-        href: "/fr/fonctionnalites/inventaire",
-        label: "Inventaire clair et connecté",
-        path: "/fonctionnalites/inventaire",
+        href: "/fr/fonctionnalites/prise-inventaire",
+        label: "Prise d'inventaire",
+        path: "/fonctionnalites/prise-inventaire",
         description:
-          "Plus de feuilles volantes. Des données fiables, accessibles à tout moment.",
+          "Effectuez vos inventaires rapidement et sans erreurs, même en multi-sites.",
       },
       {
-        href: "/fr/fonctionnalites/rentabilite",
-        label: "Analyse de rentabilité",
-        path: "/fonctionnalites/rentabilite",
+        href: "/fr/fonctionnalites/recettes-food-cost",
+        label: "Recettes & food cost",
+        path: "/fonctionnalites/recettes-food-cost",
         description:
-          "Marges par plat, par site, par période. Tout est mesurable.",
+          "Créez des recettes standardisées avec calcul automatique des coûts.",
+      },
+      {
+        href: "/fr/fonctionnalites/inventaire-temps-reel",
+        label: "Inventaire en temps réel",
+        path: "/fonctionnalites/inventaire-temps-reel",
+        description:
+          "Suivez vos sorties produits en direct, connectées à votre POS.",
       },
       {
         href: "/fr/fonctionnalites/facturation",
-        label: "Facturation fournisseurs automatisée",
+        label: "Facturation automatisée",
         path: "/fonctionnalites/facturation",
         description:
-          "Zéro saisie manuelle. Moins d'erreurs, plus d'efficacité.",
+          "Gérez vos factures fournisseurs sans saisie manuelle ni oubli.",
       },
       {
-        href: "/fr/fonctionnalites/transferts",
-        label: "Transferts entre établissements",
-        path: "/fonctionnalites/transferts",
+        href: "/fr/fonctionnalites/pourboires",
+        label: "Gestion des pourboires",
+        path: "/fonctionnalites/pourboires",
         description:
-          "Produits et recettes transférés avec suivi complet et facturation interne.",
+          "Automatisez la répartition selon vos règles, en toute transparence.",
+      },
+      {
+        href: "/fr/fonctionnalites/employes",
+        label: "Gestion des employés (RH)",
+        path: "/fonctionnalites/employes",
+        description:
+          "Centralisez les rôles, accès et documents de vos équipes.",
+      },
+      {
+        href: "/fr/fonctionnalites/thermometres",
+        label: "Thermomètres connectés",
+        path: "/fonctionnalites/thermometres",
+        description:
+          "Recevez des alertes automatiques en cas d'écarts de température.",
+      },
+      {
+        href: "/fr/fonctionnalites/production-cuisine",
+        label: "Module de production cuisine",
+        path: "/fonctionnalites/production-cuisine",
+        description:
+          "Planifiez et gérez la production interne en toute fluidité.",
       },
     ],
   },
@@ -60,40 +88,54 @@ const routes = [
     children: [
       {
         href: "/fr/modules/octogone-360",
-        label: "Octogone 360",
+        label: "Octogone 360 – Analyse des KPIs",
         path: "/modules/octogone-360",
         description:
-          "Analyse de performance avancée (KPIs). Tableaux de bord, suivi en temps réel, données consolidées.",
+          "Suivez vos performances en temps réel et améliorez vos décisions.",
       },
       {
         href: "/fr/modules/octogone-hq",
-        label: "Octogone HQ",
+        label: "Octogone HQ – Transferts inter-établissements",
         path: "/modules/octogone-hq",
         description:
-          "Gestion des transferts inter-succursales. Contrôle, structure, facturation automatisée.",
+          "Standardisez vos transferts de produits et gérez la facturation interne.",
       },
     ],
   },
   {
-    href: "/fr/services",
-    label: "Services",
-    path: "/services",
+    href: "/fr/support",
+    label: "Support",
+    path: "/support",
     description:
-      "Des services d'accompagnement sur mesure pour optimiser votre expérience Octogone",
+      "Un accompagnement personnalisé pour optimiser votre expérience Octogone",
     children: [
       {
-        href: "/fr/services/banque-de-temps",
-        label: "Banque de temps",
-        path: "/services/banque-de-temps",
+        href: "/fr/support/accompagnement",
+        label: "Accompagnement client",
+        path: "/support/accompagnement",
         description:
-          "Forfaits d'heures flexibles pour répondre à vos besoins spécifiques et projets ponctuels",
+          "Un support humain, dédié, et réellement impliqué dans vos résultats.",
       },
       {
-        href: "/fr/services/conciergerie",
-        label: "Conciergerie",
-        path: "/services/conciergerie",
+        href: "/fr/support/banque-heures",
+        label: "Banques d'heures",
+        path: "/support/banque-heures",
         description:
-          "Accompagnement Premium personnalisé garantissant une performance optimale en continu",
+          "Des blocs de temps pour vos besoins spécifiques ou ponctuels.",
+      },
+      {
+        href: "/fr/support/conciergerie",
+        label: "Conciergerie",
+        path: "/support/conciergerie",
+        description:
+          "On entretient et optimise votre plateforme pour vous.",
+      },
+      {
+        href: "/fr/support/onboarding",
+        label: "Onboarding",
+        path: "/support/onboarding",
+        description:
+          "Un démarrage structuré, rapide, avec vos données intégrées dès le départ.",
       },
     ],
   },
