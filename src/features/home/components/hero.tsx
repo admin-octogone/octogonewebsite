@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button'
 const BANNER_HEIGHT = 40; // --banner-height dans globals.css
 const NAVBAR_HEIGHT = 80; // h-20 dans le composant Navigation
 
-export const Hero: React.FC = () => {
+const Hero = () => {
   // État pour détecter la présence de la bannière
   const [hasBanner, setHasBanner] = useState(true);
   
@@ -95,15 +95,9 @@ export const Hero: React.FC = () => {
   
   return (
     <section 
-      className="relative overflow-hidden bg-white flex items-center justify-center transition-all duration-300 ease-in-out" 
+      className="w-full h-full flex items-center justify-center bg-white overflow-hidden"
       style={{ 
-        height: '100vh',
-        position: 'fixed',
-        top: '0',
-        left: '0',
-        right: '0',
-        zIndex: '10',
-        paddingTop: `${totalOffset}px`
+        paddingTop: 0
       }}
     >
       {/* Fond décoratif */}
@@ -894,4 +888,4 @@ export const Hero: React.FC = () => {
   )
 }
 
-export default Hero
+export default Hero;
