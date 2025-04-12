@@ -58,7 +58,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({ routes, activeRoute, loc
 
   return (
     <div className="flex justify-center w-full">
-      <NavigationMenu className="hidden lg:flex w-full max-w-screen-lg">
+      <NavigationMenu className="w-full max-w-screen-lg">
         <NavigationMenuList className="flex items-center gap-6 justify-center">
         {routes.map((route) => {
           const isActive = activeRoute === route.path || pathname === route.path

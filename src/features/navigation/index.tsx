@@ -138,31 +138,31 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
             <span className="text-xl font-bold text-marine-900">Octogone</span>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="flex-1 flex justify-center">
+          {/* Desktop Navigation - uniquement visible sur les écrans plus grands que 1024px */}
+          <div className="flex-1 hidden xl:flex justify-center">
             <DesktopNav routes={routes} activeRoute={activeRoute} locale={locale} />
           </div>
 
           <div className="flex-shrink-0 flex items-center">
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - visible sur toutes les résolutions jusqu'à 1024px inclus */}
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden"
+              className="xl:hidden"
               onClick={() => setIsOpen(true)}
             >
               <Menu className="h-6 w-6" />
             </Button>
 
             {/* Language Toggle */}
-            <div className="hidden lg:flex items-center mr-4">
+            <div className="hidden xl:flex items-center mr-4">
               <LanguageToggle currentLocale={locale} />
             </div>
             
             {/* CTA Button */}
             <Link 
               href="/contact"
-              className="hidden lg:inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-medium bg-gold-500 text-marine-900 hover:bg-gold-400 transition-colors btn-gold"
+              className="hidden xl:inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-medium bg-gold-500 text-marine-900 hover:bg-gold-400 transition-colors btn-gold"
             >
               Réserver une démo
             </Link>
