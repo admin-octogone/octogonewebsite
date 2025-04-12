@@ -104,8 +104,28 @@ const Hero = () => {
   });
   
   // Utiliser le hook personnalisé pour l'animation de l'octogone
+  // Détecter si on est sur mobile pour ajuster la taille initiale
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // Vérifier la taille de l'écran au chargement et lors du redimensionnement
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 640); // sm breakpoint
+    };
+    
+    // Vérifier au chargement
+    checkScreenSize();
+    
+    // Ajouter l'écouteur d'événement pour le redimensionnement
+    window.addEventListener('resize', checkScreenSize);
+    
+    // Nettoyer l'écouteur d'événement
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+  
+  // Ajuster la taille initiale en fonction de la taille de l'écran
   const octogoneScale = useScrollScale({
-    initialScale: 1.15,
+    initialScale: isMobile ? 0.95 : 1.15,
     finalScale: 0.95,
     scrollRange: 300
   });
