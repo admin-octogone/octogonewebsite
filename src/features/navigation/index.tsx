@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Menu } from 'lucide-react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { cn } from '@/lib/utils'
@@ -132,10 +133,19 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
       />
 
       <div className="w-full relative">
-        <div className="flex h-16 items-center justify-between gap-4 md:h-20 px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between gap-4 md:h-20 px-4 sm:px-6 lg:px-8 max-w-[1800px] mx-auto">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <span className="text-xl font-bold text-marine-900">Octogone</span>
+            <Link href="/">
+              <Image 
+                src="/images/partners/logo_octogne_full.png" 
+                alt="Logo Octogone" 
+                width={120} 
+                height={35} 
+                className="h-6 w-auto xs:h-6 sm:h-7 md:h-8" 
+                priority
+              />
+            </Link>
           </div>
 
           {/* Desktop Navigation - uniquement visible sur les écrans plus grands que 1024px */}

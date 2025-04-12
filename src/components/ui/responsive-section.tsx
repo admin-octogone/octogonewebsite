@@ -13,7 +13,7 @@ interface ResponsiveSectionProps extends React.HTMLAttributes<HTMLElement> {
   noPadding?: boolean
   spacing?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   bgColor?: string
-  maxWidth?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+  maxWidth?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'wider' | 'full'
   className?: string
 }
 
@@ -48,7 +48,7 @@ export const ResponsiveSection: React.FC<ResponsiveSectionProps> = ({
   noPadding = false,
   spacing = 'md',
   bgColor = 'bg-white',
-  maxWidth = 'xl',
+  maxWidth = 'wider',
   className,
   ...props
 }) => {
@@ -70,6 +70,7 @@ export const ResponsiveSection: React.FC<ResponsiveSectionProps> = ({
     lg: 'max-w-screen-lg',
     xl: 'max-w-screen-xl',
     '2xl': 'max-w-screen-2xl',
+    'wider': 'max-w-[1800px]', // Largeur personnalisée plus grande pour les écrans très larges
     full: 'max-w-full'
   }
 
