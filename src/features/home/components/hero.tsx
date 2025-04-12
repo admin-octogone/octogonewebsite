@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { LogoMarquee } from '@/components/ui/logo-marquee'
@@ -33,6 +33,18 @@ const BANNER_HEIGHT = 40; // --banner-height dans globals.css
 const NAVBAR_HEIGHT = 80; // h-20 dans le composant Navigation
 
 const Hero = () => {
+  // Référence pour l'effet de défilement
+  const heroRef = useRef<HTMLDivElement>(null);
+  
+  // Animation basée sur le défilement
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'start end']
+  });
+  
+  // Transformation de la taille de l'octogone en fonction du défilement - plus rapide
+  const octogoneScale = useTransform(scrollYProgress, [0, 0.15], [1, 1.2]);
+  
   // État pour détecter la présence de la bannière
   const [hasBanner, setHasBanner] = useState(true);
   
@@ -116,8 +128,14 @@ const Hero = () => {
   
   // Utilisation du composant LogoMarquee réutilisable pour le carrousel de logos
   
+  // Effet client-side uniquement
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <section className="w-full h-full flex flex-col justify-between bg-white overflow-hidden py-3 xs:py-5 lg:py-8">
+    <section ref={heroRef} className="w-full h-full flex flex-col justify-between bg-white overflow-hidden py-3 xs:py-5 lg:py-8">
       {/* Fond décoratif */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-marine-50 rounded-bl-[100px] opacity-70" />
@@ -130,10 +148,16 @@ const Hero = () => {
           <div className="flex justify-center items-center h-full mt-0 mb-2 xs:mb-4 lg:mb-8 order-first lg:order-last">
             <div className="relative w-full max-w-[240px] xs:max-w-[320px] md:max-w-[380px] lg:max-w-[480px] xl:max-w-[580px] h-[240px] xs:h-[320px] md:h-[380px] lg:h-[480px] xl:h-[580px] flex justify-center items-center">
               {/* Octogone bleu de fond */}
-              <div className="absolute w-[220px] xs:w-[320px] md:w-[360px] lg:w-[450px] xl:w-[550px] h-[220px] xs:h-[320px] md:h-[360px] lg:h-[450px] xl:h-[550px] bg-[#dbeafe]" style={{
-                clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
-                zIndex: 2
-              }}></div>
+              <motion.div 
+                className="absolute w-[220px] xs:w-[320px] md:w-[360px] lg:w-[450px] xl:w-[550px] h-[220px] xs:h-[320px] md:h-[360px] lg:h-[450px] xl:h-[550px] bg-[#dbeafe]" 
+                style={{
+                  clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
+                  zIndex: 2,
+                  transformOrigin: 'center center',
+                  scale: isClient && window.innerWidth >= 768 ? octogoneScale : 1,
+                  transition: { duration: 0.1 }
+                }}
+              ></motion.div>
               {/* Version simplifiée du dashboard pour mobile uniquement */}
               <div
                 className="absolute z-[3] overflow-hidden rounded-lg shadow-md block md:hidden w-[140px] xs:w-[190px] h-[140px] xs:h-[190px]"
