@@ -11,3 +11,23 @@ export const localeNames: { [key in ValidLocale]: string } = {
 export function isValidLocale(locale: string): locale is ValidLocale {
   return locales.includes(locale as ValidLocale)
 }
+
+// Options de configuration pour i18next
+export function getOptions(lng: string = defaultLocale, ns: string = 'translation') {
+  return {
+    // Langue à utiliser
+    lng,
+    // Fallback language
+    fallbackLng: defaultLocale,
+    // Namespace par défaut
+    defaultNS: ns,
+    // Namespace à utiliser
+    ns,
+    // Désactiver le cache pour le développement
+    debug: process.env.NODE_ENV === 'development',
+    // Interpolation options
+    interpolation: {
+      escapeValue: false,
+    },
+  }
+}

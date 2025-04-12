@@ -8,7 +8,7 @@ const initI18next = async (lng: string, ns: string) => {
   const i18nInstance = createInstance()
   await i18nInstance
     .use(initReactI18next)
-    .use(resourcesToBackend((language: string, namespace: string) => import(`@/messages/${language}.json`)))
+    .use(resourcesToBackend((language: string, namespace: string) => import(`../../src/messages/${language}.json`)))
     .init(getOptions(lng, ns))
   return i18nInstance
 }

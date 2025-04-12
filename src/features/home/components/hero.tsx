@@ -10,6 +10,8 @@ import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { ScrollAnimation } from "@/components/ui/scroll-animation";
 import { useScrollScale } from "@/hooks/use-scroll-scale";
+import { useTranslation } from "../../../../lib/i18n/client";
+import { useParams } from "next/navigation";
 
 // Définition du type pour les logos des clients
 interface ClientLogo {
@@ -86,6 +88,30 @@ const clientLogos: ClientLogo[] = [
  * - xl (1280px) : Version grand écran avec espacements généreux
  */
 const Hero = () => {
+  // Récupérer la locale actuelle des paramètres d'URL
+  const params = useParams();
+  const locale = params?.locale as string || "fr";
+  
+  // État pour stocker la fonction de traduction
+  const [t, setT] = useState<any>(() => (key: string, options?: any) => {
+    // Fonction par défaut qui retourne la valeur par défaut ou la clé
+    return (options?.defaultValue || key);
+  });
+  
+  // Initialiser les traductions
+  useEffect(() => {
+    const loadTranslations = async () => {
+      try {
+        const { t: translationFunc } = await useTranslation(locale, "home");
+        setT(() => translationFunc);
+      } catch (error) {
+        console.error("Error loading translations:", error);
+      }
+    };
+    
+    loadTranslations();
+  }, [locale]);
+  
   // Référence pour l'effet de défilement
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -134,17 +160,28 @@ const Hero = () => {
   const [graphIndex, setGraphIndex] = useState(0);
 
   // Définition des différents graphiques et leurs titres avec les types les plus adaptés
-  const graphs = [
+  const graphs = locale === "fr" ? [
     { title: "Ventes", type: "bar" }, // Diagramme à barres pour comparer les ventes par jour
     { title: "Achats", type: "horizontal" }, // Barres horizontales pour comparer les catégories d'achats
     { title: "Coûts Alimentaires", type: "pie" }, // Camembert pour visualiser la répartition des coûts alimentaires
-    { title: "Coûts de Main-d'Œuvre", type: "horizontal" }, // Barres horizontales pour comparer les coûts par département
+    { title: "Coûts de Main-d'œuvre", type: "horizontal" }, // Barres horizontales pour comparer les coûts par département
     { title: "Frais Fixes", type: "pie" }, // Camembert pour montrer la composition des frais fixes
     { title: "Ingénierie des Menus", type: "matrix" }, // Matrice spéciale pour l'ingénierie des menus (Étoiles, Produits Populaires, etc.)
     { title: "Achalandage", type: "line" }, // Graphique en ligne pour montrer l'évolution dans le temps
     { title: "Facture Moyenne", type: "bar" }, // Diagramme à barres pour comparer par jour
     { title: "Transferts", type: "line" }, // Graphique en ligne pour montrer les tendances sur plusieurs mois
     { title: "Surveillance des Prix", type: "line" }, // Graphique en ligne pour suivre les hausses et baisses de prix des produits
+  ] : [
+    { title: "Sales", type: "bar" }, // Bar chart to compare daily sales
+    { title: "Purchases", type: "horizontal" }, // Horizontal bars to compare purchase categories
+    { title: "Food Costs", type: "pie" }, // Pie chart to visualize food cost distribution
+    { title: "Labor Costs", type: "horizontal" }, // Horizontal bars to compare costs by department
+    { title: "Fixed Expenses", type: "pie" }, // Pie chart to show fixed expenses composition
+    { title: "Menu Engineering", type: "matrix" }, // Special matrix for menu engineering (Stars, Popular Items, etc.)
+    { title: "Customer Traffic", type: "line" }, // Line chart to show evolution over time
+    { title: "Average Check", type: "bar" }, // Bar chart to compare by day
+    { title: "Transfers", type: "line" }, // Line chart to show trends over multiple months
+    { title: "Price Monitoring", type: "line" }, // Line chart to track product price increases and decreases
   ];
 
   useEffect(() => {
@@ -1145,19 +1182,23 @@ const Hero = () => {
             >
               {/* Texte secteur */}
               <p className="text-sm xs:text-base lg:text-lg lg:text-xl mb-0.5 xs:mb-1 lg:mb-2 text-center lg:text-left">
-                Plateforme de gestion pour les restaurants
+                {locale === "fr" ? "Plateforme de gestion pour les restaurants" : "Management platform for restaurants"}
               </p>
 
               {/* Titre principal */}
               <h1 className="text-xl xs:text-2xl lg:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
-                L&apos;ultime solution pour les professionnels de la
-                <span className="text-gold-500"> restauration</span>
+                {locale === "fr" ? (
+                  <>L&apos;ultime solution pour les professionnels de la <span className="text-gold-500">restauration</span></>
+                ) : (
+                  <>The ultimate solution for <span className="text-gold-500">restaurant</span> professionals</>
+                )}
               </h1>
 
               {/* Description */}
               <p className="mt-0.5 xs:mt-1 lg:mt-2 text-xs xs:text-sm lg:text-base lg:text-lg xl:text-xl max-w-2xl mx-auto lg:mx-0">
-                Optimisez la gestion quotidienne de vos restaurants, suivez vos
-                métriques et améliorez vos performances du fournisseur jusqu'à la table.
+                {locale === "fr" ? 
+                  "Optimisez la gestion quotidienne de vos restaurants, suivez vos métriques et améliorez vos performances du fournisseur jusqu'à la table." : 
+                  "Optimize your restaurant's daily operations, track your metrics, and improve performance from supplier to table."}
               </p>
 
               {/* Boutons d'action */}
@@ -1167,15 +1208,15 @@ const Hero = () => {
                   size="default"
                   className="btn-gold text-sm lg:text-base font-medium w-full sm:w-auto py-1.5 lg:py-2 px-3 lg:px-4"
                 >
-                  En savoir plus
+                  {locale === "fr" ? "En savoir plus" : "Learn more"}
                   <ArrowRight className="ml-2 h-4 w-4 hidden lg:inline" />
                 </Button>
 
                 <Link
-                  href="/services"
+                  href={`/${locale}/contact`}
                   className="inline-flex items-center justify-center rounded-md px-3 py-1.5 lg:px-4 lg:py-2 text-sm lg:text-base font-medium text-marine-700 hover:text-marine-900 transition-colors w-full sm:w-auto"
                 >
-                  Parler à un expert
+                  {locale === "fr" ? "Parler à un expert" : "Talk to an expert"}
                   <ArrowRight className="ml-2 h-4 w-4 hidden lg:inline" />
                 </Link>
               </div>
@@ -1187,7 +1228,7 @@ const Hero = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-2 xs:pt-3 lg:pt-8 pb-2 xs:pb-3 lg:pb-4">
           <LogoMarquee
             logos={clientLogos}
-            title="Partenaire de leur succès"
+            title={locale === "fr" ? "Partenaire de leur succès" : "Partner in their success"}
             titleClassName="text-sm lg:text-lg"
           />
         </div>
