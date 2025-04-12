@@ -7,9 +7,10 @@ import { staticPartnerLogos, type PartnerLogo } from '@/utils/partner-logos'
 interface LogoMarqueeProps {
   logos?: PartnerLogo[]
   title?: string
+  titleClassName?: string
 }
 
-export function LogoMarquee({ logos = staticPartnerLogos, title = "Partenaire de leur succès" }: LogoMarqueeProps) {
+export function LogoMarquee({ logos = staticPartnerLogos, title = "Partenaire de leur succès", titleClassName = "text-lg" }: LogoMarqueeProps) {
   const [partnerLogos, setPartnerLogos] = useState<PartnerLogo[]>(logos)
   const marqueeRef = useRef<HTMLDivElement>(null)
   
@@ -36,7 +37,7 @@ export function LogoMarquee({ logos = staticPartnerLogos, title = "Partenaire de
     <div className="w-full py-6">
       {title && (
         <div className="text-center mb-4">
-          <h3 className="text-lg font-medium text-gray-500">{title}</h3>
+          <h3 className={`${titleClassName} font-medium text-gray-500`}>{title}</h3>
         </div>
       )}
       

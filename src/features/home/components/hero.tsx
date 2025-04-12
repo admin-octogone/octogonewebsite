@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -117,12 +117,7 @@ const Hero = () => {
   // Utilisation du composant LogoMarquee réutilisable pour le carrousel de logos
   
   return (
-    <section 
-      className="w-full h-full flex flex-col justify-between bg-white overflow-hidden"
-      style={{ 
-        paddingTop: 0
-      }}
-    >
+    <section className="w-full h-full flex flex-col justify-between bg-white overflow-hidden py-4 md:py-8">
       {/* Fond décoratif */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-marine-50 rounded-bl-[100px] opacity-70" />
@@ -130,84 +125,68 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16 items-center">
-          {/* Contenu textuel */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="flex flex-col gap-6 text-left"
-          >
-            {/* Texte secteur */}
-            <p className="text-xl mb-2 text-left">
-              Plateforme de gestion pour les restaurants
-            </p>
-            
-            {/* Titre principal */}
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              L'ultime solution pour les professionnels de la <span className="text-gold-500">restauration</span>
-            </h1>
-            
-            {/* Description */}
-            <p className="mt-2 text-xl max-w-2xl">
-              Optimisez la gestion quotidienne de vos restaurants, suivez vos métriques et améliorez vos performances du fournisseur jusqu'à la table.
-            </p>
-            
-            {/* Boutons d'action */}
-            <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <Button variant="primary" size="lg" className="btn-gold text-base font-medium">
-                En savoir plus
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              
-              <Link 
-                href="/services" 
-                className="inline-flex items-center justify-center rounded-md px-4 py-2 text-base font-medium text-marine-700 hover:text-marine-900 transition-colors"
-              >
-                Parler à un expert
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </div>
-            
-            {/* Indicateurs de confiance retirés */}
-          </motion.div>
-          
-          {/* Le carrousel est déplacé en bas du Hero */}
-          
-          {/* Image avec fond bleu clair et éléments flottants */}
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-            <div style={{
-              position: 'relative',
-              width: '650px',
-              height: '650px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
+        <div className="grid grid-cols-1 gap-4 md:gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+          {/* Image avec fond bleu clair et éléments flottants - En haut sur mobile */}
+          <div className="flex justify-center items-center h-full mt-0 mb-2 md:mb-8 order-first lg:order-last">
+            <div className="relative w-full max-w-[320px] md:max-w-[450px] lg:max-w-[550px] xl:max-w-[650px] h-[280px] md:h-[450px] lg:h-[550px] xl:h-[650px] flex justify-center items-center">
               {/* Octogone bleu de fond */}
-              <div style={{
-                position: 'absolute',
-                width: '600px',
-                height: '600px',
-                backgroundColor: '#dbeafe',
+              <div className="absolute w-[260px] md:w-[420px] lg:w-[520px] xl:w-[600px] h-[260px] md:h-[420px] lg:h-[520px] xl:h-[600px] bg-[#dbeafe]" style={{
                 clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)',
                 zIndex: 2
               }}></div>
-              {/* Dashboard avec barres verticales animées en arrière-plan */}
+              {/* Version simplifiée du dashboard pour mobile uniquement */}
+              <div
+                className="absolute z-[3] overflow-hidden rounded-lg shadow-md block md:hidden w-[180px] h-[180px]"
+                style={{
+                  background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)',
+                  padding: '10px',
+                  left: '50%',
+                  top: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}>
+                {/* Titre simplifié */}
+                <div style={{ 
+                  color: 'white',
+                  fontSize: '14px', 
+                  fontWeight: 'normal',
+                  marginBottom: '15px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  height: '16px'
+                }}>
+                  <span style={{ color: 'white', fontWeight: '400' }}>Dashboard</span>
+                  <div style={{ display: 'flex', gap: '6px' }}>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#3b82f6' }}></div>
+                    <div style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#10b981' }}></div>
+                  </div>
+                </div>
+                
+                {/* Contenu simplifié - barres statiques */}
+                <div style={{ 
+                  display: 'flex',
+                  alignItems: 'flex-end',
+                  justifyContent: 'space-between',
+                  height: '130px',
+                  padding: '0 5px'
+                }}>
+                  <div style={{ width: '18px', height: '60%', background: 'linear-gradient(to top, #3b82f6, #60a5fa)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '18px', height: '75%', background: 'linear-gradient(to top, #10b981, #34d399)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '18px', height: '45%', background: 'linear-gradient(to top, #f59e0b, #fbbf24)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '18px', height: '85%', background: 'linear-gradient(to top, #3b82f6, #60a5fa)', borderRadius: '3px 3px 0 0' }}></div>
+                  <div style={{ width: '18px', height: '65%', background: 'linear-gradient(to top, #10b981, #34d399)', borderRadius: '3px 3px 0 0' }}></div>
+                </div>
+              </div>
+              
+              {/* Dashboard avec barres verticales animées en arrière-plan - version complète pour tablette/desktop */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
+                className="absolute z-[3] overflow-hidden rounded-xl shadow-lg hidden md:block md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px]"
                 style={{
-                  position: 'absolute',
-                  width: '320px',
-                  height: '320px',
                   background: 'linear-gradient(135deg, #003049 0%, #00456A 100%)', /* Couleur Marine du thème */
-                  borderRadius: '12px',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
-                  zIndex: 3,
-                  overflow: 'hidden',
-                  padding: '20px'
+                  padding: '15px',
                 }}>
                 {/* Titre du dashboard */}
                 <div style={{ 
@@ -240,7 +219,7 @@ const Hero = () => {
                   overflow: 'hidden' /* Pour masquer les éléments pendant la transition */
                 }}>
                   
-                <AnimatePresence mode="wait">
+                <AnimatePresence mode="wait" initial={false}>
                 {/* Graphique de type barres verticales - Adapté pour Ventes, Facture Moyenne */}
                 {graphs[graphIndex].type === "bar" && (
                   <motion.div 
@@ -901,18 +880,56 @@ const Hero = () => {
                 width={500}
                 height={500}
                 priority
-                style={{ objectFit: 'contain', position: 'relative', zIndex: 5 }}
+                className="relative z-[5] w-[220px] h-[220px] md:w-[350px] md:h-[350px] lg:w-[420px] lg:h-[420px] xl:w-[500px] xl:h-[500px]"
+                style={{ objectFit: 'contain' }}
               />
-              
-              {/* Les barres verticales animées ont été supprimées */}
             </div>
           </div>
+          
+          {/* Contenu textuel - En bas sur mobile */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col gap-2 md:gap-4 lg:gap-6 text-center lg:text-left pt-0 order-last lg:order-first"
+          >
+            {/* Texte secteur */}
+            <p className="text-base md:text-lg lg:text-xl mb-1 md:mb-2 text-center lg:text-left">
+              Plateforme de gestion pour les restaurants
+            </p>
+            
+            {/* Titre principal */}
+            <h1 className="text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
+              L'ultime solution pour les professionnels de la <span className="text-gold-500">restauration</span>
+            </h1>
+            
+            {/* Description */}
+            <p className="mt-1 md:mt-2 text-sm md:text-base lg:text-lg xl:text-xl max-w-2xl mx-auto lg:mx-0">
+              Optimisez la gestion quotidienne de vos restaurants, suivez vos métriques et améliorez vos performances.
+            </p>
+            
+            {/* Boutons d'action */}
+            <div className="mt-4 md:mt-6 flex flex-row gap-3 md:gap-4 justify-center lg:justify-start">
+              <Button variant="primary" size="default" className="btn-gold text-sm md:text-base font-medium w-full sm:w-auto py-1.5 md:py-2">
+                En savoir plus
+                <ArrowRight className="ml-2 h-4 w-4 hidden md:inline" />
+              </Button>
+              
+              <Link 
+                href="/services" 
+                className="inline-flex items-center justify-center rounded-md px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base font-medium text-marine-700 hover:text-marine-900 transition-colors w-full sm:w-auto"
+              >
+                Parler à un expert
+                <ArrowRight className="ml-2 h-4 w-4 hidden md:inline" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
       
       {/* Carrousel de logos clients en bas du Hero */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-8 pb-4">
-        <LogoMarquee logos={clientLogos} title="Partenaire de leur succès" />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-auto pt-2 md:pt-8 pb-2 md:pb-4">
+        <LogoMarquee logos={clientLogos} title="Partenaire de leur succès" titleClassName="text-sm md:text-lg" />
       </div>
     </section>
   )
