@@ -17,9 +17,16 @@ const LanguageToggle: React.FC<LanguageToggleProps> = ({ currentLocale }) => {
 
   // Construire le chemin pour la locale alternative
   const getAlternatePathname = () => {
-    // Si nous sommes à la racine d'une locale
-    if (pathname === `/${currentLocale}`) {
+    // Si nous sommes à la racine d'une locale ou à la racine du site
+    if (pathname === `/${currentLocale}` || pathname === '/') {
       return `/${alternateLocale}`;
+    }
+    
+    // Si le chemin actuel ne contient pas la locale actuelle (peut arriver avec certaines routes)
+    if (!pathname.startsWith(`/${currentLocale}/`) && !pathname.startsWith(`/${currentLocale}`)) {
+      // Extraire le chemin sans la locale (si présente)
+      const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}(\/|$)/, '/');
+      return `/${alternateLocale}${pathWithoutLocale === '/' ? '' : pathWithoutLocale}`;
     }
 
     // Sinon, remplacer la locale dans le chemin

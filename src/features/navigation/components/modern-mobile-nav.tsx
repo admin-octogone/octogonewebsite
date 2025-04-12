@@ -4,11 +4,12 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight, ChevronDown, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Route } from "@/types/routes";
 import { MobileDrawerProps } from "./types";
 import { Button } from "@/components/ui/button";
+import LanguageToggle from "./language-toggle";
 import {
   Sheet,
   SheetContent,
@@ -16,14 +17,19 @@ import {
   SheetTitle,
   SheetFooter,
 } from "@/components/ui/modern-sheet";
+import { useTranslation } from "../../../../lib/i18n/client";
 
 export const ModernMobileNav: React.FC<MobileDrawerProps> = ({
   isOpen,
   onClose,
   routes,
+  locale = "fr",
 }) => {
   const [expandedItems, setExpandedItems] = React.useState<string[]>([]);
   const pathname = usePathname();
+  
+  // Pour les traductions côté client, nous utilisons des textes codés en dur
+  // Les traductions seront gérées côté serveur dans le layout
 
   const toggleExpanded = (path: string) => {
     setExpandedItems((prev) =>
@@ -150,9 +156,18 @@ export const ModernMobileNav: React.FC<MobileDrawerProps> = ({
         </div>
 
         {/* Footer */}
-        <SheetFooter>
+        <SheetFooter className="flex flex-col gap-4">
+          {/* Language Toggle */}
+          <div className="flex items-center justify-center w-full">
+            <div className="flex items-center gap-2">
+              <Globe className="h-5 w-5 text-marine-500" />
+              <span className="text-marine-700">Changer de langue:</span>
+              <LanguageToggle currentLocale={locale} />
+            </div>
+          </div>
+          
           <Button variant="primary" className="w-full py-6 text-base" onClick={onClose}>
-            Réserver une démo
+            {locale === "fr" ? "Réserver une démo" : "Book a demo"}
           </Button>
         </SheetFooter>
       </SheetContent>

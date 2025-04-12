@@ -7,169 +7,158 @@ import Navigation from "@/features/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const routes = [
-  { href: "/fr", label: "Accueil", path: "/" },
+function getRoutes(locale: string) {
+  return [
+  { href: `/${locale}`, label: locale === "fr" ? "Accueil" : "Home", path: "/" },
   {
-    href: "/fr/fonctionnalites",
-    label: "Fonctionnalités",
+    href: `/${locale}/fonctionnalites`,
+    label: locale === "fr" ? "Fonctionnalités" : "Features",
     path: "/fonctionnalites",
-    description: "Ce que vous maîtrisez avec Octogone",
+    description: locale === "fr" ? "Ce que vous maîtrisez avec Octogone" : "What you manage with Octogone",
     children: [
       {
-        href: "/fr/fonctionnalites/catalogue",
-        label: "Catalogue produits & recettes",
+        href: `/${locale}/fonctionnalites/catalogue`,
+        label: locale === "fr" ? "Catalogue produits & recettes" : "Product & Recipe Catalog",
         path: "/fonctionnalites/catalogue",
-        description:
-          "Gérez facilement vos produits et recettes dans un catalogue structuré, prêt à l'usage.",
+        description: locale === "fr" ? "Gérez facilement vos produits et recettes dans un catalogue structuré, prêt à l'usage." : "Easily manage your products and recipes in a structured, ready-to-use catalog.",
       },
       {
-        href: "/fr/fonctionnalites/prise-inventaire",
-        label: "Prise d'inventaire",
+        href: `/${locale}/fonctionnalites/prise-inventaire`,
+        label: locale === "fr" ? "Prise d'inventaire" : "Inventory Taking",
         path: "/fonctionnalites/prise-inventaire",
-        description:
-          "Effectuez vos inventaires rapidement et sans erreurs, même en multi-sites.",
+        description: locale === "fr" ? "Effectuez vos inventaires rapidement et sans erreurs, même en multi-sites." : "Perform your inventories quickly and without errors, even across multiple locations.",
       },
       {
-        href: "/fr/fonctionnalites/recettes-food-cost",
-        label: "Recettes & food cost",
+        href: `/${locale}/fonctionnalites/recettes-food-cost`,
+        label: locale === "fr" ? "Recettes & food cost" : "Recipes & Food Cost",
         path: "/fonctionnalites/recettes-food-cost",
-        description:
-          "Créez des recettes standardisées avec calcul automatique des coûts.",
+        description: locale === "fr" ? "Créez des recettes standardisées avec calcul automatique des coûts." : "Create standardized recipes with automatic cost calculation.",
       },
       {
-        href: "/fr/fonctionnalites/inventaire-temps-reel",
-        label: "Inventaire en temps réel",
+        href: `/${locale}/fonctionnalites/inventaire-temps-reel`,
+        label: locale === "fr" ? "Inventaire en temps réel" : "Real-time Inventory",
         path: "/fonctionnalites/inventaire-temps-reel",
-        description:
-          "Suivez vos sorties produits en direct, connectées à votre POS.",
+        description: locale === "fr" ? "Suivez vos sorties produits en direct, connectées à votre POS." : "Track your product outputs in real-time, connected to your POS.",
       },
       {
-        href: "/fr/fonctionnalites/facturation",
-        label: "Facturation automatisée",
+        href: `/${locale}/fonctionnalites/facturation`,
+        label: locale === "fr" ? "Facturation automatisée" : "Automated Invoicing",
         path: "/fonctionnalites/facturation",
-        description:
-          "Gérez vos factures fournisseurs sans saisie manuelle ni oubli.",
+        description: locale === "fr" ? "Gérez vos factures fournisseurs sans saisie manuelle ni oubli." : "Manage your supplier invoices without manual entry or oversights.",
       },
       {
-        href: "/fr/fonctionnalites/pourboires",
-        label: "Gestion des pourboires",
+        href: `/${locale}/fonctionnalites/pourboires`,
+        label: locale === "fr" ? "Gestion des pourboires" : "Tip Management",
         path: "/fonctionnalites/pourboires",
-        description:
-          "Automatisez la répartition selon vos règles, en toute transparence.",
+        description: locale === "fr" ? "Automatisez la répartition selon vos règles, en toute transparence." : "Automate distribution according to your rules, with full transparency.",
       },
       {
-        href: "/fr/fonctionnalites/employes",
-        label: "Gestion des employés (RH)",
+        href: `/${locale}/fonctionnalites/employes`,
+        label: locale === "fr" ? "Gestion des employés (RH)" : "Employee Management (HR)",
         path: "/fonctionnalites/employes",
-        description:
-          "Centralisez les rôles, accès et documents de vos équipes.",
+        description: locale === "fr" ? "Centralisez les rôles, accès et documents de vos équipes." : "Centralize roles, access, and documents for your teams.",
       },
       {
-        href: "/fr/fonctionnalites/thermometres",
-        label: "Thermomètres connectés",
+        href: `/${locale}/fonctionnalites/thermometres`,
+        label: locale === "fr" ? "Thermomètres connectés" : "Connected Thermometers",
         path: "/fonctionnalites/thermometres",
-        description:
-          "Recevez des alertes automatiques en cas d'écarts de température.",
+        description: locale === "fr" ? "Recevez des alertes automatiques en cas d'écarts de température." : "Receive automatic alerts in case of temperature deviations.",
       },
       {
-        href: "/fr/fonctionnalites/production-cuisine",
-        label: "Module de production cuisine",
+        href: `/${locale}/fonctionnalites/production-cuisine`,
+        label: locale === "fr" ? "Module de production cuisine" : "Kitchen Production Module",
         path: "/fonctionnalites/production-cuisine",
-        description:
-          "Planifiez et gérez la production interne en toute fluidité.",
+        description: locale === "fr" ? "Planifiez et gérez la production interne en toute fluidité." : "Plan and manage internal production with complete fluidity.",
       },
     ],
   },
   {
-    href: "/fr/modules",
-    label: "Modules Premium",
+    href: `/${locale}/modules`,
+    label: locale === "fr" ? "Modules Premium" : "Premium Modules",
     path: "/modules",
-    description: "Des solutions adaptées à vos besoins spécifiques",
+    description: locale === "fr" ? "Des solutions adaptées à vos besoins spécifiques" : "Solutions tailored to your specific needs",
     children: [
       {
-        href: "/fr/modules/octogone-360",
-        label: "Octogone 360 – Analyse des KPIs",
+        href: `/${locale}/modules/octogone-360`,
+        label: locale === "fr" ? "Octogone 360 – Analyse des KPIs" : "Octogone 360 – KPI Analysis",
         path: "/modules/octogone-360",
-        description:
-          "Suivez vos performances en temps réel et améliorez vos décisions.",
+        description: locale === "fr" ? "Suivez vos performances en temps réel et améliorez vos décisions." : "Track your performance in real-time and improve your decisions.",
       },
       {
-        href: "/fr/modules/octogone-hq",
-        label: "Octogone HQ – Transferts inter-établissements",
+        href: `/${locale}/modules/octogone-hq`,
+        label: locale === "fr" ? "Octogone HQ – Transferts inter-établissements" : "Octogone HQ – Inter-location Transfers",
         path: "/modules/octogone-hq",
-        description:
-          "Standardisez vos transferts de produits et gérez la facturation interne.",
+        description: locale === "fr" ? "Standardisez vos transferts de produits et gérez la facturation interne." : "Standardize your product transfers and manage internal billing.",
       },
     ],
   },
   {
-    href: "/fr/support",
-    label: "Support",
+    href: `/${locale}/support`,
+    label: locale === "fr" ? "Support" : "Support",
     path: "/support",
-    description:
-      "Un accompagnement personnalisé pour optimiser votre expérience Octogone",
+    description: locale === "fr" ? "Un accompagnement personnalisé pour optimiser votre expérience Octogone" : "Personalized support to optimize your Octogone experience",
     children: [
       {
-        href: "/fr/support/accompagnement",
-        label: "Accompagnement client",
+        href: `/${locale}/support/accompagnement`,
+        label: locale === "fr" ? "Accompagnement client" : "Client Support",
         path: "/support/accompagnement",
-        description:
-          "Un support humain, dédié, et réellement impliqué dans vos résultats.",
+        description: locale === "fr" ? "Un support humain, dédié, et réellement impliqué dans vos résultats." : "Human support, dedicated, and genuinely involved in your results.",
       },
       {
-        href: "/fr/support/banque-heures",
-        label: "Banques d'heures",
+        href: `/${locale}/support/banque-heures`,
+        label: locale === "fr" ? "Banques d'heures" : "Hour Banks",
         path: "/support/banque-heures",
-        description:
-          "Des blocs de temps pour vos besoins spécifiques ou ponctuels.",
+        description: locale === "fr" ? "Des blocs de temps pour vos besoins spécifiques ou ponctuels." : "Time blocks for your specific or one-time needs.",
       },
       {
-        href: "/fr/support/conciergerie",
-        label: "Conciergerie",
+        href: `/${locale}/support/conciergerie`,
+        label: locale === "fr" ? "Conciergerie" : "Concierge Service",
         path: "/support/conciergerie",
-        description:
-          "On entretient et optimise votre plateforme pour vous.",
+        description: locale === "fr" ? "On entretient et optimise votre plateforme pour vous." : "We maintain and optimize your platform for you.",
       },
       {
-        href: "/fr/support/onboarding",
-        label: "Onboarding",
+        href: `/${locale}/support/onboarding`,
+        label: locale === "fr" ? "Onboarding" : "Onboarding",
         path: "/support/onboarding",
-        description:
-          "Un démarrage structuré, rapide, avec vos données intégrées dès le départ.",
+        description: locale === "fr" ? "Un démarrage structuré, rapide, avec vos données intégrées dès le départ." : "A structured, quick start with your data integrated from day one.",
       },
     ],
   },
   {
-    href: "/fr/contact",
-    label: "Contact",
+    href: `/${locale}/contact`,
+    label: locale === "fr" ? "Contact" : "Contact",
     path: "/contact",
-    description: "Réservez une démo personnalisée",
+    description: locale === "fr" ? "Réservez une démo personnalisée" : "Book a personalized demo",
   },
   {
-    href: "/fr/login",
-    label: "Connexion",
+    href: `/${locale}/login`,
+    label: locale === "fr" ? "Connexion" : "Login",
     path: "/login",
-    description: "Accédez à votre espace client",
+    description: locale === "fr" ? "Accédez à votre espace client" : "Access your client portal",
   },
-];
+  ];
+}
 
 export default function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: { locale: string };
 }) {
-  const { locale } = React.use(params);
+  const { locale } = params;
   const pathname = usePathname();
 
   // Extraire le chemin sans le préfixe de locale
   const path = pathname.replace(/^\/[^\/]+/, "");
   const activeRoute = path || "/";
 
+  // Obtenir les routes traduites
+  const translatedRoutes = getRoutes(locale);
+
   return (
     <div lang={locale} className={inter.className}>
-      <Navigation routes={routes} activeRoute={activeRoute} theme="light" />
+      <Navigation routes={translatedRoutes} activeRoute={activeRoute} theme="light" locale={locale} />
       <div className="pt-20">{children}</div>
     </div>
   );

@@ -14,6 +14,7 @@ import LanguageToggle from "./components/language-toggle";
 import AnnouncementBanner from "./components/announcement-banner";
 import { NavigationProvider, useNavigation } from "./hooks/use-navigation";
 import type { DesktopNavProps } from "./types";
+import { useTranslation } from "../../../lib/i18n/client";
 
 // Constante pour activer/désactiver la bannière d'annonce
 const SHOW_ANNOUNCEMENT_BANNER = true;
@@ -97,6 +98,9 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
   const { scrollYProgress } = useScroll();
   // Variable commentée car non utilisée actuellement
   // const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
+  
+  // Pour les traductions côté client, nous utilisons des textes codés en dur
+  // Les traductions seront gérées côté serveur dans le layout
 
   return (
     <>
@@ -104,7 +108,7 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
       {SHOW_ANNOUNCEMENT_BANNER && (
         <AnnouncementBanner
           message="Nouvelle fonctionnalité disponible : Modules Premium avec IA intégrée !"
-          link={{ text: "En savoir plus", href: "/modules-premium" }}
+          link={{ text: "En savoir plus", href: `/${locale}/modules-premium` }}
           isVisible={isAnnouncementVisible}
           onDismiss={() => {
             setIsAnnouncementVisible(false);
@@ -181,10 +185,10 @@ const NavigationContent: React.FC<DesktopNavProps> = ({
 
               {/* CTA Button */}
               <Link
-                href="/contact"
+                href={`/${locale}/contact`}
                 className="hidden xl:inline-flex items-center justify-center rounded-md px-3 py-2 text-base font-medium bg-gold-500 text-marine-900 hover:bg-gold-400 transition-colors btn-gold"
               >
-                Réserver une démo
+                {locale === "fr" ? "Réserver une démo" : "Book a demo"}
               </Link>
             </div>
 
