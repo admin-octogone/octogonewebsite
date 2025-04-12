@@ -144,9 +144,9 @@ export default function LocaleLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = params;
+  const { locale } = React.use(params);
   const pathname = usePathname();
 
   // Extraire le chemin sans le préfixe de locale

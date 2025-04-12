@@ -90,7 +90,8 @@ const clientLogos: ClientLogo[] = [
 const Hero = () => {
   // Récupérer la locale actuelle des paramètres d'URL
   const params = useParams();
-  const locale = params?.locale as string || "fr";
+  // Utiliser React.use() pour déballer la promesse des paramètres
+  const locale = params ? (typeof params === 'object' && 'locale' in params ? params.locale as string : "fr") : "fr";
   
   // État pour stocker la fonction de traduction
   const [t, setT] = useState<any>(() => (key: string, options?: any) => {
