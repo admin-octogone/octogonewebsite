@@ -37,7 +37,7 @@ const FeaturesSection = () => {
       spacing="xxxl"
       className="overflow-visible"
     >
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center text-center lg:text-left">
         {/* Colonne de gauche - Image happy_octogone_users */}
         <motion.div
           initial="hidden"
@@ -45,7 +45,7 @@ const FeaturesSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
           variants={fadeInUpVariants}
-          className="relative order-2 lg:order-1 flex justify-center"
+          className="relative order-1 flex justify-center"
         >
           <div className="relative flex justify-center items-center mx-auto">
             <div className="relative aspect-square w-[260px] xs:w-[320px] md:w-[380px] lg:w-[480px] xl:w-[580px] flex justify-center items-center">
@@ -83,21 +83,21 @@ const FeaturesSection = () => {
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6, delay: 0.2 }}
           variants={fadeInUpVariants}
-          className="flex flex-col order-1 lg:order-2"
+          className="flex flex-col order-2"
         >
           {/* Titre principal */}
-          <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold text-marine-900 mb-4">
+          <h2 className="text-xl xs:text-2xl lg:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-marine-900 mb-4 mx-auto lg:mx-0 max-w-3xl">
             {locale === "fr" ? "Pensé pour collaborer. Conçu pour mieux gérer." : "Designed for collaboration. Built for better management."}
           </h2>
           
           {/* Paragraphe principal */}
-          <div className="space-y-4 mb-8">
-            <p className="text-lg xs:text-xl text-marine-700">
+          <div className="space-y-4 mb-8 mx-auto lg:mx-0 max-w-2xl">
+            <p className="text-xs xs:text-sm lg:text-base lg:text-lg xl:text-xl text-marine-700">
               {locale === "fr" 
                 ? "Octogone connecte les gestionnaires, les équipes en salle ou en cuisine, et les fournisseurs — sans friction, sans double saisie, sans décalage." 
                 : "Octogone connects managers, front-of-house and kitchen teams, and suppliers — without friction, without double entry, without lag."}
             </p>
-            <p className="text-lg xs:text-xl text-marine-700">
+            <p className="text-xs xs:text-sm lg:text-base lg:text-lg xl:text-xl text-marine-700">
               {locale === "fr" 
                 ? "Les données sont à jour, accessibles et partagées en temps réel. Vous gérez vos restaurants avec plus de clarté, plus de fluidité, même en multi-établissements." 
                 : "Data is up-to-date, accessible, and shared in real-time. Manage your restaurants with greater clarity and fluidity, even across multiple locations."}
@@ -105,7 +105,7 @@ const FeaturesSection = () => {
           </div>
           
           {/* Points clés */}
-          <ul className="space-y-4 mb-8">
+          <ul className="space-y-4 mb-8 mx-auto lg:mx-0 max-w-2xl">
             {(locale === "fr" ? [
               "Les gestionnaires accèdent à un portrait clair de tous leurs sites, prennent de meilleures décisions, basées sur des données fiables",
               "Les équipes voient quoi produire, avec quels produits, à quel coût — tout est standardisé et simple à suivre",
@@ -118,14 +118,14 @@ const FeaturesSection = () => {
               "Operations are aligned, regardless of the number of establishments"
             ]).map((item, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-gold-500 mr-2">✓</span>
-                <span className="text-marine-800">{item}</span>
+                <span className="text-gold-500 mr-2 flex-shrink-0">✓</span>
+                <span className="text-marine-800 text-xs xs:text-sm lg:text-base">{item}</span>
               </li>
             ))}
           </ul>
           
           {/* Accroche finale */}
-          <p className="text-lg font-medium text-marine-900">
+          <p className="text-sm xs:text-base lg:text-lg lg:text-xl font-medium text-marine-900 mx-auto lg:mx-0 max-w-2xl">
             {locale === "fr" 
               ? "Une seule plateforme. Des équipes connectées. Une gestion multi-sites simplifiée." 
               : "One platform. Connected teams. Simplified multi-location management."}

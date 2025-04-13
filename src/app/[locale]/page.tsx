@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Hero from "@/features/home/components/hero";
 import FeaturesSection from "@/features/home/components/features-section";
+import { DashboardSection } from "@/features/home/components/dashboard-section";
 // Ces imports ont été nettoyés car ils ne sont plus utilisés
 // import {
 //   ArrowRight,
@@ -17,7 +18,7 @@ import FeaturesSection from "@/features/home/components/features-section";
 // } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
 
-export default function HomePage() {
+export default function HomePage({ params }: { params: { locale: string } }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [hasBanner, setHasBanner] = useState(true);
 
@@ -67,7 +68,10 @@ export default function HomePage() {
         {/* Section 1 - Fonctionnalités principales */}
         <FeaturesSection />
 
-        {/* Section 2 */}
+        {/* Section 2 - Dashboard */}
+        <DashboardSection locale={params.locale} />
+
+        {/* Section 3 */}
         <section className="py-16 md:py-24 bg-green-100">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
