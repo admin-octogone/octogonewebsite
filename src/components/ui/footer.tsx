@@ -43,7 +43,7 @@ export function Footer({ className }: FooterProps) {
   return (
     <footer className={cn("bg-marine-900 text-white w-full", className)}>
       <div className="w-full px-4 py-12 md:py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-7 max-w-[1800px] mx-auto">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:grid-cols-6 max-w-[1800px] mx-auto">
           {/* 1. Logo et baseline */}
           <div className="flex flex-col space-y-4 lg:col-span-1">
             <Link href={`/${locale}`} className="inline-block">
@@ -58,10 +58,10 @@ export function Footer({ className }: FooterProps) {
                 />
               </div>
             </Link>
-            <p className="mt-2 max-w-xs text-marine-200 text-sm">
+            <p className="mt-2 max-w-xs text-marine-200">
               {locale === "fr" ? 
-                "La solution pour gérer, comparer et rentabiliser vos opérations." : 
-                "The solution to manage, compare and make your operations profitable."}
+                "Plateforme de gestion pour les restaurants" : 
+                "Restaurant management platform"}
             </p>
           </div>
 
@@ -154,11 +154,6 @@ export function Footer({ className }: FooterProps) {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href={`/${locale}/blog`} className="text-marine-200 hover:text-white transition-colors">
-                  {locale === "fr" ? "Blog" : "Blog"}
-                </Link>
-              </li>
-              <li>
                 <Link href={`/${locale}/etudes-de-cas`} className="text-marine-200 hover:text-white transition-colors">
                   {locale === "fr" ? "Études de cas" : "Case studies"}
                 </Link>
@@ -176,34 +171,7 @@ export function Footer({ className }: FooterProps) {
             </ul>
           </div>
 
-          {/* 2. Navigation par sections clés - Entreprise */}
-          <div className="lg:col-span-1">
-            <h3 className="text-lg font-semibold mb-4 text-gold-400">
-              {locale === "fr" ? "Entreprise" : "Company"}
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link href={`/${locale}/a-propos`} className="text-marine-200 hover:text-white transition-colors">
-                  {locale === "fr" ? "À propos" : "About"}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${locale}/carrieres`} className="text-marine-200 hover:text-white transition-colors">
-                  {locale === "fr" ? "Carrières" : "Careers"}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${locale}/medias`} className="text-marine-200 hover:text-white transition-colors">
-                  {locale === "fr" ? "Médias" : "Media"}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${locale}/partenaires`} className="text-marine-200 hover:text-white transition-colors">
-                  {locale === "fr" ? "Partenaires" : "Partners"}
-                </Link>
-              </li>
-            </ul>
-          </div>
+
 
           {/* Contact */}
           <div className="lg:col-span-1">
