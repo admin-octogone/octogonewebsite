@@ -167,7 +167,23 @@
       "home": "Home",
       "features": "Features",
       "about": "About",
-      "contact": "Contact"
+      "contact": "Contact",
+      "modules": "Premium Modules",
+      "pricing": "Pricing",
+      "support": "Support"
     }
+  },
+  "footer": {
+    "company_description": "Complete management platform for restaurants, optimizing your daily operations and improving your profitability.",
+    "quick_links": "Quick Links",
+    "contact_us": "Contact Us",
+    "newsletter": "Newsletter",
+    "newsletter_description": "Sign up to receive our latest news and special offers.",
+    "email_placeholder": "Your email address",
+    "subscribe": "Subscribe",
+    "all_rights_reserved": "All rights reserved.",
+    "legal_notice": "Legal Notice",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_use": "Terms of Use"
   }
 }

@@ -63,7 +63,12 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
   const pathname = usePathname();
 
   const isItemActive = (path: string) => {
-    return pathname === path;
+    // Vérifie si le chemin correspond exactement
+    if (pathname === path) return true;
+    
+    // Vérifie si le chemin actuel est un sous-chemin
+    // Par exemple, /fr/modules/octogone-360 est un sous-chemin de /fr/modules
+    return pathname.startsWith(path + "/");
   };
 
   return (
@@ -71,8 +76,14 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
       <NavigationMenu className="w-full max-w-screen-lg">
         <NavigationMenuList className="flex items-center gap-6 justify-center">
           {routes.map((route) => {
+            // Vérifie si l'item principal est actif en tenant compte des sous-chemins
             const isActive =
-              activeRoute === route.path || pathname === route.path;
+              activeRoute === route.path || 
+              pathname === route.path || 
+              // Vérifie si un des enfants est actif
+              (route.children && route.children.some(child => 
+                pathname === child.path || pathname.startsWith(child.path + "/")
+              ));
             const hasChildren = route.children && route.children.length > 0;
 
             return (
@@ -104,7 +115,7 @@ export const DesktopNav: React.FC<DesktopNavProps> = ({
                               <Link
                                 key={item.path}
                                 href={item.path}
-                                className={`block p-4 rounded-md transition-colors nav-item ${isItemActive(item.path) ? "active-nav-item" : ""}`}
+                                className={`block p-4 rounded-md transition-colors nav-item ${pathname.includes(item.path) ? "active-nav-item" : ""}`}
                               >
                                 <div className="text-lg font-medium text-marine-900 mb-2">
                                   {item.label}
