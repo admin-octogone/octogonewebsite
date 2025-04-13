@@ -11,7 +11,7 @@ interface ResponsiveSectionProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;
   fullHeight?: boolean;
   noPadding?: boolean;
-  spacing?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+  spacing?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl";
   bgColor?: string;
   maxWidth?: "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "wider" | "full";
   className?: string;
@@ -60,6 +60,8 @@ export const ResponsiveSection: React.FC<ResponsiveSectionProps> = ({
     md: "py-4 xs:py-5 sm:py-6 md:py-8 lg:py-10 xl:py-12",
     lg: "py-5 xs:py-6 sm:py-8 md:py-10 lg:py-12 xl:py-16",
     xl: "py-6 xs:py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20",
+    xxl: "py-8 xs:py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32",
+    xxxl: "py-12 xs:py-16 sm:py-20 md:py-28 lg:py-36 xl:py-44",
   };
 
   // Mapping des largeurs maximales
