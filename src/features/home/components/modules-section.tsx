@@ -5,10 +5,8 @@ import { motion } from "framer-motion";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { useParams } from "next/navigation";
 import { 
-  BarChart2, 
   ClipboardCheck, 
   Thermometer, 
-  DollarSign, 
   Package, 
   FileText, 
   ChefHat, 
@@ -18,7 +16,13 @@ import {
   Clock,
   Database,
   Briefcase,
-  Activity
+  Activity,
+  Utensils,
+  Calculator,
+  Coins,
+  Receipt,
+  PackageOpen,
+  ArrowRight
 } from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 
@@ -29,6 +33,9 @@ const ModulesSection = () => {
   // Récupérer la locale actuelle des paramètres d'URL
   const params = useParams();
   const locale = params ? (typeof params === 'object' && 'locale' in params ? params.locale as string : "fr") : "fr";
+  
+  // État pour suivre quelle tuile est survolée
+  const [hoveredTile, setHoveredTile] = React.useState<string | null>(null);
 
   // Animation combinée pour les tuiles
   const tileVariants = {
@@ -92,7 +99,7 @@ const ModulesSection = () => {
       description: locale === "fr" 
         ? "Gérez facilement vos produits et recettes dans un catalogue structuré, prêt à l'usage."
         : "Easily manage your products and recipes in a structured catalog, ready to use.",
-      icon: <ClipboardCheck className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <ClipboardCheck className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 3450,
         prefix: "",
@@ -107,7 +114,7 @@ const ModulesSection = () => {
       description: locale === "fr" 
         ? "Effectuez vos inventaires rapidement et sans erreurs, même en multi-sites."
         : "Perform your inventories quickly and without errors, even across multiple sites.",
-      icon: <Package className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <Package className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 28,
         prefix: "",
@@ -123,7 +130,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Créez des recettes standardisées avec calcul automatique des coûts."
         : "Create standardized recipes with automatic cost calculation.",
-      icon: <DollarSign className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <Utensils className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 99,
         prefix: "",
@@ -138,7 +145,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Suivez vos sorties produits en direct, connectées à votre POS."
         : "Track your product outputs in real-time, connected to your POS.",
-      icon: <LinkIcon className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <PackageOpen className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 100,
         prefix: "",
@@ -153,7 +160,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Gérez vos factures fournisseurs sans saisie manuelle ni oubli."
         : "Manage your supplier invoices without manual entry or oversight.",
-      icon: <FileText className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <Receipt className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 8,
         prefix: "",
@@ -168,7 +175,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Automatisez la répartition selon vos règles, en toute transparence."
         : "Automate distribution according to your rules, with complete transparency.",
-      icon: <BarChart2 className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <Coins className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 0,
         prefix: "",
@@ -183,7 +190,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Centralisez les rôles, accès et documents de vos équipes."
         : "Centralize roles, access and documents for your teams.",
-      icon: <Users className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <Users className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 50,
         prefix: "",
@@ -199,7 +206,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Recevez des alertes automatiques en cas d'écarts de température."
         : "Receive automatic alerts in case of temperature deviations.",
-      icon: <Thermometer className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <Thermometer className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 90,
         prefix: "",
@@ -214,7 +221,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Planifiez et gérez la production interne en toute fluidité."
         : "Plan and manage internal production smoothly.",
-      icon: <ChefHat className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      icon: <ChefHat className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 2,
         prefix: "x",
@@ -272,7 +279,9 @@ const ModulesSection = () => {
 
                 variants={tileVariants}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full p-8 flex flex-col relative shadow-sm"
+                className="h-full p-8 flex flex-col relative cursor-pointer"
+                onMouseEnter={() => setHoveredTile(module.id)}
+                onMouseLeave={() => setHoveredTile(null)}
                 style={{
                   background: getGradientForModule(module.id)
                 }}
@@ -302,9 +311,21 @@ const ModulesSection = () => {
                 {/* En-tête avec icône et titre */}
                 <div className="flex items-center mb-5 relative z-10">
                   <motion.div 
-                    variants={iconVariants} 
-                    className="mr-4 p-3 rounded-full bg-gold-50 flex items-center justify-center shadow-sm"
-                    style={{ minWidth: '56px', minHeight: '56px' }}
+                    variants={iconVariants}
+                    animate={{ 
+                      scale: hoveredTile === module.id ? 1.1 : 1
+                    }}
+                    transition={{ 
+                      type: "spring", 
+                      stiffness: 300, 
+                      damping: 15 
+                    }}
+                    className="mr-4 p-3 bg-[#dbeafe] flex items-center justify-center"
+                    style={{ 
+                      minWidth: '56px', 
+                      minHeight: '56px',
+                      clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)"
+                    }}
                   >
                     {module.icon}
                   </motion.div>
@@ -329,9 +350,9 @@ const ModulesSection = () => {
                         />
                         {module.stat.prefix && <span className="text-base text-marine-800 font-medium">{module.stat.prefix}</span>}
                       </div>
-                      <p className="text-sm text-marine-800 mt-2 line-clamp-2 font-medium">{module.stat.statText}</p>
+                      <p className="text-sm text-gold-600 mt-2 line-clamp-2 font-normal" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.statText}</p>
                       {module.stat.source && (
-                        <p className="text-xs text-marine-600 italic mt-1 line-clamp-1">{module.stat.source}</p>
+                        <p className="text-xs text-marine-600 italic mt-1 line-clamp-1" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.source}</p>
                       )}
                     </>
                   ) : (
@@ -339,6 +360,11 @@ const ModulesSection = () => {
                       <p className="text-xs text-marine-500 italic">Statistiques bientôt disponibles</p>
                     </div>
                   )}
+                </div>
+                
+                {/* Flèche indiquant que la tuile sera cliquable */}
+                <div className="flex justify-center mt-2 pb-1">
+                  <ArrowRight className="w-5 h-5 text-gold-500" strokeWidth={1.5} />
                 </div>
                 
                 {/* Décoration de coin */}
