@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 
-interface FeaturesScaleOptions {
+interface ScaleOutOptions {
   initialScale?: number;
   finalScale?: number;
   scrollRange?: number;
 }
 
 /**
- * Hook personnalisé spécifique pour l'animation de l'octogone dans la section Features
+ * Hook personnalisé pour animer l'échelle avec un effet d'agrandissement (out → in)
+ * Utilisé pour la section Features où l'octogone commence petit et devient plus grand
  * @param options Options de configuration pour l'animation
  * @param options.initialScale Échelle initiale (défaut: 0.9)
  * @param options.finalScale Échelle finale (défaut: 1.05)
  * @param options.scrollRange Plage de défilement en pixels (défaut: 300)
  * @returns La valeur d'échelle actuelle
  */
-export function useFeaturesScale(options: FeaturesScaleOptions = {}) {
+export function useScaleOut(options: ScaleOutOptions = {}) {
   const {
     initialScale = 0.9,
     finalScale = 1.05,

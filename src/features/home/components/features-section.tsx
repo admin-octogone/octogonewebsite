@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { useParams } from "next/navigation";
-import { useFeaturesScale } from "@/hooks/use-features-scale";
+import { useScaleOut } from "@/hooks/use-features-scale";
 
 /**
  * Composant FeaturesSection - Section principale présentant les fonctionnalités d'Octogone
@@ -17,8 +17,8 @@ const FeaturesSection = () => {
   const params = useParams();
   const locale = params ? (typeof params === 'object' && 'locale' in params ? params.locale as string : "fr") : "fr";
   
-  // Utiliser le hook spécifique pour l'animation de l'octogone dans la section Features
-  const octogoneScale = useFeaturesScale({
+  // Utiliser le hook spécifique pour l'animation de l'octogone avec effet d'agrandissement
+  const octogoneScale = useScaleOut({
     initialScale: 0.9,
     finalScale: 1.05,
     scrollRange: 300 // Plage courte pour une animation réactive

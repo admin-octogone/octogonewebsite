@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { LogoMarquee } from "@/components/ui/logo-marquee";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { ScrollAnimation } from "@/components/ui/scroll-animation";
-import { useScrollScale } from "@/hooks/use-scroll-scale";
+import { useScaleIn } from "@/hooks/use-scroll-scale";
 import { useTranslation } from "../../../../lib/i18n/client";
 import { useParams } from "next/navigation";
 
@@ -151,7 +151,7 @@ const Hero = () => {
   }, []);
   
   // Ajuster la taille initiale en fonction de la taille de l'écran
-  const octogoneScale = useScrollScale({
+  const octogoneScale = useScaleIn({
     initialScale: isMobile ? 0.95 : 1.15,
     finalScale: 0.95,
     scrollRange: 250 // Plage plus courte pour une animation plus réactive

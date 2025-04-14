@@ -7,14 +7,15 @@ interface ScrollScaleOptions {
 }
 
 /**
- * Hook personnalisé pour animer l'échelle de l'octogone dans la section Hero
+ * Hook personnalisé pour animer l'échelle avec un effet de réduction (in → out)
+ * Utilisé pour la section Hero où l'octogone commence grand et devient plus petit
  * @param options Options de configuration pour l'animation
  * @param options.initialScale Échelle initiale (défaut: 1.15)
  * @param options.finalScale Échelle finale (défaut: 0.95)
  * @param options.scrollRange Plage de défilement en pixels (défaut: 300)
  * @returns La valeur d'échelle actuelle
  */
-export function useScrollScale(options: ScrollScaleOptions = {}) {
+export function useScaleIn(options: ScrollScaleOptions = {}) {
   const {
     initialScale = 1.15,
     finalScale = 0.95,
