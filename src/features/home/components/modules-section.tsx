@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { useParams } from "next/navigation";
 import { 
@@ -21,8 +21,7 @@ import {
   Calculator,
   Coins,
   Receipt,
-  PackageOpen,
-  ArrowRight
+  PackageOpen
 } from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 
@@ -34,8 +33,7 @@ const ModulesSection = () => {
   const params = useParams();
   const locale = params ? (typeof params === 'object' && 'locale' in params ? params.locale as string : "fr") : "fr";
   
-  // État pour suivre quelle tuile est survolée
-  const [hoveredTile, setHoveredTile] = React.useState<string | null>(null);
+
 
   // Animation combinée pour les tuiles
   const tileVariants = {
@@ -280,8 +278,7 @@ const ModulesSection = () => {
                 variants={tileVariants}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="h-full p-8 flex flex-col relative cursor-pointer"
-                onMouseEnter={() => setHoveredTile(module.id)}
-                onMouseLeave={() => setHoveredTile(null)}
+
                 style={{
                   background: getGradientForModule(module.id)
                 }}
@@ -312,14 +309,6 @@ const ModulesSection = () => {
                 <div className="flex items-center mb-5 relative z-10">
                   <motion.div 
                     variants={iconVariants}
-                    animate={{ 
-                      scale: hoveredTile === module.id ? 1.1 : 1
-                    }}
-                    transition={{ 
-                      type: "spring", 
-                      stiffness: 300, 
-                      damping: 15 
-                    }}
                     className="mr-4 p-3 bg-[#dbeafe] flex items-center justify-center"
                     style={{ 
                       minWidth: '56px', 
@@ -335,7 +324,7 @@ const ModulesSection = () => {
                 {/* Description */}
                 <p className="text-base text-marine-800 leading-relaxed mb-6 relative z-10" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.description}</p>
                 
-                {/* Statistiques animées (toujours présentes pour équilibrer la hauteur) */}
+                {/* Statistiques animées (version simplifiée) */}
                 <div className="mt-auto pt-5 border-t border-gold-300/60 min-h-[120px] relative z-10">
                   {module.stat ? (
                     <>
@@ -362,10 +351,7 @@ const ModulesSection = () => {
                   )}
                 </div>
                 
-                {/* Flèche indiquant que la tuile sera cliquable */}
-                <div className="flex justify-center mt-2 pb-1">
-                  <ArrowRight className="w-5 h-5 text-gold-500" strokeWidth={1.5} />
-                </div>
+
                 
                 {/* Décoration de coin */}
                 <div className="absolute bottom-0 right-0 w-12 h-12 opacity-5">
