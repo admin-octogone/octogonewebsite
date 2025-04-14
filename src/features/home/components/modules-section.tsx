@@ -36,40 +36,18 @@ const ModulesSection = () => {
     hidden: { 
       opacity: 0, 
       y: 30,
-      scale: 0.95,
-      boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)"
+      scale: 0.95
     },
     // Visible après l'animation d'entrée
     visible: { 
       opacity: 1, 
       y: 0,
       scale: 1,
-      boxShadow: "0px 0px 0px rgba(0, 0, 0, 0)",
       transition: { 
         opacity: { duration: 0.6, ease: "easeOut" },
         y: { duration: 0.6, ease: "easeOut" },
-        scale: { duration: 0.6, ease: "easeOut" },
-        boxShadow: { duration: 0.6, ease: "easeOut" }
+        scale: { duration: 0.6, ease: "easeOut" }
       }
-    },
-    // Au survol - effet plus subtil
-    hover: { 
-      scale: 1.01, 
-      y: 0, 
-      backgroundColor: "#f8f3e8", // Légèrement plus foncé que FCF8F1
-      transition: { 
-        scale: { duration: 0.3, ease: "easeOut" },
-        backgroundColor: { duration: 0.3, ease: "easeOut" }
-      } 
-    },
-    // Au clic
-    tap: { 
-      scale: 0.97, 
-      boxShadow: "0px 5px 15px rgba(220, 178, 107, 0.1)",
-      transition: { 
-        scale: { duration: 0.2, ease: "easeOut" },
-        boxShadow: { duration: 0.2, ease: "easeOut" }
-      } 
     }
   };
   
@@ -109,118 +87,141 @@ const ModulesSection = () => {
   // Liste des modules avec leurs descriptions, icônes et statistiques
   const modules = [
     {
-      id: "inventory",
-      title: locale === "fr" ? "Inventaire" : "Inventory",
+      id: "catalog",
+      title: locale === "fr" ? "Catalogue produits & recettes" : "Product & Recipe Catalog",
       description: locale === "fr" 
-        ? "Suivez vos stocks en temps réel, réduisez les pertes et automatisez la prise d'inventaire."
-        : "Track your inventory in real-time, reduce losses, and automate inventory taking.",
+        ? "Gérez facilement vos produits et recettes dans un catalogue structuré, prêt à l'usage."
+        : "Easily manage your products and recipes in a structured catalog, ready to use.",
+      icon: <ClipboardCheck className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      stat: {
+        value: 3450,
+        prefix: "",
+        suffix: "+",
+        statText: locale === "fr" ? "produits disponibles à l'ajout en un clic via notre base intelligente" : "products available to add with one click via our intelligent database",
+        source: null
+      }
+    },
+    {
+      id: "inventory",
+      title: locale === "fr" ? "Prise d'inventaire" : "Inventory Taking",
+      description: locale === "fr" 
+        ? "Effectuez vos inventaires rapidement et sans erreurs, même en multi-sites."
+        : "Perform your inventories quickly and without errors, even across multiple sites.",
       icon: <Package className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
       stat: {
         value: 28,
         prefix: "",
-        suffix: locale === "fr" ? " %" : " %",
-        statText: locale === "fr" ? "de pertes d'inventaire en moyenne après 3 mois" : "average inventory loss reduction after 3 months",
-        source: locale === "fr" ? "Source : données internes Octogone multi-sites" : "Source: Octogone internal multi-site data"
-      }
-    },
-    {
-      id: "invoicing",
-      title: locale === "fr" ? "Facturation fournisseurs" : "Supplier invoicing",
-      description: locale === "fr"
-        ? "Importez automatiquement vos factures, sans ressaisie. Vos prix sont toujours à jour."
-        : "Automatically import your invoices, without re-entry. Your prices are always up to date.",
-      icon: <FileText className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
-      stat: {
-        value: 8,
-        prefix: "",
-        suffix: locale === "fr" ? " h / semaine" : " hrs/week",
-        statText: locale === "fr" ? "de gestion économisées grâce à l'automatisation des factures" : "management time saved through invoice automation",
-        source: locale === "fr" ? "vs gestion manuelle multi-fournisseurs" : "vs. manual multi-vendor management"
+        suffix: "%",
+        negative: true,
+        statText: locale === "fr" ? "de pertes en moyenne après 3 mois" : "average loss reduction after 3 months",
+        source: null
       }
     },
     {
       id: "recipes",
-      title: locale === "fr" ? "Recettes & food cost" : "Recipes & food cost",
+      title: locale === "fr" ? "Recettes & food cost" : "Recipes & Food Cost",
       description: locale === "fr"
-        ? "Standardisez vos recettes, calculez automatiquement les coûts de production et de vente."
-        : "Standardize your recipes, automatically calculate production and sales costs.",
+        ? "Créez des recettes standardisées avec calcul automatique des coûts."
+        : "Create standardized recipes with automatic cost calculation.",
       icon: <DollarSign className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
       stat: {
         value: 99,
         prefix: "",
-        suffix: locale === "fr" ? " %" : " %",
-        statText: locale === "fr" ? "de standardisation des recettes dès l'implantation" : "recipe standardization from day one",
-        source: locale === "fr" ? "fiches pré-remplies à partir du catalogue AI" : "pre-filled cards from AI catalog"
+        suffix: "%",
+        statText: locale === "fr" ? "de recettes standardisées dès l'implantation" : "of recipes standardized from implementation",
+        source: null
       }
     },
     {
-      id: "pos",
-      title: locale === "fr" ? "Connexion POS" : "POS connection",
+      id: "realtime",
+      title: locale === "fr" ? "Inventaire en temps réel" : "Real-time Inventory",
       description: locale === "fr"
-        ? "Octogone s'intègre à votre caisse pour connecter ventes, inventaires et recettes — sans changer votre système."
-        : "Octogone integrates with your POS to connect sales, inventory, and recipes — without changing your system.",
+        ? "Suivez vos sorties produits en direct, connectées à votre POS."
+        : "Track your product outputs in real-time, connected to your POS.",
       icon: <LinkIcon className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
       stat: {
         value: 100,
         prefix: "",
-        suffix: locale === "fr" ? " %" : " %",
-        statText: locale === "fr" ? "de synchronisation entre ventes, recettes et stocks" : "synchronization between sales, recipes and inventory",
-        source: locale === "fr" ? "POS connecté à Octogone" : "POS connected to Octogone"
+        suffix: "%",
+        statText: locale === "fr" ? "de synchronisation entre ventes, stocks et recettes" : "synchronization between sales, inventory and recipes",
+        source: null
+      }
+    },
+    {
+      id: "invoices",
+      title: locale === "fr" ? "Facturation automatisée" : "Automated Invoicing",
+      description: locale === "fr"
+        ? "Gérez vos factures fournisseurs sans saisie manuelle ni oubli."
+        : "Manage your supplier invoices without manual entry or oversight.",
+      icon: <FileText className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      stat: {
+        value: 8,
+        prefix: "",
+        suffix: "h",
+        statText: locale === "fr" ? "/ semaine de saisie éliminées grâce à l'automatisation" : "/ week of data entry eliminated thanks to automation",
+        source: null
+      }
+    },
+    {
+      id: "tips",
+      title: locale === "fr" ? "Gestion des pourboires" : "Tips Management",
+      description: locale === "fr"
+        ? "Automatisez la répartition selon vos règles, en toute transparence."
+        : "Automate distribution according to your rules, with complete transparency.",
+      icon: <BarChart2 className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      stat: {
+        value: 0,
+        prefix: "",
+        suffix: "",
+        statText: locale === "fr" ? "litige signalé depuis l'automatisation sur Octogone" : "disputes reported since automation on Octogone",
+        source: null
       }
     },
     {
       id: "hr",
-      title: locale === "fr" ? "Dossiers employés (RH)" : "Employee files (HR)",
+      title: locale === "fr" ? "Gestion des employés (RH)" : "Employee Management (HR)",
       description: locale === "fr"
-        ? "Gérez les rôles, accès, documents et historique de vos équipes."
-        : "Manage roles, access, documents, and history of your teams.",
+        ? "Centralisez les rôles, accès et documents de vos équipes."
+        : "Centralize roles, access and documents for your teams.",
       icon: <Users className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
       stat: {
         value: 50,
         prefix: "",
-        suffix: locale === "fr" ? " %" : " %",
-        statText: locale === "fr" ? "de temps passé sur la gestion RH et les rôles d'accès" : "time spent on HR management and access roles",
-        source: locale === "fr" ? "données moyennes Octogone clients 2+ établissements" : "average data from Octogone clients with 2+ establishments"
+        suffix: "%",
+        negative: true,
+        statText: locale === "fr" ? "de temps consacré à la gestion RH" : "time spent on HR management",
+        source: null
       }
     },
     {
-      id: "catalog",
-      title: locale === "fr" ? "Catalogue produits" : "Product catalog",
+      id: "thermometers",
+      title: locale === "fr" ? "Thermomètres connectés" : "Connected Thermometers",
       description: locale === "fr"
-        ? "Accédez à un catalogue complet, déjà rempli grâce à notre base de données intelligente."
-        : "Access a complete catalog, already filled thanks to our intelligent database.",
-      icon: <ClipboardCheck className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+        ? "Recevez des alertes automatiques en cas d'écarts de température."
+        : "Receive automatic alerts in case of temperature deviations.",
+      icon: <Thermometer className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
       stat: {
-        value: 8000,
+        value: 90,
         prefix: "",
-        suffix: locale === "fr" ? "+" : "+",
-        statText: locale === "fr" ? "produits disponibles en un clic dans le Marketplace Octogone" : "products available with one click in the Octogone Marketplace",
-        source: locale === "fr" ? "connecté à la base AI et aux fournisseurs partenaires" : "connected to AI database and partner suppliers"
+        suffix: "%",
+        statText: locale === "fr" ? "de pertes évitées liées aux variations de température" : "of losses avoided related to temperature variations",
+        source: null
       }
     },
     {
       id: "production",
-      title: locale === "fr" ? "Production en cuisine" : "Kitchen production",
+      title: locale === "fr" ? "Module de production cuisine" : "Kitchen Production Module",
       description: locale === "fr"
-        ? "Planifiez et suivez la production de façon claire, selon les volumes réels."
-        : "Plan and track production clearly, according to actual volumes.",
-      icon: <ChefHat className="w-8 h-8 text-gold-500" strokeWidth={1.5} />
-    },
-    {
-      id: "thermometers",
-      title: locale === "fr" ? "Thermomètres connectés" : "Connected thermometers",
-      description: locale === "fr"
-        ? "Recevez des alertes automatiques en cas d'écarts de température."
-        : "Receive automatic alerts in case of temperature deviations.",
-      icon: <Thermometer className="w-8 h-8 text-gold-500" strokeWidth={1.5} />
-    },
-    {
-      id: "tips",
-      title: locale === "fr" ? "Gestion des pourboires" : "Tips management",
-      description: locale === "fr"
-        ? "Partage automatisé selon vos conventions internes, même sur plusieurs sites."
-        : "Automated sharing according to your internal conventions, even across multiple sites.",
-      icon: <BarChart2 className="w-8 h-8 text-gold-500" strokeWidth={1.5} />
+        ? "Planifiez et gérez la production interne en toute fluidité."
+        : "Plan and manage internal production smoothly.",
+      icon: <ChefHat className="w-8 h-8 text-gold-500" strokeWidth={1.5} />,
+      stat: {
+        value: 2,
+        prefix: "x",
+        suffix: "",
+        statText: locale === "fr" ? "plus rapide pour transmettre les consignes et planifications en cuisine" : "faster to transmit instructions and planning in the kitchen",
+        source: null
+      }
     }
   ];
 
@@ -248,21 +249,11 @@ const ModulesSection = () => {
           </h2>
           
           {/* Paragraphe d'introduction */}
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto">
             <p className="text-sm xs:text-base md:text-lg text-marine-700">
               {locale === "fr" 
-                ? "Octogone vous donne les bons outils pour reprendre le contrôle de vos opérations — sans complexité inutile."
-                : "Octogone gives you the right tools to regain control of your operations — without unnecessary complexity."}
-            </p>
-            <p className="text-sm xs:text-base md:text-lg text-marine-700">
-              {locale === "fr" 
-                ? "Chaque module est pensé pour vous aider à mieux suivre vos produits, vos coûts, vos équipes et vos résultats."
-                : "Each module is designed to help you better track your products, costs, teams, and results."}
-            </p>
-            <p className="text-sm xs:text-base md:text-lg text-marine-700">
-              {locale === "fr" 
-                ? "Peu importe la taille de votre réseau, tout est fluide, centralisé et connecté."
-                : "Regardless of the size of your network, everything is fluid, centralized, and connected."}
+                ? "Octogone vous donne les bons outils pour reprendre le contrôle de vos opérations sans complexité inutile. Chaque module est pensé pour vous aider à mieux suivre vos produits, vos coûts, vos équipes et vos résultats. Peu importe la taille de votre réseau, tout est fluide, centralisé et connecté."
+                : "Octogone gives you the right tools to regain control of your operations without unnecessary complexity. Each module is designed to help you better track your products, costs, teams, and results. Regardless of the size of your network, everything is fluid, centralized, and connected."}
             </p>
           </div>
         </motion.div>
@@ -278,11 +269,10 @@ const ModulesSection = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                whileHover="hover"
-                whileTap="tap"
+
                 variants={tileVariants}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="h-full p-8 flex flex-col cursor-pointer relative border-b-2 border-transparent hover:border-gold-300 shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="h-full p-8 flex flex-col relative shadow-sm"
                 style={{
                   background: getGradientForModule(module.id)
                 }}
@@ -334,6 +324,7 @@ const ModulesSection = () => {
                           to={module.stat.value}
                           suffix={module.stat.suffix}
                           delay={index * 0.1}
+                          negative={module.stat.negative}
                           className="text-2xl font-bold text-gold-600 mr-2"
                         />
                         {module.stat.prefix && <span className="text-base text-marine-800 font-medium">{module.stat.prefix}</span>}

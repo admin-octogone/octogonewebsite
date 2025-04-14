@@ -11,6 +11,7 @@ interface AnimatedCounterProps {
   prefix?: string;
   suffix?: string;
   className?: string;
+  negative?: boolean;
 }
 
 export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
@@ -21,6 +22,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
   prefix = "",
   suffix = "",
   className = "",
+  negative = false,
 }) => {
   const [count, setCount] = useState(from);
   const ref = useRef<HTMLDivElement>(null);
@@ -70,7 +72,7 @@ export const AnimatedCounter: React.FC<AnimatedCounterProps> = ({
       className={className}
     >
       {prefix}
-      {count}
+      {negative ? '–' : ''}{count}
       {suffix}
     </motion.div>
   );
