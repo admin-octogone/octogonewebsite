@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Hero from "@/features/home/components/hero";
 import FeaturesSection from "@/features/home/components/features-section";
 import { DashboardSection } from "@/features/home/components/dashboard-section";
+import ModulesSection from "@/features/home/components/modules-section";
 // Ces imports ont été nettoyés car ils ne sont plus utilisés
 // import {
 //   ArrowRight,
@@ -74,26 +75,8 @@ export default function HomePage({ params }: { params: Promise<{ locale: string 
         {/* Section 2 - Dashboard */}
         <DashboardSection locale={locale} />
 
-        {/* Section 3 */}
-        <section className="py-16 md:py-24 bg-green-100">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-lg xs:text-xl sm:text-2xl font-bold text-marine-800 mb-4 md:mb-6">
-                Section 2
-              </h2>
-              <p className="text-base xs:text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-                Description temporaire de la section avec adaptation responsive
-                pour les différents écrans.
-              </p>
-            </motion.div>
-          </div>
-        </section>
+        {/* Section Modules */}
+        <ModulesSection />
 
         {/* Section 3 */}
         <section className="py-16 md:py-24 bg-amber-100">

@@ -26,6 +26,7 @@ module.exports = {
           800: '#86623a',
           900: '#6b4e2e',
           950: '#3b2a19',
+          light: '#FCF8F1', // LightGold pour les tuiles
         },
         marine: {
           50: '#e5f1ff',
