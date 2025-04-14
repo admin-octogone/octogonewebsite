@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
 
-interface ScrollScaleOptions {
+interface FeaturesScaleOptions {
   initialScale?: number;
   finalScale?: number;
   scrollRange?: number;
 }
 
 /**
- * Hook personnalisé pour animer l'échelle de l'octogone dans la section Hero
+ * Hook personnalisé spécifique pour l'animation de l'octogone dans la section Features
  * @param options Options de configuration pour l'animation
- * @param options.initialScale Échelle initiale (défaut: 1.15)
- * @param options.finalScale Échelle finale (défaut: 0.95)
+ * @param options.initialScale Échelle initiale (défaut: 0.9)
+ * @param options.finalScale Échelle finale (défaut: 1.05)
  * @param options.scrollRange Plage de défilement en pixels (défaut: 300)
  * @returns La valeur d'échelle actuelle
  */
-export function useScrollScale(options: ScrollScaleOptions = {}) {
+export function useFeaturesScale(options: FeaturesScaleOptions = {}) {
   const {
-    initialScale = 1.15,
-    finalScale = 0.95,
+    initialScale = 0.9,
+    finalScale = 1.05,
     scrollRange = 300
   } = options;
 
@@ -28,11 +28,17 @@ export function useScrollScale(options: ScrollScaleOptions = {}) {
       // Obtenir la position de défilement actuelle
       const scrollPosition = window.scrollY;
       
-      // Calculer le facteur de progression (0 à 1)
-      const scrollProgress = Math.min(1, scrollPosition / scrollRange);
+      // Calculer le seuil de déclenchement basé sur la hauteur de la fenêtre
+      const triggerPoint = window.innerHeight * 0.6;
       
-      // Calculer l'échelle pour la section Hero (grand → petit)
-      const newScale = initialScale - (scrollProgress * (initialScale - finalScale));
+      // Calculer la position relative par rapport au seuil
+      const relativePosition = Math.max(0, scrollPosition - triggerPoint);
+      
+      // Calculer le facteur de progression (0 à 1)
+      const scrollProgress = Math.min(1, relativePosition / scrollRange);
+      
+      // Calculer l'échelle pour la section Features (petit → grand)
+      const newScale = initialScale + (scrollProgress * (finalScale - initialScale));
       
       // Mettre à jour l'état
       setScale(newScale);

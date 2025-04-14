@@ -154,7 +154,7 @@ const Hero = () => {
   const octogoneScale = useScrollScale({
     initialScale: isMobile ? 0.95 : 1.15,
     finalScale: 0.95,
-    scrollRange: 300
+    scrollRange: 250 // Plage plus courte pour une animation plus réactive
   });
 
   // État pour le type de graphique et son titre

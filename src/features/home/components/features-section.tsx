@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { useParams } from "next/navigation";
-import { useScrollScale } from "@/hooks/use-scroll-scale";
+import { useFeaturesScale } from "@/hooks/use-features-scale";
 
 /**
  * Composant FeaturesSection - Section principale présentant les fonctionnalités d'Octogone
@@ -17,12 +17,11 @@ const FeaturesSection = () => {
   const params = useParams();
   const locale = params ? (typeof params === 'object' && 'locale' in params ? params.locale as string : "fr") : "fr";
   
-  // Utiliser le hook personnalisé pour l'animation de l'octogone avec effet inversé
-  const octogoneScale = useScrollScale({
+  // Utiliser le hook spécifique pour l'animation de l'octogone dans la section Features
+  const octogoneScale = useFeaturesScale({
     initialScale: 0.9,
-    finalScale: 1.1,
-    scrollRange: 400,
-    reverse: true // Effet inversé par rapport au héros
+    finalScale: 1.05,
+    scrollRange: 300 // Plage courte pour une animation réactive
   });
 
   // Animation pour les éléments qui apparaissent au défilement
