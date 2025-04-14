@@ -86,7 +86,7 @@ const FeaturesSection = () => {
           className="flex flex-col order-2"
         >
           {/* Titre principal */}
-          <h2 className="text-xl xs:text-2xl lg:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-marine-900 mb-4 mx-auto lg:mx-0 max-w-3xl">
+          <h2 className="text-base xs:text-lg lg:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight text-marine-900 mb-4 mx-auto lg:mx-0 max-w-3xl">
             {locale === "fr" ? "Pensé pour collaborer. Conçu pour mieux gérer." : "Designed for collaboration. Built for better management."}
           </h2>
           

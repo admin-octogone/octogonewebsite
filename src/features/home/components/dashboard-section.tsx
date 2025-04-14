@@ -53,7 +53,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({ locale }) =>
           className="flex flex-col order-2 lg:order-1"
         >
           {/* Titre principal */}
-          <h2 className="text-xl xs:text-2xl lg:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-marine-900 mb-4 mx-auto lg:mx-0 max-w-3xl">
+          <h2 className="text-base xs:text-lg lg:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight text-marine-900 mb-4 mx-auto lg:mx-0 max-w-3xl">
             {locale === "fr" 
               ? "Visualisez vos données. Prenez les bonnes décisions." 
               : "Visualize your data. Make the right decisions."}
@@ -97,7 +97,7 @@ export const DashboardSection: React.FC<DashboardSectionProps> = ({ locale }) =>
           
           {/* Bouton Octogone 360 avec flèche à droite */}
           <div className="mx-auto lg:mx-0">
-            <GoldButton href={locale === "fr" ? "/fr/modules/octogone-360" : "/en/modules/octogone-360"}>
+            <GoldButton href={`/${locale}/modules/octogone-360`}>
               {locale === "fr" ? "Découvrir Octogone 360" : "Discover Octogone 360"}
             </GoldButton>
           </div>

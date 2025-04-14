@@ -17,8 +17,11 @@ import { DashboardSection } from "@/features/home/components/dashboard-section";
 //   ChevronDown,
 // } from "lucide-react";
 import { useRef, useState, useEffect } from "react";
+import * as React from "react";
 
-export default function HomePage({ params }: { params: { locale: string } }) {
+export default function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  // Utiliser React.use pour accéder aux paramètres de route
+  const { locale } = React.use(params);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [hasBanner, setHasBanner] = useState(true);
 
@@ -69,7 +72,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
         <FeaturesSection />
 
         {/* Section 2 - Dashboard */}
-        <DashboardSection locale={params.locale} />
+        <DashboardSection locale={locale} />
 
         {/* Section 3 */}
         <section className="py-16 md:py-24 bg-green-100">
@@ -81,7 +84,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold text-marine-800 mb-4 md:mb-6">
+              <h2 className="text-lg xs:text-xl sm:text-2xl font-bold text-marine-800 mb-4 md:mb-6">
                 Section 2
               </h2>
               <p className="text-base xs:text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
@@ -102,7 +105,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold text-marine-800 mb-4 md:mb-6">
+              <h2 className="text-lg xs:text-xl sm:text-2xl font-bold text-marine-800 mb-4 md:mb-6">
                 Section 3
               </h2>
               <p className="text-base xs:text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
@@ -123,7 +126,7 @@ export default function HomePage({ params }: { params: { locale: string } }) {
               transition={{ duration: 0.6 }}
               className="text-center"
             >
-              <h2 className="text-2xl xs:text-3xl sm:text-4xl font-bold text-marine-800 mb-4 md:mb-6">
+              <h2 className="text-lg xs:text-xl sm:text-2xl font-bold text-marine-800 mb-4 md:mb-6">
                 Section 4
               </h2>
               <p className="text-base xs:text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
