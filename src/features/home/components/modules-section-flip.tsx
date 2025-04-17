@@ -315,7 +315,7 @@ const ModulesSection = () => {
                   className="relative h-full p-6 bg-white rounded-lg shadow-sm border border-gray-100"
                   style={{ 
                     background: getGradientForModule(module.id),
-                    height: '450px' // Hauteur fixe pour toutes les cartes
+                    height: '380px' // Hauteur réduite pour les cartes
                   }}
                 >
                   {/* Éléments décoratifs en arrière-plan */}
@@ -338,86 +338,87 @@ const ModulesSection = () => {
                            transform: `translate(${15 + (index % 6) * 2}%, ${15 + (index % 6) * 2}%)`
                          }}>
                     </div>
-                       style={{
-                         background: `radial-gradient(circle, rgba(220, 178, 107, ${0.15 + (index % 3) * 0.05}) 0%, rgba(220, 178, 107, ${0.05 + (index % 3) * 0.02}) 50%, rgba(0, 0, 0, 0) 70%)`,
-                         transform: `translate(-${25 + (index % 5) * 2}%, -${25 + (index % 5) * 2}%)`
-                       }}>
                   </div>
                   
-                  {/* Dégradé subtil dans le coin inférieur droit */}
-                  <div className="absolute bottom-0 right-0 w-32 h-32 rounded-full opacity-5" 
-                       style={{
-                         background: `radial-gradient(circle, rgba(220, 178, 107, ${0.12 + (index % 4) * 0.03}) 0%, rgba(220, 178, 107, ${0.04 + (index % 4) * 0.01}) 50%, rgba(0, 0, 0, 0) 70%)`,
-                         transform: `translate(${15 + (index % 6) * 2}%, ${15 + (index % 6) * 2}%)`
-                       }}>
-                  </div>
-                </div>
-                
-                {/* Carte flippable avec contenu du module d'un côté et témoignage de l'autre */}
-                <div className="h-full">
-                  <FlipCard
-                    initialFlipped={flippedCards[module.id] || false}
-                    autoFlipInterval={Math.random() * 10000 + 15000} // Flip aléatoire entre 15 et 25 secondes
-                    className="h-full"
-                    front={
-                      <div className="h-full flex flex-col">
-                        {/* En-tête avec icône et titre */}
-                        <div className="flex items-center mb-5 relative z-10">
-                          <motion.div 
-                            variants={iconVariants}
-                            className="mr-4 p-3 bg-[#dbeafe] flex items-center justify-center"
-                            style={{ 
-                              minWidth: '56px', 
-                              minHeight: '56px',
-                              clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)"
-                            }}
-                          >
-                            {module.icon}
-                          </motion.div>
-                          <h3 className="text-xl font-bold text-marine-900">{module.title}</h3>
-                        </div>
-                        
-                        {/* Description */}
-                        <p className="text-base text-marine-800 leading-relaxed mb-6 relative z-10" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.description}</p>
-                        
-                        {/* Statistiques animées (version simplifiée) */}
-                        <div className="mt-auto pt-5 border-t border-gold-300/60 min-h-[120px] relative z-10">
-                          {module.stat ? (
-                            <>
-                              <div className="flex items-baseline">
-                                <AnimatedCounter
-                                  from={0}
-                                  to={module.stat.value}
-                                  suffix={module.stat.suffix}
-                                  delay={index * 0.1}
-                                  negative={module.stat.negative}
-                                  className="text-2xl font-bold text-gold-600 mr-2"
-                                />
-                                {module.stat.prefix && <span className="text-base text-marine-800 font-medium">{module.stat.prefix}</span>}
+                  {/* Carte flippable avec contenu du module d'un côté et témoignage de l'autre */}
+                  <div className="h-full">
+                    <FlipCard
+                      initialFlipped={flippedCards[module.id] || false}
+                      autoFlipInterval={Math.random() * 10000 + 15000} // Flip aléatoire entre 15 et 25 secondes
+                      className="h-full"
+                      front={
+                        <div className="h-full w-full flex flex-col">
+                          {/* En-tête avec icône et titre */}
+                          <div className="flex items-center mb-5 relative z-10">
+                            <motion.div 
+                              variants={iconVariants}
+                              className="mr-4 p-3 bg-[#dbeafe] flex items-center justify-center"
+                              style={{ 
+                                minWidth: '56px', 
+                                minHeight: '56px',
+                                clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)"
+                              }}
+                            >
+                              {module.icon}
+                            </motion.div>
+                            <h3 className="text-xl font-bold text-marine-900">{module.title}</h3>
+                          </div>
+                          
+                          {/* Description */}
+                          <p className="text-base text-marine-800 leading-relaxed mb-6 relative z-10" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.description}</p>
+                          
+                          {/* Statistiques animées (version simplifiée) */}
+                          <div className="mt-auto pt-5 border-t border-gold-300/60 min-h-[120px] relative z-10">
+                            {module.stat ? (
+                              <>
+                                <div className="flex items-baseline">
+                                  <AnimatedCounter
+                                    from={0}
+                                    to={module.stat.value}
+                                    suffix={module.stat.suffix}
+                                    delay={index * 0.1}
+                                    negative={module.stat.negative}
+                                    className="text-2xl font-bold text-gold-600 mr-2"
+                                  />
+                                  {module.stat.prefix && <span className="text-base text-marine-800 font-medium">{module.stat.prefix}</span>}
+                                </div>
+                                <p className="text-sm text-gold-600 mt-2 line-clamp-2 font-normal" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.statText}</p>
+                                {module.stat.source && (
+                                  <p className="text-xs text-marine-600 italic mt-1 line-clamp-1" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.source}</p>
+                                )}
+                              </>
+                            ) : (
+                              <div className="flex items-center justify-center h-full opacity-40">
+                                <p className="text-xs text-marine-500 italic">Statistiques bientôt disponibles</p>
                               </div>
-                              <p className="text-sm text-gold-600 mt-2 line-clamp-2 font-normal" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.statText}</p>
-                              {module.stat.source && (
-                                <p className="text-xs text-marine-600 italic mt-1 line-clamp-1" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.source}</p>
-                              )}
-                            </>
+                            )}
+                          </div>
+                        </div>
+                      } 
+                      back={
+                        <div className="h-full w-full flex flex-col">
+                          {getRandomTestimonial(module.id) ? (
+                            <TestimonialCard
+                              name={getRandomTestimonial(module.id)?.name || ""}
+                              role={getRandomTestimonial(module.id)?.role || ""}
+                              quote={getRandomTestimonial(module.id)?.quote || ""}
+                              className="flip-card-testimonial"
+                            />
                           ) : (
-                            <div className="flex items-center justify-center h-full opacity-40">
-                              <p className="text-xs text-marine-500 italic">Statistiques bientôt disponibles</p>
+                            <div className="flip-card-testimonial flex flex-col items-center justify-center h-full text-gold-600">
+                              <Quote className="w-8 h-8 mb-4 text-gold-400" />
+                              <p className="text-center">
+                                {locale === "fr" 
+                                  ? "Témoignage client bientôt disponible" 
+                                  : "Customer testimonial coming soon"}
+                              </p>
                             </div>
                           )}
                         </div>
-                      </div>
-                    }
-                    back={
-                      <div className="flip-card-testimonial">
-                        {getRandomTestimonial(module.id) ? (
-                          <TestimonialCard
-                            name={getRandomTestimonial(module.id)?.name || ""}
-                            role={getRandomTestimonial(module.id)?.role || ""}
-                            quote={getRandomTestimonial(module.id)?.quote || ""}
+                            className="flip-card-testimonial"
                           />
                         ) : (
-                          <div className="flex flex-col items-center justify-center h-full text-gold-600">
+                          <div className="flip-card-testimonial flex flex-col items-center justify-center h-full text-gold-600">
                             <Quote className="w-8 h-8 mb-4 text-gold-400" />
                             <p className="text-center">
                               {locale === "fr" 
@@ -425,24 +426,20 @@ const ModulesSection = () => {
                                 : "Customer testimonial coming soon"}
                             </p>
                           </div>
-                        )}
-                      </div>
-                    }
-                  />
-                </div>
-                
-
-                
-                {/* Décoration de coin */}
-                <div className="absolute bottom-0 right-0 w-12 h-12 opacity-5">
-                  <div className="absolute bottom-0 right-0 w-full h-full bg-gold-500 rounded-tl-3xl"></div>
-                </div>
+                        )
+                      }
+                    />
+                  </div>
+                  
+                  {/* Décoration de coin */}
+                  <div className="absolute bottom-0 right-0 w-12 h-12 opacity-5">
+                    <div className="absolute bottom-0 right-0 w-full h-full bg-gold-500 rounded-tl-3xl"></div>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
           ))}
         </div>
-        
-
         
         {/* Accroche finale */}
         <motion.div

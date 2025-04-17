@@ -39,24 +39,42 @@ const ModulesSection = () => {
   
   // État pour suivre quelles cartes sont retournées
   const [flippedCards, setFlippedCards] = useState<{[key: string]: boolean}>({});
+  const [isClient, setIsClient] = useState(false);
   
-  // Fonction pour obtenir un témoignage aléatoire pour un module
-  const getRandomTestimonial = (moduleId: string) => {
+  // Interface pour les témoignages
+  interface Testimonial {
+    name: string;
+    role: string;
+    quote: string;
+    avatarImage?: string;
+  }
+
+  // Fonction pour obtenir un témoignage pour un module (déterministe)
+  const getTestimonial = (moduleId: string): Testimonial => {
+    // Vérifier si le module a des témoignages spécifiques
     const moduleTestimonials = testimonials[locale as 'fr' | 'en'][moduleId as keyof typeof testimonials.fr];
-    if (!moduleTestimonials || moduleTestimonials.length === 0) return null;
     
-    const randomIndex = Math.floor(Math.random() * moduleTestimonials.length);
-    return moduleTestimonials[randomIndex];
+    if (moduleTestimonials && moduleTestimonials.length > 0) {
+      // Utiliser l'index 0 pour le rendu côté serveur (déterministe)
+      return moduleTestimonials[0] as Testimonial;
+    }
+    
+    // Si le module n'a pas de témoignage spécifique, utiliser un témoignage par défaut
+    // Nous utilisons les témoignages du module "catalog" comme fallback
+    const defaultTestimonials = testimonials[locale as 'fr' | 'en']['catalog'];
+    return defaultTestimonials[0] as Testimonial;
   };
   
-  // Initialiser les cartes qui seront retournées aléatoirement au chargement
+  // Initialiser les cartes qui seront retournées - déterministe pour le SSR
   useEffect(() => {
+    // Marquer que nous sommes côté client
+    setIsClient(true);
+    
     const initialFlippedState: {[key: string]: boolean} = {};
     
-    // Pour chaque module, décider aléatoirement s'il sera retourné
+    // Pour chaque module, définir un état déterministe (aucune carte retournée au début)
     modules.forEach(module => {
-      // 30% de chance que la carte soit retournée initialement
-      initialFlippedState[module.id] = Math.random() < 0.3;
+      initialFlippedState[module.id] = false;
     });
     
     setFlippedCards(initialFlippedState);
@@ -126,7 +144,7 @@ const ModulesSection = () => {
       description: locale === "fr" 
         ? "Gérez facilement vos produits et recettes dans un catalogue structuré, prêt à l'usage."
         : "Easily manage your products and recipes in a structured catalog, ready to use.",
-      icon: <ClipboardCheck className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <ClipboardCheck className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 3450,
         prefix: "",
@@ -141,7 +159,7 @@ const ModulesSection = () => {
       description: locale === "fr" 
         ? "Effectuez vos inventaires rapidement et sans erreurs, même en multi-sites."
         : "Perform your inventories quickly and without errors, even across multiple sites.",
-      icon: <Package className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <Package className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 28,
         prefix: "",
@@ -157,7 +175,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Créez des recettes standardisées avec calcul automatique des coûts."
         : "Create standardized recipes with automatic cost calculation.",
-      icon: <Utensils className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <Utensils className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 99,
         prefix: "",
@@ -172,7 +190,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Suivez vos sorties produits en direct, connectées à votre POS."
         : "Track your product outputs in real-time, connected to your POS.",
-      icon: <PackageOpen className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <PackageOpen className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 100,
         prefix: "",
@@ -187,7 +205,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Gérez vos factures fournisseurs sans saisie manuelle ni oubli."
         : "Manage your supplier invoices without manual entry or oversight.",
-      icon: <Receipt className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <Receipt className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 8,
         prefix: "",
@@ -202,7 +220,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Automatisez la répartition selon vos règles, en toute transparence."
         : "Automate distribution according to your rules, with complete transparency.",
-      icon: <Coins className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <Coins className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 0,
         prefix: "",
@@ -217,7 +235,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Centralisez les rôles, accès et documents de vos équipes."
         : "Centralize roles, access and documents for your teams.",
-      icon: <Users className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <Users className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 50,
         prefix: "",
@@ -233,7 +251,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Recevez des alertes automatiques en cas d'écarts de température."
         : "Receive automatic alerts in case of temperature deviations.",
-      icon: <Thermometer className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <Thermometer className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 90,
         prefix: "",
@@ -248,7 +266,7 @@ const ModulesSection = () => {
       description: locale === "fr"
         ? "Planifiez et gérez la production interne en toute fluidité."
         : "Plan and manage internal production smoothly.",
-      icon: <ChefHat className="w-8 h-8 text-marine-600" strokeWidth={1.5} />,
+      icon: <ChefHat className="w-10 h-10 text-marine-600" strokeWidth={1.5} />,
       stat: {
         value: 2,
         prefix: "x",
@@ -315,7 +333,7 @@ const ModulesSection = () => {
                   className="relative h-full p-6 bg-white rounded-lg shadow-sm border border-gray-100"
                   style={{ 
                     background: getGradientForModule(module.id),
-                    height: '450px' // Hauteur fixe pour toutes les cartes
+                    height: '400px' // Hauteur fixe pour toutes les cartes
                   }}
                 >
                   {/* Éléments décoratifs en arrière-plan */}
@@ -338,66 +356,86 @@ const ModulesSection = () => {
                            transform: `translate(${15 + (index % 6) * 2}%, ${15 + (index % 6) * 2}%)`
                          }}>
                     </div>
-                       style={{
-                         background: `radial-gradient(circle, rgba(220, 178, 107, ${0.15 + (index % 3) * 0.05}) 0%, rgba(220, 178, 107, ${0.05 + (index % 3) * 0.02}) 50%, rgba(0, 0, 0, 0) 70%)`,
-                         transform: `translate(-${25 + (index % 5) * 2}%, -${25 + (index % 5) * 2}%)`
-                       }}>
                   </div>
                   
-                  {/* Dégradé subtil dans le coin inférieur droit */}
-                  <div className="absolute bottom-0 right-0 w-32 h-32 rounded-full opacity-5" 
-                       style={{
-                         background: `radial-gradient(circle, rgba(220, 178, 107, ${0.12 + (index % 4) * 0.03}) 0%, rgba(220, 178, 107, ${0.04 + (index % 4) * 0.01}) 50%, rgba(0, 0, 0, 0) 70%)`,
-                         transform: `translate(${15 + (index % 6) * 2}%, ${15 + (index % 6) * 2}%)`
-                       }}>
-                  </div>
-                </div>
-                
-                {/* Carte flippable avec contenu du module d'un côté et témoignage de l'autre */}
-                <div className="h-full">
-                  <FlipCard
-                    initialFlipped={flippedCards[module.id] || false}
-                    autoFlipInterval={Math.random() * 10000 + 15000} // Flip aléatoire entre 15 et 25 secondes
-                    className="h-full"
-                    front={
-                      <div className="h-full flex flex-col">
-                        {/* En-tête avec icône et titre */}
-                        <div className="flex items-center mb-5 relative z-10">
-                          <motion.div 
-                            variants={iconVariants}
-                            className="mr-4 p-3 bg-[#dbeafe] flex items-center justify-center"
-                            style={{ 
-                              minWidth: '56px', 
-                              minHeight: '56px',
-                              clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)"
-                            }}
-                          >
-                            {module.icon}
-                          </motion.div>
-                          <h3 className="text-xl font-bold text-marine-900">{module.title}</h3>
-                        </div>
-                        
-                        {/* Description */}
-                        <p className="text-base text-marine-800 leading-relaxed mb-6 relative z-10" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.description}</p>
-                        
-                        {/* Statistiques animées (version simplifiée) */}
-                        <div className="mt-auto pt-5 border-t border-gold-300/60 min-h-[120px] relative z-10">
+                  {/* Structure avec titre fixe et contenu flippable */}
+                  <div className="h-full flex flex-col">
+                    {/* En-tête avec icône et titre - TOUJOURS VISIBLE */}
+                    <div className="flex items-center mb-5">
+                      <div className="mr-4 text-marine-600">
+                        {module.icon}
+                      </div>
+                      <h3 className="text-xl font-bold text-marine-900">{module.title}</h3>
+                    </div>
+                    
+                    {/* Description - TOUJOURS VISIBLE avec hauteur fixe */}
+                    <p className="text-base text-marine-800 leading-relaxed h-[70px] overflow-hidden" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.description}</p>
+                    
+                    {/* Séparateur avec espacement équilibré */}
+                    <div className="border-t border-gold-300/60 mt-2 mb-4"></div>
+                    
+                    {/* Partie flippable - contient les stats ou le témoignage */}
+                    <div className="flex-grow">
+                      {isClient ? (
+                        <FlipCard
+                          initialFlipped={false}
+                          autoFlipInterval={20000 + (index * 1000)}
+                          className="h-[150px]"
+                          front={
+                            <div className="h-full w-full">
+                              {/* Statistiques animées */}
+                              <div className="h-full">
+                                {module.stat ? (
+                                  <>
+                                    <div className="flex items-baseline">
+                                      <AnimatedCounter
+                                        from={0}
+                                        to={module.stat.value}
+                                        suffix={module.stat.suffix}
+                                        delay={index * 0.1}
+                                        negative={module.stat.negative}
+                                        className="text-2xl font-bold text-gold-600 mr-2"
+                                      />
+                                      {module.stat.prefix && <span className="text-base text-marine-800 font-medium">{module.stat.prefix}</span>}
+                                    </div>
+                                    <p className="text-sm text-gold-600 mt-2 line-clamp-2 font-normal" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.statText}</p>
+                                    {module.stat.source && (
+                                      <p className="text-xs text-marine-600 italic mt-1 line-clamp-1" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.source}</p>
+                                    )}
+                                  </>
+                                ) : (
+                                  <div className="flex items-center justify-center h-full opacity-40">
+                                    <p className="text-xs text-marine-500 italic">Statistiques bientôt disponibles</p>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          }
+                          back={
+                            <div className="h-full w-full">
+                              <TestimonialCard
+                                name={getTestimonial(module.id).name}
+                                role={getTestimonial(module.id).role}
+                                quote={getTestimonial(module.id).quote}
+                                className="h-full"
+                                avatarIndex={index} // Utiliser l'index du module pour l'avatar
+                                avatarImage={getTestimonial(module.id).avatarImage} // Passer l'image d'avatar
+                              />
+                            </div>
+                          }
+                        />
+                      ) : (
+                        // Version statique pour le SSR
+                        <div className="h-[150px]">
                           {module.stat ? (
                             <>
                               <div className="flex items-baseline">
-                                <AnimatedCounter
-                                  from={0}
-                                  to={module.stat.value}
-                                  suffix={module.stat.suffix}
-                                  delay={index * 0.1}
-                                  negative={module.stat.negative}
-                                  className="text-2xl font-bold text-gold-600 mr-2"
-                                />
+                                <span className="text-2xl font-bold text-gold-600 mr-2">{module.stat.value}{module.stat.suffix}</span>
                                 {module.stat.prefix && <span className="text-base text-marine-800 font-medium">{module.stat.prefix}</span>}
                               </div>
-                              <p className="text-sm text-gold-600 mt-2 line-clamp-2 font-normal" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.statText}</p>
+                              <p className="text-sm text-gold-600 mt-2 line-clamp-2 font-normal">{module.stat.statText}</p>
                               {module.stat.source && (
-                                <p className="text-xs text-marine-600 italic mt-1 line-clamp-1" style={{ textShadow: '0 0 1px rgba(255, 255, 255, 0.5)' }}>{module.stat.source}</p>
+                                <p className="text-xs text-marine-600 italic mt-1 line-clamp-1">{module.stat.source}</p>
                               )}
                             </>
                           ) : (
@@ -406,43 +444,19 @@ const ModulesSection = () => {
                             </div>
                           )}
                         </div>
-                      </div>
-                    }
-                    back={
-                      <div className="flip-card-testimonial">
-                        {getRandomTestimonial(module.id) ? (
-                          <TestimonialCard
-                            name={getRandomTestimonial(module.id)?.name || ""}
-                            role={getRandomTestimonial(module.id)?.role || ""}
-                            quote={getRandomTestimonial(module.id)?.quote || ""}
-                          />
-                        ) : (
-                          <div className="flex flex-col items-center justify-center h-full text-gold-600">
-                            <Quote className="w-8 h-8 mb-4 text-gold-400" />
-                            <p className="text-center">
-                              {locale === "fr" 
-                                ? "Témoignage client bientôt disponible" 
-                                : "Customer testimonial coming soon"}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    }
-                  />
-                </div>
-                
-
-                
-                {/* Décoration de coin */}
-                <div className="absolute bottom-0 right-0 w-12 h-12 opacity-5">
-                  <div className="absolute bottom-0 right-0 w-full h-full bg-gold-500 rounded-tl-3xl"></div>
-                </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Décoration de coin */}
+                  <div className="absolute bottom-0 right-0 w-12 h-12 opacity-5">
+                    <div className="absolute bottom-0 right-0 w-full h-full bg-gold-500 rounded-tl-3xl"></div>
+                  </div>
+                </motion.div>
               </motion.div>
-            </motion.div>
+            </div>
           ))}
         </div>
-        
-
         
         {/* Accroche finale */}
         <motion.div

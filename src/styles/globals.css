@@ -93,3 +93,32 @@ p, h1, h2, h3, h4, h5, h6, span, a, button, input, textarea, select, label, li {
   top: 0 !important;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* Styles pour les cartes flippables */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-testimonial {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(220, 178, 107, 0.2);
+  position: absolute;
+  inset: 0;
+  margin: 0;
+}
