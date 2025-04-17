@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 interface TestimonialCardProps {
@@ -10,6 +10,7 @@ interface TestimonialCardProps {
   className?: string;
   avatarIndex?: number; // Index pour générer un avatar aléatoire
   avatarImage?: string; // Chemin vers l'image d'avatar (optionnel)
+  isFlipped?: boolean;
 }
 
 /**
@@ -22,7 +23,10 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   className = "",
   avatarIndex = 0, // Valeur par défaut déterministe
   avatarImage,
+  isFlipped = false,
 }) => {
+  // Pas d'animation pour éviter les problèmes
+
   // Générer une couleur de fond aléatoire pour l'avatar basée sur l'index
   const getAvatarColor = (index: number) => {
     const colors = [
@@ -40,43 +44,65 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     return colors[index % colors.length];
   };
 
-  // Obtenir les initiales du nom
+  // Générer les initiales à partir du nom (version déterministe)
   const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(part => part[0])
-      .join('')
-      .toUpperCase();
+    // S'assurer que le même résultat est généré côté serveur et client
+    const nameParts = name.split(' ');
+    if (nameParts.length >= 2) {
+      return `${nameParts[0][0]}${nameParts[1][0]}`.toUpperCase();
+    } else if (nameParts.length === 1 && nameParts[0].length >= 2) {
+      return `${nameParts[0][0]}${nameParts[0][1]}`.toUpperCase();
+    } else {
+      return (nameParts[0][0] || '?').toUpperCase();
+    }
   };
 
   return (
-    <div className={`flex flex-col h-full justify-between ${className}`}>
-      {/* En-tête avec avatar */}
-      <div className="flex items-center mb-3">
+    <div className={`flex h-full ${className}`}>
+      {/* Avatar à gauche et étoiles */}
+      <div className="mr-4 flex flex-col">
         {avatarImage ? (
-          <div className="w-10 h-10 rounded-full overflow-hidden mr-3 border border-gold-200">
+          <div className="w-14 h-14 rounded-full overflow-hidden shadow-sm">
             <img 
               src={`/${avatarImage}`} 
               alt={`Avatar de ${name}`} 
               className="w-full h-full object-cover"
-              width={40}
-              height={40}
+              width={56}
+              height={56}
             />
           </div>
         ) : (
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 ${getAvatarColor(avatarIndex)}`}>
-            <span className="font-semibold text-sm">{getInitials(name)}</span>
+          <div className={`w-14 h-14 rounded-full flex items-center justify-center ${getAvatarColor(avatarIndex)}`}>
+            <span className="font-semibold text-base">{getInitials(name)}</span>
           </div>
         )}
+        
+        {/* 3 étoiles dorées statiques */}
+        <div className="flex mt-2 justify-center">
+          <svg className="w-4 h-4 text-gold-500 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          </svg>
+          <svg className="w-4 h-4 text-gold-500 fill-current mx-0.5" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          </svg>
+          <svg className="w-4 h-4 text-gold-500 fill-current" viewBox="0 0 24 24">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+          </svg>
+        </div>
       </div>
       
-      {/* Citation */}
-      <p className="text-gold-800 text-sm md:text-base italic flex-grow mb-4">{quote}</p>
-      
-      {/* Informations sur l'auteur */}
-      <div className="mt-auto">
-        <p className="text-gold-700 font-semibold">{name}</p>
-        <p className="text-gold-600 text-xs">{role}</p>
+      {/* Contenu à droite */}
+      <div className="flex flex-col flex-grow">
+        {/* Citation */}
+        <div>
+          <p className="text-gold-800 text-sm md:text-base italic mb-1">{quote}</p>
+        
+          {/* Informations sur l'auteur directement sous le témoignage */}
+          <div className="mt-1">
+            <p className="text-gold-700 font-semibold">{name}</p>
+            <p className="text-gold-600 text-xs">{role}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

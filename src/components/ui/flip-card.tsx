@@ -1,14 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, ReactNode } from 'react';
+import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
 interface FlipCardProps {
-  front: ReactNode;
-  back: ReactNode;
+  front: React.ReactNode;
+  back: React.ReactNode;
   initialFlipped?: boolean;
-  autoFlipInterval?: number | null; // Intervalle en ms, null pour désactiver
+  autoFlipInterval?: number;
   className?: string;
+  onFlipChange?: (isFlipped: boolean) => void;
 }
 
 /**
@@ -18,24 +19,35 @@ const FlipCard: React.FC<FlipCardProps> = ({
   front,
   back,
   initialFlipped = false,
-  autoFlipInterval = null,
+  autoFlipInterval,
   className = "",
+  onFlipChange,
 }) => {
   const [isFlipped, setIsFlipped] = useState(initialFlipped);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Effet pour le flip automatique
+  // Gérer le flip automatique si activé
   useEffect(() => {
-    if (!autoFlipInterval || isHovered) return;
-
-    const interval = setInterval(() => {
-      if (!isHovered) { // Ne pas retourner si la souris est dessus
+    if (autoFlipInterval && typeof window !== 'undefined') {
+      const timer = setInterval(() => {
         setIsFlipped(prev => !prev);
-      }
-    }, autoFlipInterval);
-
-    return () => clearInterval(interval);
-  }, [autoFlipInterval, isHovered]);
+      }, autoFlipInterval);
+      
+      return () => clearInterval(timer);
+    }
+  }, [autoFlipInterval]);
+  
+  // Exposer l'état de flip via la prop onFlipChange si fournie, mais uniquement lors des changements réels
+  // pour éviter les boucles infinies
+  const prevFlippedRef = useRef(initialFlipped);
+  
+  useEffect(() => {
+    // Ne déclencher le callback que si l'état a réellement changé
+    if (onFlipChange && prevFlippedRef.current !== isFlipped) {
+      prevFlippedRef.current = isFlipped;
+      onFlipChange(isFlipped);
+    }
+  }, [isFlipped, onFlipChange]);
 
   return (
     <div

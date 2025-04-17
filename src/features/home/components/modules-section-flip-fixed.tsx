@@ -28,6 +28,15 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 import FlipCard from "@/components/ui/flip-card";
 import TestimonialCard from "@/components/ui/testimonial-card";
 import { testimonials } from "@/data/testimonials";
+// Définition des traductions pour les modules
+const moduleTranslations = {
+  fr: {
+    discover: "Découvrir"
+  },
+  en: {
+    discover: "Discover"
+  }
+};
 
 /**
  * Composant ModulesSection - Section présentant les modules d'Octogone
@@ -330,10 +339,10 @@ const ModulesSection = () => {
               >
                 <motion.div
                   variants={tileVariants}
-                  className="relative h-full p-6 bg-white rounded-lg shadow-sm border border-gray-100"
+                  className="relative h-full p-6 bg-white rounded-lg border border-gray-100"
                   style={{ 
                     background: getGradientForModule(module.id),
-                    height: '400px' // Hauteur fixe pour toutes les cartes
+                    height: '330px' // Hauteur fixe pour toutes les cartes
                   }}
                 >
                   {/* Éléments décoratifs en arrière-plan */}
@@ -380,7 +389,8 @@ const ModulesSection = () => {
                         <FlipCard
                           initialFlipped={false}
                           autoFlipInterval={20000 + (index * 1000)}
-                          className="h-[150px]"
+                          className="h-[100px]"
+                          // Nous avons désactivé temporairement cette fonctionnalité pour éviter les boucles infinies
                           front={
                             <div className="h-full w-full">
                               {/* Statistiques animées */}
@@ -405,7 +415,7 @@ const ModulesSection = () => {
                                   </>
                                 ) : (
                                   <div className="flex items-center justify-center h-full opacity-40">
-                                    <p className="text-xs text-marine-500 italic">Statistiques bientôt disponibles</p>
+                                    <p className="text-xs text-marine-500 italic">{moduleTranslations[locale as 'fr' | 'en'].discover}</p>
                                   </div>
                                 )}
                               </div>
@@ -420,13 +430,14 @@ const ModulesSection = () => {
                                 className="h-full"
                                 avatarIndex={index} // Utiliser l'index du module pour l'avatar
                                 avatarImage={getTestimonial(module.id).avatarImage} // Passer l'image d'avatar
+                                isFlipped={flippedCards[module.id] || false} // Passer l'état flipped
                               />
                             </div>
                           }
                         />
                       ) : (
                         // Version statique pour le SSR
-                        <div className="h-[150px]">
+                        <div className="h-[100px]">
                           {module.stat ? (
                             <>
                               <div className="flex items-baseline">
