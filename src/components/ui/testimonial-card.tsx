@@ -61,33 +61,58 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
     <div className={`flex h-full ${className}`}>
       {/* Avatar à gauche et étoiles */}
       <div className="mr-4 flex flex-col">
-        {avatarImage ? (
-          <div className="w-14 h-14 rounded-full overflow-hidden shadow-sm">
-            <img 
-              src={`/${avatarImage}`} 
-              alt={`Avatar de ${name}`} 
-              className="w-full h-full object-cover"
-              width={56}
-              height={56}
-            />
-          </div>
-        ) : (
-          <div className={`w-14 h-14 rounded-full flex items-center justify-center ${getAvatarColor(avatarIndex)}`}>
-            <span className="font-semibold text-base">{getInitials(name)}</span>
-          </div>
-        )}
+        {/* Avatar avec animation slide-up */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isFlipped ? 1 : 0, y: isFlipped ? 0 : 20 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {avatarImage ? (
+            <div className="w-14 h-14 rounded-full overflow-hidden shadow-sm">
+              <img 
+                src={`/${avatarImage}`} 
+                alt={`Avatar de ${name}`} 
+                className="w-full h-full object-cover"
+                width={56}
+                height={56}
+              />
+            </div>
+          ) : (
+            <div className={`w-14 h-14 rounded-full flex items-center justify-center ${getAvatarColor(avatarIndex)}`}>
+              <span className="font-semibold text-base">{getInitials(name)}</span>
+            </div>
+          )}
+        </motion.div>
         
-        {/* 3 étoiles dorées statiques */}
+        {/* 3 étoiles dorées avec animation slide-right */}
         <div className="flex mt-2 justify-center">
-          <svg className="w-4 h-4 text-gold-500 fill-current" viewBox="0 0 24 24">
+          <motion.svg 
+            className="w-4 h-4 text-gold-500 fill-current" 
+            viewBox="0 0 24 24"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: isFlipped ? 1 : 0, x: isFlipped ? 0 : -20 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-          <svg className="w-4 h-4 text-gold-500 fill-current mx-0.5" viewBox="0 0 24 24">
+          </motion.svg>
+          <motion.svg 
+            className="w-4 h-4 text-gold-500 fill-current mx-0.5" 
+            viewBox="0 0 24 24"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: isFlipped ? 1 : 0, x: isFlipped ? 0 : -20 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-          <svg className="w-4 h-4 text-gold-500 fill-current" viewBox="0 0 24 24">
+          </motion.svg>
+          <motion.svg 
+            className="w-4 h-4 text-gold-500 fill-current" 
+            viewBox="0 0 24 24"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: isFlipped ? 1 : 0, x: isFlipped ? 0 : -20 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+          >
             <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
+          </motion.svg>
         </div>
       </div>
       

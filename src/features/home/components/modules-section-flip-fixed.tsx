@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { ResponsiveSection } from "@/components/ui/responsive-section";
 import { useParams } from "next/navigation";
@@ -46,8 +46,8 @@ const ModulesSection = () => {
   const params = useParams();
   const locale = params ? (typeof params === 'object' && 'locale' in params ? params.locale as string : "fr") : "fr";
   
-  // État pour suivre quelles cartes sont retournées
-  const [flippedCards, setFlippedCards] = useState<{[key: string]: boolean}>({});
+  // État pour suivre si les cartes sont retournées
+  const [areAllCardsFlipped, setAreAllCardsFlipped] = useState(false);
   const [isClient, setIsClient] = useState(false);
   
   // Interface pour les témoignages
@@ -74,20 +74,31 @@ const ModulesSection = () => {
     return defaultTestimonials[0] as Testimonial;
   };
   
-  // Initialiser les cartes qui seront retournées - déterministe pour le SSR
+  // Initialisation côté client uniquement
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     // Marquer que nous sommes côté client
     setIsClient(true);
-    
-    const initialFlippedState: {[key: string]: boolean} = {};
-    
-    // Pour chaque module, définir un état déterministe (aucune carte retournée au début)
-    modules.forEach(module => {
-      initialFlippedState[module.id] = false;
-    });
-    
-    setFlippedCards(initialFlippedState);
   }, []);
+  
+  // Définir les modules statiquement pour éviter les problèmes de dépendances circulaires
+  const modulesList = [
+    { id: 'inventory', name: 'Inventaire' },
+    { id: 'haccp', name: 'HACCP' },
+    { id: 'catalog', name: 'Catalogue' },
+    { id: 'orders', name: 'Commandes' },
+    { id: 'kitchen', name: 'Cuisine' },
+    { id: 'staff', name: 'Personnel' },
+    { id: 'reports', name: 'Rapports' },
+    { id: 'pos', name: 'Point de vente' },
+    { id: 'accounting', name: 'Comptabilité' }
+  ];
+  
+  // Fonction pour basculer l'état de toutes les cartes
+  const toggleAllCards = () => {
+    setAreAllCardsFlipped(prev => !prev);
+  };
   
 
 
@@ -311,11 +322,39 @@ const ModulesSection = () => {
           
           {/* Paragraphe d'introduction */}
           <div className="max-w-3xl mx-auto">
-            <p className="text-sm xs:text-base md:text-lg text-marine-700">
+            <p className="text-sm xs:text-base md:text-lg text-marine-700 mb-6">
               {locale === "fr" 
                 ? "Octogone vous donne les bons outils pour reprendre le contrôle de vos opérations sans complexité inutile. Chaque module est pensé pour vous aider à mieux suivre vos produits, vos coûts, vos équipes et vos résultats. Peu importe la taille de votre réseau, tout est fluide, centralisé et connecté."
                 : "Octogone gives you the right tools to regain control of your operations without unnecessary complexity. Each module is designed to help you better track your products, costs, teams, and results. Regardless of the size of your network, everything is fluid, centralized, and connected."}
             </p>
+            
+            {/* Toggle professionnel pour basculer entre statistiques et témoignages */}
+            <div className="inline-flex rounded-md bg-gray-100 p-1 mt-2">
+              <button
+                type="button"
+                onClick={() => setAreAllCardsFlipped(false)}
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ease-in-out rounded-md cursor-pointer ${!areAllCardsFlipped ? 'bg-blue-100 text-marine-900 shadow-md' : 'text-marine-600 hover:bg-gray-200'}`}
+              >
+                <span className="relative z-10 flex items-center">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                  {locale === "fr" ? "Statistiques" : "Statistics"}
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setAreAllCardsFlipped(true)}
+                className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 ease-in-out rounded-md cursor-pointer ${areAllCardsFlipped ? 'bg-blue-100 text-marine-900 shadow-md' : 'text-marine-600 hover:bg-gray-200'}`}
+              >
+                <span className="relative z-10 flex items-center">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                  </svg>
+                  {locale === "fr" ? "Témoignages" : "Testimonials"}
+                </span>
+              </button>
+            </div>
           </div>
         </motion.div>
         
@@ -339,12 +378,25 @@ const ModulesSection = () => {
               >
                 <motion.div
                   variants={tileVariants}
-                  className="relative h-full p-6 bg-white rounded-lg border border-gray-100"
+                  className="relative h-full p-6 bg-white rounded-lg border border-gray-100 group overflow-hidden"
                   style={{ 
                     background: getGradientForModule(module.id),
                     height: '330px' // Hauteur fixe pour toutes les cartes
                   }}
                 >
+                  {/* Overlay au survol avec texte "En savoir plus" */}
+                  <div className="absolute inset-0 bg-blue-100/95 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 cursor-pointer">
+                    <div className="text-marine-900 text-center flex flex-col items-center">
+                      <span className="text-lg font-medium">
+                        {locale === "fr" ? "En savoir plus" : "Learn more"}
+                      </span>
+                      <div className="mt-3 flex justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-marine-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                   {/* Éléments décoratifs en arrière-plan */}
                   <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 0 }}>
                     {/* Ligne décorative en haut */}
@@ -387,10 +439,8 @@ const ModulesSection = () => {
                     <div className="flex-grow">
                       {isClient ? (
                         <FlipCard
-                          initialFlipped={false}
-                          autoFlipInterval={20000 + (index * 1000)}
+                          isFlipped={areAllCardsFlipped}
                           className="h-[100px]"
-                          // Nous avons désactivé temporairement cette fonctionnalité pour éviter les boucles infinies
                           front={
                             <div className="h-full w-full">
                               {/* Statistiques animées */}
@@ -399,6 +449,7 @@ const ModulesSection = () => {
                                   <>
                                     <div className="flex items-baseline">
                                       <AnimatedCounter
+                                        key={`counter-${module.id}-${areAllCardsFlipped ? 'flipped' : 'not-flipped'}`}
                                         from={0}
                                         to={module.stat.value}
                                         suffix={module.stat.suffix}
@@ -430,7 +481,7 @@ const ModulesSection = () => {
                                 className="h-full"
                                 avatarIndex={index} // Utiliser l'index du module pour l'avatar
                                 avatarImage={getTestimonial(module.id).avatarImage} // Passer l'image d'avatar
-                                isFlipped={flippedCards[module.id] || false} // Passer l'état flipped
+                                isFlipped={areAllCardsFlipped} // Passer l'état flipped
                               />
                             </div>
                           }
